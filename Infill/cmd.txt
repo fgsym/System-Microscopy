@@ -1,0 +1,1 @@
+bowtie2 -x /opt/FASTA/Drosophila/Drosophila_melanogaster-77 -f ~/Git/infill-load-data/Droso_2014-10-27_t.fa -S ~/Git/infill-load-data/Drosophila_remap_to_release_77.map

@@ -1,0 +1,19 @@
+%		my %phenotypes = %{$phenotypes};
+%		my %phash;
+%		my @repr = @{$repr};
+%		my $n = 0;
+%		foreach my $p (sort {$a <=> $b} keys %phenotypes) {
+%		 	$phash{ $phenotypes{$p}."|".$p } = $repr[$n];
+%			$n++;
+%		}
+%		foreach my $ph (sort (keys %phash)) {
+%			my ($name, $id) = split(/\|/,$ph);
+%			my ($c,$k) = split(/\//,$phash{ $ph });
+%			my $tipcolor = $c/$k;
+% 	my $r = 250-int($tipcolor*100);
+%	my $g = 250-int($tipcolor*50);
+% 	my $b = 150+int($tipcolor*100);
+   		<li type="square" style="line-height:16px;background-color:rgb(<%= $r %>,<%= $g %>,<%= $b %>);margin:1px 1px 1px -10px;padding:1px;opacity:0.6;filter:alpha(opacity=60);">
+      			<div style="display:inline;width:555px;color:black;padding:5px 0 2px 5px;"><div style="float:left;display:inline;width:525px;color:black;"><%= $name %></div><div 
+style="float:right;width:25px;display:inline;"><%= $phash{ $ph } %></div></div></li>
+%		}

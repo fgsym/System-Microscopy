@@ -1,0 +1,55 @@
+% layout 'default';
+% title 'Glossary';
+<h2>Clossary</h2>
+
+<dl>
+<span class="subj">NetCDF</span>
+  <dd>Each NetCDF file consist of:
+    <dd>
+      <ul>
+	<li>header: 
+	<dd>dimention, variables, attributes (thus can be exported in *cdl file);</dd></li>
+	<li>fixed-size data:
+	<dd>data values for variables with limited dimention;</dd></li>
+	<li>record data:
+	<dd>data values for variables with unlimited dimention.</dd></li>
+    </ul></dd>
+  </dd>
+  <dd>Classic Model
+    <dd>
+      <ul>
+	<li>1 unlimited dimention;</li> 
+	<li>data types:<dd> char,</dd> <dd>byte,</dd> <dd>short,</dd> <dd>int,</dd> <dd>float,</dd> <dd>double.</dd></li>
+      </ul>
+    </dd>
+  </dd> 
+  <dd>Enhanced Model
+    <dd>
+      <ul>
+	<li>user defined types and data structures</li>
+	<li>hierarchical scoping of names using groups, types, including <dd>strings,</dd><dd>larger variables sizes;</dd></li>
+	<li>multiple unlimited dimension.</li>
+      </ul>
+    </dd> 
+  </dd>  
+  <dd>Data are stored in *.nc file and meta-data can be extracted from it in *.cdl file, i.e.: <br>
+    <code>$ ncdump -b c foo.nc > foo.cdl </code>
+    <br>and the data itself can be extracted by the name of the variables (you see them described in *cdl file): <br>
+    <code>$ ncdump -v var1,var2 -p 3 foo.nc</code><br>
+    To create an equivalet binary *.nc file from *.cdl file:<br>
+    <code>$ ncgen -o x.nc foo.cdl </code><br>
+    And to append data to the existing *.nc file use programming language (i.e. PDL::NetCDF interface in Perl or ncdf4 package in R or JAVA-interface and so on). 
+  </dd>
+</dl>
+<p class="greyline"></p>
+<h3>Biological keywords</h3>
+<dl>
+<span class="subj"><i>cis</i>-eQTLs</span>
+  <dd>
+    <b>Expression quantitative trait loci</b> (eQTLs) are genomic loci that regulate expression levels of mRNAs or proteins. 
+  Some cis eQTLs are detected in many tissue types but the majority of trans eQTLs are tissue-dependent (dynamic).
+    eQTLs may act in cis (locally) or trans (at a distance) to a gene.</dd>
+</dl>
+<br>
+
+

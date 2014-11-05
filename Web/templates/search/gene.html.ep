@@ -1,0 +1,133 @@
+% unless ($tmpl) {
+% layout 'default';
+% title 'Gene summary: sequence, alignment information, cellular phenotypes observed';
+% }
+% my $n=0;
+% #warn $self->signed_cookie('genome');
+% while (my $obj = $hcrs->next) {	
+% 		my $gene = $obj->{"symbol"};
+	<h2>Gene summary: <span class=highlight><%= uc($gene) %></span></h2>
+%		$n++;
+%		my @synonyms;
+%       my $ensgid = $obj->{"ensGID"};
+% 		my $csyn;
+%		foreach (@{$obj->{"synonyms"}}) {
+%			push (@synonyms, $_) unless ($self->param('gene') =~/\S/ && $_ eq $self->param('gene'));
+%           $csyn = $_ if ($_ eq $self->param('gene'));
+%       }
+%		my %goterm;
+%		foreach my $t ( @{ $obj->{transcripts} } ) {
+%			map { $goterm{$_->{GOdesc}} .= $t->{ensTID}.", " } @{ $t->{GO} };
+%		}
+%		my %sets;
+%		map { $sets{ substr($goterm{$_},0,-2) } .= $_."; " } (sort keys %goterm);
+
+%		my %interpro;
+%		foreach my $t ( @{ $obj->{transcripts} } ) {
+%			map { $interpro{$_->{Desc}} .= $t->{ensTID}."; " } @{ $t->{InterPro} };
+%		}
+%		my %isets;
+%		map { $isets{ substr($interpro{$_},0,-2) } .= $_."; " if $_} (sort keys %interpro);
+<fieldset>
+<legend>Gene information:</legend>
+	<dl class="summary">
+	<dt>Synonyms:</dt>
+		% if ($csyn && $csyn =~/\S/ && scalar (@synonyms) > 0) {
+		<dd><span style="color:#555; font-weight:bold"><u><%= $csyn %></u>, <%= join(", ", @synonyms) %></span></dd>
+		% } elsif (!$csyn && scalar (@synonyms) > 0) {
+		<dd><span style="color:#555; font-weight:bold"><%= join(", ", @synonyms) %></span></dd>
+		% } elsif ($csyn && scalar (@synonyms) == 0) {
+		<dd><span style="color:#555; font-weight:bold"><%= $csyn  %></span></dd>
+		% } else {
+		<dd>&nbsp;</dd>
+		% }
+	</dl>
+	<dl class="summary">
+	<dt>Gene description:</dt>    
+		<dd><%= $obj->{description} %>&nbsp;</dd>
+	</dl>
+	<dl class="summary">
+	<dt>Ensembl ID:</dt>    <dd><a href="http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=<%= $ensgid %>"><%= $ensgid %></a></dd>
+	</dl>
+	<dl class="summary">
+	<dt>Protein domains:<br><small>(provided by InterPro)</small></dt>    
+		<dd style="margin-top:-34px;padding:0;">
+%	if (scalar keys %isets > 0) {
+		<a href="#" onMouseOver = "switchElSwitchImg('pro', 'ogif');">show</a>
+		  <div id="pro" class="boxed_sh" style="display:none; z-index:500; margin:5px 0 0 0px;position:absolute;width:400px;">
+			<div style="margin:2px 2px 2px 5px;display:table-row; width:380px">			  
+				<div style="display:table-cell;margin:2px 2px 2px 5px; width:372px; padding:4px;"><span class="reagent">Protein domains:</span></div>
+				<div style="display:cell;margin-top:-2px;width:10px">
+					<a id = "ogif" onClick = "switchElSwitchImg('pro', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a>
+				</div>
+			</div>
+			<div style="margin:2px 2px 2px 5px;display:table;width:390px">
+% my $k=0;				
+% 		foreach my $trs (keys %isets) {
+%			$k++;	
+%			my $clr= ($k%2 == 0) ? "#f5f5f5" : "#fdfdfd";
+%			my $nms = $trs;
+%			$nms =~s/\s/\n/gsm;	
+				<div style="background-color:<%= $clr %>;display:table-row;width:390px">
+					<div style="padding:0 10px 0 2px;display:table-cell;width:120;color:#3F5946;"><pre><%= $nms %>:</pre></div>
+					<div style="display:table-cell;width:260;"><%= substr($isets{$trs},0,-2) %></div>
+				</div>
+% 		}
+			</div>
+		  </div>
+%	} else {
+		<div>&nbsp;</div>
+%	}
+	</dd></dl>
+	<dl class="summary"><dt style="margin-top:20px;">Gene Ontology:</dt>    
+		<dd style="margin-top:-20px;">
+%	if (scalar keys %sets > 0) {
+		<a href="#" onMouseOver = "switchElSwitchImg('onto', 'ogif');">show</a>
+		  <div id="onto" class="boxed_sh" style="display:none; z-index:500; margin:5px 0 0 0px;position:absolute;width:400px;">
+			<div style="margin:2px 2px 2px 5px;display:table-row; width:380px">			  
+				<div style="display:table-cell;margin:2px 2px 2px 5px; width:372px; padding:4px;"><span class="reagent"><span class="reagent">Gene Ontology:</span></div>
+				<div style="display:cell;margin-top:-2px;width:10px">
+					<a id = "ogif" onClick = "switchElSwitchImg('onto', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a>
+				</div>
+			</div>
+			<div style="margin:2px 2px 2px 5px;display:table;width:390px">
+% my $k=0;				
+% 		foreach my $trs (keys %sets) {
+%			$k++;	
+%			my $clr= ($k%2 == 0) ? "#f8f8f8" : "#fdfdfd";		
+%			my $nms = $trs;
+%			$nms =~s/\s/\n/gsm;	
+				<div style="background-color:<%= $clr %>;display:table-row;width:390px">
+					<div style="padding:0 10px 0 2px;display:table-cell;width:120;color:#3F5946;"><pre><%= $nms %>:</pre></div>
+					<div style="display:table-cell;width:260;min-width:270;"><%= substr($sets{$trs},0,-2) %></div>
+				</div>
+% 		}
+			</div>
+		  </div>
+% 	} else {
+		<div>&nbsp;</div>
+% 	}
+	</dd></dl>
+</fieldset>
+% my ($ids,$uids,$sids,$zids) = Sym::Controller::Genes->phenotypes_to_gene($ensgid);
+% my %scr_data = %{Sym::Controller::Studies->studies};
+<div id="geneload<%= $n %>">
+<%= include 'search/resgene_pheno', ids => $ids, sids => $sids, ensgid => $ensgid, genome=>$genome, scr_data => \%scr_data, gene => $gene %>
+</div>
+% 	if (scalar @{$uids} == 0 && scalar @{$ids} == 0) {
+	  <fieldset style="width:835px;">
+	  <legend>Phenotypes observed:</legend>
+			  <center>no phenotype observed found</center>
+	  </fieldset>
+% 	}
+%		my $extend = $self->param('extend') ? $self->param('extend') : "true";
+	% if (scalar @{$uids} > 0 ) {
+	<div style="margin-top:10px;">
+	<%= include 'includes/resgene_nopheno', uids => $uids, sids => $sids, ensgid => $ensgid, genome=>$genome, scr_data => \%scr_data %>
+	</div>
+	% }
+	% if (scalar @{$zids} > 0 ) {
+	<%= include 'includes/resgene_zeropheno', zids => $zids, sids => $sids, ensgid => $ensgid, genome=>$genome, scr_data => \%scr_data %>
+	% }
+<hr size=1 style="color:#ccc;margin: 20px 0 15px 0" width="80%" align="left">
+% }

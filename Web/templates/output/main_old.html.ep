@@ -1,0 +1,80 @@
+% layout 'default';
+% title 'Index';
+<script  type="text/javascript" language="javascript">
+            var httpRequest = false;
+            function makeRequest(url) {
+               	httpRequest = false;
+                if (window.XMLHttpRequest) { // Mozilla, Safari,...
+                    httpRequest = new XMLHttpRequest();
+                    if (httpRequest.overrideMimeType) {
+                        httpRequest.overrideMimeType('text/xml');
+                    }
+                } else if (window.ActiveXObject) { // IE
+                    try {
+                        httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (e) {}
+                    }
+                }
+                if (!httpRequest) {
+                    	alert('Giving up :( Cannot create an XMLHTTP instance');
+                    return false;
+                }
+                httpRequest.onreadystatechange = function() { processRequest(); }
+                httpRequest.open('GET', url, true);
+//httpRequest.send('idauto=${param["idauto"]}&idmod=${fn:escapeXml(param["idmod"])}&year=${fn:escapeXml(param["year"])}');
+                httpRequest.send(null);
+            }
+	    function ShowLoadingMessage(str) {
+			if (str==1) {
+				document.getElementById('show').innerHTML = "<img src='./imgs/loading.gif' width=50 height=50 align=center><P>and please, <i>keep fingers crossed</i> — may be we'll see something interesting?…";
+			} else {
+				document.getElementById('show').innerHTML = "";
+			}
+	    }
+            function processRequest() {
+		ShowLoadingMessage(1);
+                if (httpRequest.readyState == 4) {
+                    if (httpRequest.status == 200 || !httpRequest.status) {
+			ShowLoadingMessage(0);
+			document.getElementById("showplot").innerHTML=httpRequest.responseText;
+			document.getElementById("showplot").style.display = "block";
+                    } else {
+            		alert("Error loading page\n"+ httpRequest.status +":"+ httpRequest.statusText);
+                    }
+                }
+            }
+</script>
+<div>
+% if ($res) { 
+<pre><%= $res %></pre>
+<form method='POST' action='<%= url_for "" %>'>
+<b>Start for <i><%= $var %></i> from:</b><br>
+% my @params = @$inputs; my %starts = %$starts; my %counts = %$counts; my %plot = %$plot;
+% foreach (@params) {
+    <%= $_ %>: <input name=start type=text size="5" value="<%= $starts{$_} %>">
+% }
+<br><br>
+<b>And count:</b><br>
+% foreach (@params) {
+    <%= $_ %>: <input name=count type=text size="5" value="<%= $counts{$_} %>" onFocus="clearText(this)">
+% }
+<br><br>
+<input type="submit" value="Look" class="button" name="ncdata">
+<br>
+<pre>
+<%= $output %>
+</pre>
+show plot: <input name=plot type="checkbox" onChange="makeRequest('./plot')">
+<br>
+<div id="show" style="padding:20px;"></div>
+</form>
+<div id="showplot" style="width:700px;height:400px;"></div>
+% } else {
+  No data yet (or login please)
+% }
+</div>
+
+

@@ -1,0 +1,70 @@
+% layout 'default';
+% title 'Study: '.$obj->{StdTitle}.' :: Cellular Phenotype Database';
+<h2>Study accession ID: <%= $obj->{StdID} %></h2>
+<div class="boxed" style="display:table-cell; width:865px">
+  <dl class="osummary">
+    <dt>Study title:</dt>    <dd><b><%= $obj->{StdTitle} %></b></dd>
+  </dl>
+  <dl class="esummary">
+    <dt>Organism and cell line:</dt>
+	<dd>
+	  <div style="width:300px;height:40px;">
+	    <div style="float:left; padding:1px 20px 0 0;"><%= $obj->{StdSpc} %></div>
+	    <div  style="float:right; padding:1px;">
+%	foreach my $i (@{$obj->{ScreenData}}) {
+	   <div><%= ${$i}{ScrID} %> —  <%= ${$i}{ScrCL} %></div>
+% 	}
+	  </div>
+	  </div>
+	</dd>
+  </dl>
+  <dl class="osummary">
+    <dt>Description:</dt>
+	<dd><%= $obj->{StdDescr} %></dd>
+  </dl>
+  <dl class="esummary">
+    <dt>Publication:</dt>
+% if ($obj->{StdPaperURL}) {
+	<dd><a href="<%= $obj->{StdPaperURL} %>"><%= $obj->{StdPubTitle} %></a>
+% } else {
+	<dd><%= $obj->{StdPubTitle} %>
+% }
+	<br><%= $obj->{StdIss} %></dd>
+  </dl>
+  <dl class="osummary">
+    <dt>Authors:</dt>
+	<dd><%= $obj->{StdAuthors} %></dd>
+  </dl>
+  <dl class="esummary">
+    <dt>Phenotypes:</dt>
+	<dd><a href="<%= $relpath %>/phenotypes#<%= $obj->{StdID} %>_1">browse</a></dd>
+  </dl>
+% my %std_zip = %{$std_zip};
+  <dl class="osummary">
+    <dt>Download:</dt>
+	<dd><a href="<%= $relpath %>/getfile/idf:Description:<%= $obj->{StdID} %>">Study Description file</a> (<%= $idf_obj->{length}/1000 %>kB)
+	<p>Spreadsheet file(s):
+%	foreach my $s ( @{$obj->{ScreenData}} ) {
+%		my $ScrID = $s->{ScrID};
+	   <div style="padding:2px 0 0 10px;">
+	      <div style="display:table-cell; width:150px;"><%= $s->{ScrType} %> screen data: </div>
+		      <div style="display:table-cell"><a href="<%= $relpath %>/getfile/zip:<%= $s->{ScrType} %>:<%= $ScrID %>"><%= $ScrID %> ZIP</a>
+	      (<%= $std_zip{ $ScrID }->{length}/1000 %>kB)</div>
+	   </div>
+% 	}
+	</dd>
+  </dl>
+
+
+
+  <dl class="esummary">
+    <dt>External URL:</dt>
+	<dd>
+% if ($obj->{StdURL}) {
+	<a href="<%= $obj->{StdURL} %>"><%= $obj->{StdURL} %></a>
+% } else {
+	  —
+% }
+	</dd>
+  </dl>
+</div>

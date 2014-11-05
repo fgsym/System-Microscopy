@@ -1,0 +1,31 @@
+<ul style="color:darkgreen; margin:0; margin: 0 0 0 -20px">
+%		my %phash;
+%		my @repr;
+%		foreach (0 .. $#{$aobj->{"measuring"}}) { 
+%			my %rhash = %{ @{$aobj->{"measuring"}}[$_] };
+%			@repr = @{$rhash{reproduced}} if ($rhash{intID} eq $id);
+%		}
+%		my $n;
+%		foreach (0 .. $#{$aobj->{"phenotypes"}}) { 
+%			my %hash = %{ @{$aobj->{"phenotypes"}}[$_] };
+%			my ($c,$k) = split(/\//,$repr[$_]); $c = $c/$k.$n++;
+%			$phash{ $c } = ucfirst($hash{phName})."-".$repr[$_];
+%		}           
+% 		if (scalar(keys %phash)>0) {
+%			foreach (sort {$b <=> $a} keys %phash) { 
+%				my ($p,$r) = split(/\-/,$phash{$_});
+%				my ($c,$k) = split(/\//,$r); $c = $c/$k;
+%				$k = ($c == 1) ? "#C8FFB9" : ($c == 0.5) ? "#C9F3FF" : ($c < 0.5) ? "#FFF9B5" : "#EAFFCD";
+   <li type="square" style="line-height:16px;background-color:<%= $k %>;margin:2px;line-height:16px;padding:1px">
+      <span style="padding:5px 0 2px 5px;width:400px;color:black;"><%= $p %><span style="float:right;width:20px;"><%= $r %></span></span>
+%			}
+</ul>and there are <a onMouseDown='showInfo("<%= $relpath %>/phenoshow/<%= $aobj->{"_id"} %>", this.id)' id='<%= $aobj->{"_id"} %>' style="cursor:pointer"><span 
+    style="color:darkgreen"><%= $aobj->{"acountgenes"} %> / <%= $aobj->{"countreagent"} %></span></a> genes / targeting dsRNAs, <br>
+which revealed the same set of phenotypes
+  <div id="show_<%= $aobj->{'_id'} %>" style="float:left; margin: 0 0 0 -40px; position:inherit"></div>
+  <div onMouseDown="hideInfo('<%= $aobj->{'_id'} %>')" style="position:absolute; margin-left:395px; padding: 0 0 2px 2px; border: 1px solid darkgreen; width:12px; height:14px; line-height:13px; display:none; cursor:pointer;" id="close_<%= $aobj->{'_id'} %>"> x </div>
+  <div id="show<%= $aobj->{'_id'} %>" style="position:absolute; width:580px; background-color:white; margin: 0 10px 10px 30px; padding: 10px 10px 10px 10px; border: 1px solid darkgreen; display:none">
+  </div>
+%		} else {
+—
+%		}

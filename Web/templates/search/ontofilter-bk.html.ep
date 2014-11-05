@@ -1,0 +1,163 @@
+<div id="showi" style="margin: -30px 0 0 0; padding: 0; width:800px;">
+  <div id="phload" style="width:30px; padding:0px 5px 0 710px;position:absolute; display:none">
+      <img src="<%= $relpath %>/imgs/loading.gif" style="margin:0" align="right">
+  </div>
+<form action="<%= $relpath %>/search/phintersect"  method="post" name="filter">
+% my $genome = $self->param('genome') ? $self->param('genome') : $self->cookie('genome');
+% my $showexp = $self->param('study') ? $self->param('study') : "";
+% my $url = (reverse @{$self->req->url->path->parts})[0];
+% my @phIDs = ($choice && scalar @{$choice} > 0) ? @{$choice} : "";
+% my $countgenes = $cgenes ? scalar @{$cgenes} : 0;
+% my $button = ((scalar @phIDs) > 1 && $self->param('phc')) ? "block" : "none";
+% my $emp = ($countgenes > 0) ? "none" : "block";
+<div style="height:30px; width: 850px; position:absolute; margin-top: -30px;" align=right>
+	<input type="hidden" value="<%= $genome %>" name="genome">
+      <div style="display:<%=$button %>; float:right; height:30px; width: 848px; margin-top:30px;">
+% unless ($countgenes > 0) {
+	    <input type="button" value="Reset" class="locsubmit" name="zeroph">
+% } else {
+	    <input type="submit" value="Retrieve" class="locsubmit" name="showph" id="submit">
+% }
+      </div>
+      <div style="color:#3966a2; height:30px; float:right; width: 715px; ">&nbsp;
+	  % if ((scalar @phIDs) > 1) {
+	      Number of common genes for chosen phenotypes: <b><%= $countgenes %></b>
+	  % }
+      </div>
+</div>
+<br><br>
+<!-- START LIST-->
+% my %onames = %{$onames};
+% my %phenos = %{$phenos};
+% my %kids = %{$kids};
+<!-- <div class="css-treeview"> -->
+<div id="tree">	
+<ul>
+% foreach my $l (split(/\n/,$tree)) {
+%	if ($l =~/li/) {
+% 		$l =~s/(li|\s)//gsm;
+%       my $id = substr($l,0,-2); 
+% 		my $oph = $onames{$id};
+%		$oph =~s/phenotype$//gsm;
+%		if (scalar @{$phenos{$id}} > 0) {
+%# $l =~s/\://gsm;	
+% 			my $hdiv = (scalar @{$phenos{$id}})*30;
+%			if ($kids{$id}) {
+			<li style="height:<%= $hdiv %>px;" id="<%= $l %>"><!--<input type="checkbox" id="<%= $l %>" /><label for="<%= $l %>">-->
+%			} else {
+			<li id="<%= $l %>">
+%			}
+			<b><%= $oph %></b>				
+			<div style="padding:0 0 0 25px;">
+%			foreach my $h (@{$phenos{$id}}) {
+%				my $key = $h->{phID}."__".$h->{ScrID};
+				<div style="width:100%" id="$h->{ScrID}">
+					<div id="<%=$h->{phID} %>" style="display:inline;width:80px;padding:0 0 0 3px">
+						<%= $h->{ScrID} %>
+					</div>
+					<div style="display:inline;width:270px;padding:0 0 0 3px"><%= $h->{phNAME} %></div>
+					<div id="<%=$h->{phID} %>" style="display:inline;width:100%;align:right;">
+						<input type="checkbox" name=phc value="<%=$key %>" id="<%= $key  %>" class="ph_ch"><label for="<%= $key %>"></label>
+					</div>						
+				</div>
+%			}
+			</div>
+%			if ($kids{$id}) {
+			<!--</label>-->
+%			}
+%			unless ($kids{$id})	{
+			<!--</li>-->	
+%			}	
+%		} else {
+			<li id="<%= $l %>">
+%			if ($kids{$id}) {
+			<!--<input type="checkbox" id="<%= $l %>" /><label for="<%= $l %>">-->
+%			}
+			<%= $oph %>
+%			if ($kids{$id}) {
+			<!--</label>-->
+%			}
+%			unless ($kids{$id})	{
+			<!--</li>-->			
+%			}	
+%		}
+%	} elsif ($l =~/bul/) {
+% 		$l =~s/bul//gsm;
+	<ul><%= $l %>
+%	} elsif ($l =~/eul/) {
+% 		$l =~s/eul//gsm;
+	</ul><%= $l %>
+%	} else {
+	<%= $l %><br>		
+%	}
+% }
+</ul>
+</div>
+<!-- 
+	<div id="tree">
+        <ul>
+            <li id="key1" title="Look, a tool tip!">item1 with key and tooltip
+            <li id="key2" class="selected">item2: selected on init
+            <li id="key3" class="folder">Folder with some children
+                <ul>
+                    <li id="key3.1">Sub-item 3.1
+                    <li id="key3.2">Sub-item 3.2
+                </ul>
+
+            <li id="key4" class="expanded">Document with some children (expanded on init)
+                <ul>
+                    <li id="key4.1">Sub-item 4.1
+                    <li id="key4.2">Sub-item 4.2
+                </ul>
+
+            <li id="key5" class="lazy folder">Lazy folder
+        </ul>
+    </div>
+<!-- END LIST-->
+
+<div style="height:30px; width: 850px; position:absolute; margin-top: 4px;" align=right>&nbsp;
+      <div style="color:#3966a2; height:30px; float:right; width: 848px; ">&nbsp;
+	  % if ((scalar @phIDs) > 1) {
+	      Number of common genes for chosen phenotypes: <b><%= $countgenes %></b>
+	  % }
+      </div>
+      <div style="display:<%=$button %>; float:right; height:30px; width: 715px;">
+% unless ((scalar @phIDs) > 0) {
+	    <input type="button" value="Reset" class="locsubmit" name="zeroph">
+% } else {
+	    <input type="submit" value="Retrieve" class="locsubmit" name="showph" id="submit">
+% }
+      </div>
+</div>
+<input type="hidden" name="study" value="<%= $showexp %>" id="study">
+</form>
+</div>
+
+<script>
+        $("form").submit(function() {
+
+         // append Dynatree selected 'checkboxes'to form:
+        var folder_list_tree = $("#tree").dynatree("getTree") ;
+        var selected_folders = folder_list_tree.getSelectedNodes();
+        var this_form = this;
+        $.each(selected_folders,function(){
+          $('<input>').attr({
+                type: 'hidden',
+                name: 'phc',
+                value: this.data.key
+                }).appendTo(this_form);
+            });
+
+          return true;
+        });
+
+
+	$(function() {
+	  $("input:checkbox.ph_ch").each(function () {
+	    $(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } );
+	    $(this).is(':checked') ? $("#d_" + $(this).attr("id")).show() : $("#d_" + $(this).attr("id")).hide();
+	  });
+
+	});
+</script>
+

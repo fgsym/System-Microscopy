@@ -1,0 +1,16 @@
+
+<div style="display:inline; position:absolute; width:300px; background-color:#fff; z-index:100; margin:-12px 2px 2px 2px">
+<div class="highlight"><span style="font-size:10px;">Use CTRL to add or space to check:</span></div>
+%		my @phenotypes = @{$phenotypes};
+%		my @phIDs = @{$choice};
+	<select name="phenos" style="width:300px" multiple size="<%= scalar @{$phenotypes}+1 %>" onKeyPress="addValues('<%= $relpath %>/search/phenotips/', this)">
+		<option value="<%= 0_0 %>" style="background-color:#D1FFCC">Reload phenotypes</option>
+%		foreach my $p (sort @phenotypes) {
+%			my ($n, $i) = split(/\|/,$p);
+%			my $color = "#FFFFAA" if $ephID eq $p;
+%			my $selected;
+%			map { $selected = "selected" if ($expID."_".$_ eq $i) } @phIDs;
+				<option value="<%= $i %>" style="background-color:<%= $color %>" <%= $selected %> ><%= $n %></option>
+%		}
+	</select>
+</div>

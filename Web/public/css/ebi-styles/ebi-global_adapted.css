@@ -1,0 +1,474 @@
+* {
+  text-decoration: none;
+  text-indent: 0;
+}
+
+div#global-masthead,
+div#global-masthead nav { height: 30px; }	/* 1.5 lines */
+										/* Try and let it take care of itself... */
+div#global-footer,
+div#global-footer nav { height: 120px; padding:15px 0 0 0; }
+
+div#local-footer,
+div#local-footer nav { height: 60px; }
+
+
+
+/*
+	HORIZONTAL MASTHEAD MENUS
+	Generic rules
+====================================
+ */
+div.masthead ul {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+}
+
+div.masthead ul li { float: left; }
+
+div.masthead ul a {
+	display: block;
+}
+
+div.masthead ul li a,
+div.masthead ul li a {
+	padding: 0.2em 0.6em;
+}
+
+div.masthead ul li abbr { border-bottom: 0 none; }
+
+
+/*
+	GLOBAL MASTHEAD
+==================================
+*/
+
+div#global-masthead {
+	border-bottom: 1px solid #e3e3e3; background-color: #333; color: white;
+}
+div#global-masthead { background-color: #333; color: white; }
+div#global-masthead p {
+	float: left;
+}
+
+div#global-masthead p {
+	margin: 0 0 0 0;
+	padding: 0 0 0.2em 0.69em;
+}
+
+div#global-masthead p#logo a:link,
+div#global-masthead p#logo a:visited { border: 0 none; }
+
+div#local-footer p {
+	padding-top: 10px;
+	margin: 0;
+}
+
+/* Global menu styling */
+div#global-masthead ul {
+	float: right;
+	font-size: 93%;	/* 12px */
+}
+
+div#global-masthead ul li a {
+	display: block;
+	border-right: 1px solid #000;
+	border-left: 1px solid #666;
+	padding-top: 5px;
+	height: 23px;
+}
+
+div#global-masthead ul li.first a { border-left: 0 none; }
+div#global-masthead ul li.last a { border-right: 0 none; }
+
+
+div#global-masthead ul li a:link,
+div#global-masthead ul li a:visited {
+	color: white;
+	border-bottom: 0 none;
+}
+
+div#global-masthead ul li a:hover,
+div#global-masthead ul li a:active,
+div#global-masthead ul li a:focus,
+div#global-masthead ul li.active a,
+div#global-masthead ul li.active-trail a {
+	border-top: 3px solid white;
+	height: 20px
+}
+
+	/* custom colour for Services */
+	div#global-masthead ul li#services a:hover,
+	div#global-masthead ul li#services a:active,
+	div#global-masthead ul li#services a:focus,
+	div#global-masthead ul li.active#services a,
+	div#global-masthead ul li.active-trail#services a {
+		border-top-color: #207a7a;
+	}
+
+	/* custom colour for Research */
+	div#global-masthead ul li#research a:hover,
+	div#global-masthead ul li#research a:active,
+	div#global-masthead ul li#research a:focus,
+	div#global-masthead ul li#research.active a,
+	div#global-masthead ul li#research.active-trail a {
+		/* border-top-color: #e3823e;  */	/* Not allowed to use orange! */
+		border-top-color: #fab700;
+	}
+
+	/* custom colour for Training */
+	div#global-masthead ul li#training a:hover,
+	div#global-masthead ul li#training a:active,
+	div#global-masthead ul li#training a:focus,
+	div#global-masthead ul li#training.active a,
+	div#global-masthead ul li#training.active-trail a {
+		border-top-color: #3776d9;
+	}
+
+	/* custom colour for Industry */
+	/*
+div#global-masthead ul li#industry a:hover,
+	div#global-masthead ul li#industry a:active,
+	div#global-masthead ul li#industry a:focus,
+	div#global-masthead ul li#industry.active a,
+	div#global-masthead ul li#industry.active-trail a {
+		border-top-color: #e5969f;
+	}
+*/
+	/* custom colour for Funding */
+	div#global-masthead ul li#funding a:hover,
+	div#global-masthead ul li#funding a:active,
+	div#global-masthead ul li#funding a:focus,
+	div#global-masthead ul li#funding.active a,
+	div#global-masthead ul li#funding.active-trail a {
+		border-top-color: #e5969f;
+	}
+
+	/* custom colour for About us */
+	div#global-masthead ul li#about a:hover,
+	div#global-masthead ul li#about a:active,
+	div#global-masthead ul li#about a:focus,
+	div#global-masthead ul li#about.active a,
+	div#global-masthead ul li#about.active-trail a {
+		border-top-color: #71b360;
+	}
+
+
+/* Customisation for the GLOBAL search */
+form#global-search {
+	float: right;
+	margin: 3px 9px;
+	padding: 0;
+	height: 24px;
+	vertical-align: top;
+}
+
+form#global-search fieldset {
+	padding: 0;
+	margin: 0;
+	border: 0 none;
+	background-color: transparent;
+}
+
+form#global-search label {
+	display: inline;
+}
+
+form#global-search input#global-searchbox {
+	font-size: 100%;
+	margin: 0 0.3em;
+	width:140px;
+}
+
+form#global-search input.submit {
+	/* padding: 0.25em; */
+
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	display: inline;
+	background: url(../images/search-button.png) no-repeat;
+	background-position: 0 0;
+	width: 24px;
+	height: 24px;
+	-moz-box-shadow: 0 0 0 transparent;
+	-webkit-box-shadow: 0 0 0 transparent;
+	box-shadow:  0 0 0 transparent;
+
+	border:0 none;
+
+
+	/* font-size: 93%;	 */
+}
+
+form#global-search input.submit:hover,
+form#global-search input.submit:focus,
+form#global-search input.submit:active {
+	background-position: -24px 0;
+	width: 24px;
+	height: 24px;
+}
+
+
+/*
+	LOCAL MASTHEAD
+==================================
+*/
+
+
+div#local-masthead {
+	border-bottom: 3px solid #eee; background-color: #70BDBD;
+}
+
+/* div#local-masthead h1 { margin-bottom: 11px; } */
+
+div#skip-to,
+
+/* Local menu styling */
+div#local-masthead nav { height:82px;}
+
+div#local-masthead ul {
+	margin-top:-5px;
+	height: 25px;
+	width: 100%;
+	background-color: #111111;
+	background-color: rgba(17, 17, 17, 0.6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#111111',EndColorStr='#111111');
+}
+
+div#local-masthead ul li {
+	border-color: transparent;
+	border-right: 1px dotted #f8f8f8;
+}
+
+div#local-masthead ul li.active,
+div#local-masthead ul li.active-trail {
+  background-color: #111;
+}
+
+div#local-masthead ul li.last { border-right: 0 none; }
+
+div#local-masthead ul li a {
+}
+
+div#local-masthead ul li a:link,
+div#local-masthead ul li a:visited {
+	border-bottom:0 none;
+	color: #f6f6f6;
+}
+
+div#local-masthead ul li.active a:link,
+div#local-masthead ul li.active-trail a:link,
+div#local-masthead ul li.active a:visited,
+div#local-masthead ul li.active-trail a:visited {
+	padding-top: 2px;
+	border-bottom: 3px solid #666;
+	background-color: #111;
+}
+
+div#local-masthead ul li a:hover,
+div#local-masthead ul li a:focus,
+div#local-masthead ul li a:active {
+	border-bottom: 3px solid #71b360;
+	color: #fff;
+ 	background-color: #333;
+}
+
+
+/* Local search */
+
+form#local-search fieldset {
+	background-color: #ffffff;
+	background-color: rgba(255, 255, 255, 0.5);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff');
+}
+
+
+@media only screen and (min-width: 1100px) {
+  		form#local-search { float: right; }
+  		form#local-search fieldset { max-width:440px; }
+  	}
+
+form#local-search input.submit { display: inline; }
+
+form#local-search input#local-searchbox { font-size: 123.1%; width: 319px; }	/* fontsize = 16px */
+
+
+
+div#content {
+	padding-bottom: 40px;
+	height:100%;
+}
+
+ul#secondary-nav li.active a { font-weight: bold; }
+
+/*
+	FOOTER
+
+*/
+div#local-footer,
+div#global-footer,
+section#ebi-footer-meta {
+	background-color: white;
+	background-color: rgba(255, 255, 255, 0.85);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff');
+}
+
+section#ebi-footer-meta { padding: 4px 4px 4px 14px; }
+
+/*
+	LOCAL FOOTER
+===============================
+ */
+/* body.level1 div#local-footer {display: none;} */ /* kludge! just have a different HTML template for levels 1 and 2! */
+
+div#local-footer {
+	background-color: #fff;
+	border-top: 2px solid #eee;
+	}
+
+
+/*
+	GLOBAL FOOTER
+================================
+ */
+
+div#global-footer {
+	border-top: 5px solid #eee;
+	height: 100%;
+	/* background-color: #f7f7f7; */
+}
+
+/*div#global-footer h3 {
+	font-size: 108%;
+	margin-bottom: 5px;
+	color: #316B63;
+	color: #333;
+} */
+
+div#global-footer p {
+	font-size: 100%;			/* 13px */
+	margin-bottom: -10px;
+ }
+
+div#global-footer ul {
+	font-size: 85%;	/* 11px */
+	padding: 0 0 0 1px;
+	list-style: none;
+}
+
+div#global-footer a { border-bottom: 0 none; }
+
+div#global-footer ul li a,
+div#ebi-footer-meta p a { padding: 2px 4px 2px 0; }
+
+div#ebi-footer-meta p a { margin-left: 0 }
+
+div#global-footer ul li a:hover,
+div#global-footer ul li a:focus,
+div#global-footer ul li a:active,
+div#ebi-footer-meta p a:hover,
+div#ebi-footer-meta p a:focus,
+div#ebi-footer-meta p a:active {
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	background-color: #e4e4e4;
+}
+
+div#ebi-footer-meta { font-size: 85%;	/* 11px */ }
+
+div#copyright-notice {
+	padding: 10px 0;
+	border-top: 1px solid #ccc;
+}
+
+div#copyright-notice p {
+	margin: 0;
+}
+
+/* visual ebi */
+
+/** {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  text-indent: 0;
+}*/
+
+
+a:link,
+a:visited {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: inherit;
+}
+
+a:hover,
+a:focus,
+a:active { border-bottom-style: solid; }
+a:link {
+	color:#3e3e3e;
+	}
+
+a:visited {
+	color: #666;
+	}
+
+a:hover,
+a:focus,
+a:active {
+	color: #000;
+}
+
+a.special { background-color: #fff; }
+
+h1{ padding: 0 9px; color: #ffffff; font-size: 18px; line-height: 125%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 20px 0;
+    clear:both;}
+h3 {
+    border-bottom: 1px solid #ccc;
+    line-height: 163%; /* ~39px... 39px + 1px border = 40px */
+}
+
+body.services section#overview h3 {
+/* 	font-size: 161.6%; */
+}
+
+
+div#global-footer h3.services {color: #207a7a;}
+div#global-footer h3.research {color: #e3823e;}
+div#global-footer h3.training {color: #3776d9;}
+div#global-footer h3.funding {color: #e5969f;}
+div#global-footer h3.about {color: #71b360;}
+
+
+div#local-masthead p,
+div#global-footer p {
+    margin: 20px 0;
+}
+h1 a:link,
+h1 a:visited { border-bottom: 0 none; color: inherit; }
+
+h1 a:link,
+h1 a:visited,
+h2 a:link,
+h2 a:visited,
+h3 a:link,
+h3 a:visited { border-bottom: 0 none; color: inherit; font-size:13px;}
+
+
+h1 a:hover,
+h1 a:focus,
+h1 a:active,
+h2 a:hover,
+h2 a:focus,
+h2 a:active,
+h3 a:hover,
+h3 a:focus,
+h3 a:active { color: #444; }

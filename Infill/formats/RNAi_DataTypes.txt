@@ -1,0 +1,14 @@
+ProbeID
+IntProbeID
+Score
+Location
+ReplicaCount
+Control
+sSEQ
+asSEQ
+ProbeDescription
+TargetGeneEnsembl_ID
+CellNumber
+ImagePath
+Other
+Phenotype

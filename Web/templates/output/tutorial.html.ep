@@ -1,0 +1,173 @@
+% layout 'default';
+% title 'Cellular Phenotype Database :: Tutorial';
+<h3>How to search the Cellular Phenotype database</h3>
+<style>
+p {text-align:left; width:865px}
+</style>
+<div style="font-weight:bold">
+	    		1.1&nbsp;&nbsp;Gene search<br>
+	    		1.2&nbsp;&nbsp;<a href="#reagent_search">Reagent search</a><br>
+	    		1.3&nbsp;&nbsp;<a href="#attribute_search">Gene attribute search</a><br>
+	    		1.4&nbsp;&nbsp;<a href="#phenotype_search">Phenotype search</a><br>
+	    		1.5&nbsp;&nbsp;<a href="#browse_phenotypes">Browse phenotypes</a><br>
+	    		1.6&nbsp;&nbsp;<a href="#study_search">Study search</a>
+</div>
+<p><a name="gene_search"><h4>1.1 Gene search</h4></a>
+
+<p>You can search the Cellular Phenotype database for a gene and retrieve the loss-of-function phenotypes observed, in human cells, by suppressing the expression of the selected gene, through RNAi reagents, across independent phenotypic studies.
+<p>To run a gene search, select the ‘Gene’ tab and type a gene name in the search box. You can use gene names or Ensembl gene IDs to search for genes.
+Select the appropriate gene identifier from the list of suggestions available to you and click ‘Search’. In this example, we searched for the human AURKC gene.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/gene_search.png">
+
+<p>The results are split in three sections.
+
+<p>The top section provides information about the gene, including gene synonyms, external database cross-references (Ensembl and InterPro) and gene properties (Gene Ontology terms).
+
+<p><img src="<%= $relpath %>/imgs/screenshots/gene_info.png">
+
+<p>The middle section provides information about the phenotypes that have been observed following the silencing of the selected gene with different siRNA reagents, across independent studies.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/gene_phenotypes.png">
+
+<p>For each phenotype, there is a link to the study where the phenotype was observed and several columns, each one corresponding to a siRNA reagent ID, targeting the selected gene and for which a phenotype was recorded. The numerical value displayed provides a measure of the siRNA reagent reproducibility within a study.
+
+<p>In this example, the phenotype ‘Metaphase arrest/delay’ was observed when silencing the AURKC gene with the reagent AMBN20055099 (forth column) and a value of one is associated with this gene/reagent pair. This means that the phenotype was observed in 100% of the replicas available for reagent AMBN20055099 (in this case 4/4) and therefore this observation is assigned a value of 1. The same reagent scored 0.75 for phenotype ‘Cell death’ because the phenotype was observe in 75% of the replicas (3/4). Please note that this scoring is not comparable across independent studies but only within each study. Click on a value to view all the measurements available for a reagent, within a study.
+
+<p>The bottom section provides a list of siRNA reagents that have been used to silence the selected gene without resulting in a phenotype.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/reagents_no_phenotypes.png">
+
+<p>Click on a reagent ID to find out more information about a specific reagent. More details regarding this type of search are provided in the next section.
+
+<p><br><a name="reagent_search"><h4>1.2 Reagent search</h4></a>
+
+<p>You can search the Cellular Phenotype database for a siRNA reagent.
+To run a reagent search, select the ‘Reagent ID’ tab, type a reagent identifier in the search box and click ‘Search’. You should use the supplier’s reagent ID to run this type of search.
+In this example, we searched for the Ambion reagent 119842.
+
+<p>The results are split in three sections.
+
+<p>The top section provides information about the reagent including name and Ensembl ID of the target gene, supplier information, reagent sequence (if available) as well as information about the number of transcripts, encoded by the target gene, to which the reagent is mapping and whether the matching between the reagent sequence and each transcript sequence is exact or contains any mismatch.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/reagent_info.png">
+
+<p>In this example, the Ambion reagent 119842 targets the gene PTER. This gene encodes six transcripts and the mapping between the reagent and each transcript is exact (no mismatches).
+
+<p>The middle section provides information about the phenotypes that have been observed for the selected siRNA reagent, across independent studies. For each phenotype, there is a link to the study where the phenotype was observed and a value indicating the reagent reproducibility.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/reagents_pheotypes.png">
+
+<p>The bottom section provides more detailed information about the mapping of the selected siRNA reagent to each transcript encoded by the target gene.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/reagent_alignment.png">
+
+<p><br><a name="attribute_search"><h4>1.3 Gene attribute search</h4></a>
+
+<p>You can search the Cellular Phenotype database by gene attribute, using Gene Ontology terms to look for a group of genes, instead of a single gene.
+To run a search using gene attributes, select the «Gene Attribute» tab, start typing the term you are interested in, select the matching term from the list of suggestions available to you and click «Search».
+
+<p>In this example we will search for genes annotated with the term «kinesin binding». Search result page by default will be represented with Cellular Microscopy Phenotype Ontology (CMPO) terms view.
+If you would prefer to see the original phenotype terms view you should tick «CMPO off».
+
+<p><img src="<%= $relpath %>/imgs/screenshots/attribute_search.png">
+
+<p>This search retrieves 14 genes which are annotated with the Gene Ontology term «kinesin binding».
+
+<p><img src="<%= $relpath %>/imgs/screenshots/attribute_results.png">
+
+<p>The 14 genes are listed in a table. For each gene, the reagents that have been used to silence the gene and have caused a phenotype are indicated, alongside a measure of the reagents reproducibility for each phenotype. Please note that these scores are not comparable across independent studies but only within each study.
+
+<p><br><a name="phenotype_search"><h4>1.4 Phenotype search</h4></a>
+
+<p>There are two ways to search the database for phenotypes. You can search for phenotypes within a single study or you can browse all phenotypes across studies.
+
+<p>In this section we show an example of a phenotype search within a study. For more information on how to browse phenotypes across studies, go to <a href="<%= $relpath %>/phenotypes">Browse phenotypes</a>.
+
+<p>To run a phenotype search, first select the «Phenotype» tab. This search allows retrieving a list of gene/reagent pairs for which the chosen phenotype has been observed, within a study.
+Then select an experiment from the «Select a study» drop down menu. Currently, each study is identified by a short title. To find out more about a study, you can query the database by study, using this short title. See <a href="#study_search">«Study search»</a> for more information on how to do this.
+
+<p>In this example we select «Mitocheck», a genome-wide RNAi screen in HeLa cells.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/phenotype_search.png">
+
+<p>Once you select a study, start typing in the search box and a list of matching phenotypes, from the selected study, will become available. Select a phenotype of interest from the list and click «Search». Let’s select «Dynamic changes» and run our search.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/phenotype_selection.png">
+
+<p>The results display all genes/reagent pairs, from the «Mitocheck» study, that have been tagged with the «Dynamic changes» phenotype. Please note that only the reagents that mapped uniquely to their target gene are shown.
+
+Results can be split over multiple tables depending on whether the «dynamic changes» phenotype was observed alone or in combination with other phenotypes; to this, select the «Grouped by chosen phenotypes» box above the table.
+
+
+<p><img src="<%= $relpath %>/imgs/screenshots/phenotype_found.png">
+
+<p>Click on a gene symbol to find out more information about the gene, as shown in the <a href="#gene_search">Gene search</a> section. Click on a reagent ID to find out more information about the reagent, as shown in the <a href="#reagent_search">Reagent search</a> section.
+
+<p>For each gene/reagent pair, you can click on the «Show» link to view all measurements available for the selected reagent within this study.
+
+<p><br><a name="browse_phenotypes"><h4>1.5 Browse phenotypes (by original stugy term or by ontology term)</h4></a>
+
+<p>This option allows browsing all phenotypes currently stored in the Cellular phenotype database and viewing the intersection of gene/reagents between phenotypes from independent studies or from the same study.
+<p>You can browse phenotype either by their original study terms or by assigned ontology terms.
+
+<p>Click on the «Ontology terms browsing» link on the navigation menu (top left corner). You see the Cellular Microscopy Phenotype Ontology (CMPO) representation and empty box where you can pick in the phenotypes of your preference to look for the intersection of gene/reagents between phenotypes from independent studies or from the same study.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/browse_ontologies.png">
+
+<p><img src="<%= $relpath %>/imgs/screenshots/ontology_retrieve.png">
+
+<p>Click on the «Phenotypes browsing» link on the navigation menu (top left corner).
+
+<p><img src="<%= $relpath %>/imgs/screenshots/browse_phenotypes.png">
+
+<p>All phenotypes available are listed and are grouped by study.
+Select any combination of phenotypes, from any study. To select individual phenotypes, tick the boxes on the right hand side of the table.
+
+<p>If a gene/reagent intersection exists between the phenotypes chosen, a number will appear next to the boxes that have been selected, corresponding to the number of genes that have been found.
+
+<p>Let’s look at an example. We want to find out if there are genes that have been tagged with the phenotype «Proliferating cells» in the CellMorph study as well as with the phenotype «Increased proliferation» in the Mitocheck study.
+
+<p>We tick the boxes next to both phenotypes and the number 2 appears next to the selected boxes with the word «retrieve». This means that there is an overlapping set of 2 genes between these two phenotypes, in the two studies. These genes have been silenced with different reagents, in two independent studies, resulting in a similar phenotype, increased cell proliferation.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/phenotype_retrieve.png">
+
+<p>The list of 2 genes can be retrieved by clicking in the «Retrieve» button at the top (or bottom) of the page or directly by clicking on the «2: retrieve» link near the phenotype names.
+
+<p>The two genes, alongside the reagents that have caused the selected phenotypes, are listed in a table which can be explored as described in previous sections. Additional phenotypes observed for the selected genes are also displayed in the table.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/phenotype_retrieve_found.png">
+
+<p>Results can be exported as tab-delimiter file by clicking on the «Export search results» link.
+
+<p><br><a name="study_search"><h4>1.6 Study search</h4></a>
+
+<p>You can search the Cellular Phenotype database by study. To run a study search, select the ‘Study’ tab, type a keyword in the search box and click ‘Search’.
+For example, let’s run a search for ‘mitosis’.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/study_search.png">
+
+<p>This search will retrieve all studies where the word ‘mitosis’ appears in the description of the study. In this case we retrieved two studies.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/study_found.png">
+
+<p>To find out more information about a study, click on a study ID. We choose M1_SyM.
+
+<p><img src="<%= $relpath %>/imgs/screenshots/study_info.png">
+
+<p>This view contains the following information:
+
+<ul><li>Title – a brief experiment title</li>
+<li>Organism — the species investigated</li>
+<li>Description — a description of the experiment supplied by the submitter</li>
+<li>Publication/authors — details about any publications that relate to the data, including links to the online article, where available</li>
+<li>Phenotypes — link to the phenotype browsing option, see <a href="#browse_phenotypes">Browse phenotypes</a> for more details</li>
+<li>Download — provide links to the following downloadable files:
+	<ul><li>Study description — this file contains top level information about the study and specific information about each screen within the study, including a detailed description of the phenotypes observed
+	<li>Primary screen data – the data from the primary screen, as provided by the submitter
+	<li>Validation screen data — the data from the validation screen, as provided by the submitter, if applicable
+	</ul>
+</li>
+<li>External link – link to the external website for the selected study, if applicable</li>
+
+</ul>

@@ -1,0 +1,38 @@
+{
+"db_host" : "localhost:27017",
+"db_name" : "sym",
+"navigator" : {
+    "/"        	: ["1", "output#main" , "Main Page"],
+    "/glossary"	: ["2", "output#glossary", "Glossary"],
+    "/output"	: ["4", "output#phmain", "Phenotypes"],
+    "/export"	: ["5", "export#export", "Data Export"],
+    "/submit"	: ["6", "output#submit", "Data Submit"],
+    "/stats"	: ["6", "output#stats", "CelPhDB statistics"],
+    "/about"	: ["7", "output#about", "Cellular phenotype database"],
+    "/standards": ["8", "output#standards", "Towards data load standards flexibility"],
+    "/download"	: ["9", "output#download", "Data download"],
+    "/annotation"	: ["10", "output#annotation", "Phenotypes annotation"],
+    "/tutorial"	: ["11", "output#tutorial", "Cellular phenotype database tutorial"],
+    "/search/result" : ["0", "search#result", "Search CelPhDB"],
+    "/messages" : ["0", "output#messages", "Query CelPhDB"],
+    "/search/pheno" : ["0", "search#respheno", "Search Gene"],
+    "/search/phintersect" : ["0", "search#phintersect", "Search Phenotypes"],
+    "/search/loadpheno" : ["0", "search#loadpheno", "Search Phenotypes"],
+    "/search/phenofilter" : ["0", "search#phenofilter", "Search Phenotypes"],
+    "/search/ontofilter" : ["0", "search#ontofilter", "Search Phenotypes by Ontology terms"],
+    "/search/grabpheno" : ["0", "search#grabpheno", "Search Phenotypes by Ontology terms"],
+    "/errordb"  : ["0", "output#errordb",""]
+    },
+"navbar" : {
+    "1" : ["0", "/", "Home"],
+    "2" : ["1", "/search/gene", "Gene search"]
+    },
+"font" : "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf",
+"boldfont" : "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+"hypnotoad" : {
+    "listen"  : ["http://*:3000"],
+    "workers" : 5,
+    "keep_alive_timeout" : 1000,
+    "max_requests" : 20
+  }
+}

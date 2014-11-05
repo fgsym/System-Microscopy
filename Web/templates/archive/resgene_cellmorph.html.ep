@@ -1,0 +1,38 @@
+%		my %phash;
+%		my @scrs;
+%		my @codes;
+%		foreach (0 .. $#{$aobj->{"measuring"}}) { 
+%			my %rhash = %{ @{$aobj->{"measuring"}}[$_] };
+%			@scrs = @{ $rhash{scored} } if ($rhash{intID} eq $id);
+%			@codes = @{ $rhash{phenocodes} } if ($rhash{intID} eq $id);
+%		}
+%		foreach (0 .. $#codes) { 
+%			my %hash = %{ $codes[$_] };
+%			my %shash = %{ $scrs[$_] };
+%			$phash{ $shash{ $hash{prID} } } = $hash{prName}
+%		}
+%		my $n;
+%		foreach (0 .. $#codes) { 
+%			my %hash = %{ $codes[$_] };
+%			my %shash = %{ $scrs[$_] };
+%			$phash{ $shash{ $hash{prID} } } = $hash{prName}
+%		}           
+% 		if (scalar(keys %phash)>0) {
+<ul style="color:darkgreen;font-weight:bold;">
+%	foreach ( @{$aobj->{"phenotypes"}} ) {
+	   <li type="square"><%= ucfirst(${$_}{phName}) %><br>
+%      	}
+</ul>
+<ul style="color:darkgreen; margin:0; margin: 0 0 0 -20px">
+%		foreach (sort {$b <=> $a} keys %phash) { 
+%			my $k = ($_ == 1) ? "#C8FFB9" : ($_ < 1 && $_ > 0 && $_ >= 0.8) ? "#EAFFCD" : ($_ < 0.8 && $_ > 0) ? "#CBFFE8" : ($_ < 0) ? "#FFF9B5" : "#FFF9F5";
+   <li type="square" style="line-height:16px;;margin:2px;padding:1px;background-color:<%= $k %>;">
+      <span style="padding:5px 0 2px 5px;width:400px;color:black;"><%= $phash{ $_ } %><span style="float:right;width:50px;text-align:right"> <%= $_ %></span></span>
+%		}
+</ul>
+and there are <span 
+    style="color:darkgreen"><%= $aobj->{"acountgenes"} %> / <%= $aobj->{"countreagent"} %></span> genes / targeting siRNAs, <br>
+which revealed the same phenotype /phenoshow/<%= $aobj->{"_id"} %>
+%		} else {
+—
+%		}

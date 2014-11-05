@@ -1,0 +1,51 @@
+% layout 'default';
+% title 'Search result page :: Cellular Phenotype Database';
+<script type="text/javascript" src="<%= $relpath %>/src/ajax.js"></script>
+%  my @cookies = $self->signed_cookie('genome');
+%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+%  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome);
+% if ($stype eq "gn") {
+	%	if ($crs) {
+<%= include 'search/gene', gene => $q, hcrs => $hcrs, tmpl=>1, genome=>$genome, crs=>$crs %>
+%	} else {
+		<p>no results found…
+%	}
+% } elsif ($stype eq "re") {
+%	if ($crs) {
+
+<%= include 'search/reagent', crs=>$crs,  genome => "", tmpl=>1, genome=>$genome %>
+
+%	} else {
+		no reagents found…
+%	}
+% } elsif ($stype eq "go") {
+%  # $crs here is objects' array reference !!!
+
+<%= include 'includes/attributes', crs => $crs, attr => $q, allgenes => $allgenes, scr_data => $scr_data, genome=>$genome %>
+
+% } elsif ($stype eq "phn") {	
+%	my $terms = $self->param('study') ? "p" : $self->param('terms') ? $self->param('terms') : "o";
+%   if ($ScrID =~/\w\_/) {
+%		my %ph_by_ScrID = %{$ph_by_ScrID};
+%#### if there is no intersections…		
+%#		foreach my $ScrID ( keys %ph_by_ScrID ) {
+%#			$phenoprint = join("-",@{$ph_by_ScrID { $ScrID } });
+%#			my ($allcrs,$StdTitle,$ScMethod,$genome) = Sym::Controller::Phenotypes->phenosearch_by_ScrID($ScrID, \@{$ph_by_ScrID { $ScrID } }) unless $crs; 
+%#			$crs = $crs ? $crs : $allcrs;			
+		<%= include 'search/respheno', crs => $crs, ScrID => $ScrID, StdTitle => $StdTitle, phIDs=>\@{ $ph_by_ScrID{$ScrID} }, 
+										phenoprint=>$phenoprint, ScMethod=> $ScMethod, genome=>$genome,face=>$face,terms=>$terms %>
+%#		}			
+%   } else {
+%	my @phIDs = split(/\,/,$q);
+%	my %scr_data = %{Sym::Controller::Studies->studies};
+%		my ($phenotypes, $allphenos, $allgenes, $onts) = Sym::Controller::Search->phintersect(\@phIDs,1,"set",$terms,$genome); # 1: take only goodmatch cases
+		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => \@phIDs, scr_data => \%scr_data, genome=>$genome, onts=>$onts  %>
+%  }
+% } elsif ($stype eq "stds") {
+
+<%= include 'includes/studies', crs => $crs, kwds => $q %>
+
+% }
+

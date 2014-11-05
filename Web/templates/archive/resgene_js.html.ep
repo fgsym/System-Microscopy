@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#gnload<%= $n %>').hide();
+		$("#ajax-gereload<%= $n %>").change(function () {
+			$.ajax({
+				url: '<%= $relpath %>/search/resgene_pheno',
+				beforeSend: function() { $('#gnload<%= $n %>').show(); },
+				data: 'extend=' + $(this).is(':checked') + '&gene='+ $("#ajax-gene<%= $n %>").val(),
+				complete: function() { $('#gnload<%= $n %>').hide(); },
+				success: function(result) {
+					$('#geneload<%= $n %>').html(result);
+					$('#gnload<%= $n %>').hide();
+				}
+			});
+		});
+	});
+</script>

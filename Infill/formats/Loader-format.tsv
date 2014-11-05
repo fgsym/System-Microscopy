@@ -1,0 +1,10 @@
+screenID	screenCASE	screenSCORES	cellTYPE	locationNAME	locationFIELDS	probeFIELD	probeFIELDint	probeSupID	scoresFIELDS	phenotypeFIELD	controlFIELD	dataFILE	md5sumFILE
+1	-	ci,ce,ip,md,bn,pl,gr,l,dc,cd	1	LT-plate	0,1	2	3	1	4,5,6,7,8,9,10,11,12,13	-	-	/home/jes/SysMicroscopy/DATAfiles/Mitocheck/reformated-primary.tsv	74095d0052859561e7d4fead33a25a23
+2	-	n,ext,ecc,Ato,Nex,Nin,Nto,AF,BC,C,M,LA,P	1	plate/well	0,1	2	3	3	4,5,6,7,8,9,10,11,12,13,14,15,16	17	-	/home/jes/SysMicroscopy/DATAfiles/CellMorph/probes2phenoprints.tsv	d7a797bb1f50d41545833ad7913437a0
+3	-	dev,n,vp,p_i	1	-	-	2	-	1	3,4,5,6	9	-	/home/jes/SysMicroscopy/DATAfiles/EMBL_secretion_screen/ncb2510-s1.csv	2c1e1ff53c2538e4ea56e0e7bb865ed7
+3	-	dev,n,vp,p_a	1	-	-	1	-	1	2,3,4,5	6	-	/home/jes/SysMicroscopy/DATAfiles/EMBL_secretion_screen/ncb2510-s2.csv	fc51507d271977d71a16eb918494cff1
+4	-	MitoticEvents,NB2ANA_mean,NB2ANA_sd,ANA2NR_mean,ANA2NR_sd,CellCountStart,Proliferation	1	-	-	14	-	2	4,5,6,7,8,9,10	20	-	/home/jes/SysMicroscopy/DATAfiles/Gerlich/PPase_screen_with_phenotypes.tsv	7d3df1863aa9fb551dd5b6e0e02d80c2
+5	-	ch_g,ch_g_s,ch_c,gfp_c,gfp_g_s,gfp_g	1	plate/spot	0	8	-	1	2,3,4,5,6,7	-	-	/home/jes/SysMicroscopy/DATAfiles/BZH_SH4-mCherry-GFP/Ritzerfeld_BZH_SH4_domain_targeting_primary_screen_data.csv	325d1cc600b1df6520b9831a526df1a3
+6	-	z,n	1	labtek-imn	2,3	4	-	1	5,6	9	10	/home/jes/SysMicroscopy/DATAfiles/GFP-RNF168_Ubiquitin/mmc1_valid.csv	09ab8371a9758c1c893f7c14c1e60251
+7	HeLa	n,fn,f_c,n_fn,z	1	labtek-img	0,1	2	-	1	4,5,6,7,8	9	-	/home/jes/SysMicroscopy/DATAfiles/CGSR_DNA_damage/ST-2.csv	a6485bf10b2fbd3de640dd563d8ce2ba
+8	U2OS	n,fn,f_c,n_fn,z	2	labtek-img	0,1	2	-	1	4,5,6,7,8	9	-	/home/jes/SysMicroscopy/DATAfiles/CGSR_DNA_damage/ST-1.csv	3fe4dfa8388dc47d707ad23487458b42

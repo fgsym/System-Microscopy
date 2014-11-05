@@ -1,0 +1,330 @@
+% unless ($tmpl) {
+% layout 'default';
+% title 'Reagent summary: sequence, alignment information, cellular phenotypes observed';
+% }
+<h2>Reagent summary</h2>
+<script type="text/javascript">
+	function hideLoadingDiv(d,s) {
+		document.getElementById(d).style.display = "none";
+		document.getElementById(s).style.display = "block";
+	}
+</script>
+% while (my $obj = $crs->next) {
+<fieldset>
+<legend>Reagent information:</legend>
+<div style="width:730px;">
+%	my ($sname, $descr) = Sym::Controller::Vars->supplier_data($obj);
+%	my ($id,$genome,$ensgid) = split (/\:/,@{$self->req->url->path->parts}[1]);
+%   my ($onegene, $uphenos, $nphenos, $zphenos, $freqs) = Sym::Controller::Phenotypes->phenotypes_by_rgID($obj->{rgID});
+%	my $ge = $ensgid ? $ensgid : $onegene;
+%  my @cookies = $self->signed_cookie('genome');
+%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+%  $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome);
+%	# IF REAGENT FROM ANOTHER GENOME !!
+%	if ($self->param('reag') =~/DRSC/ || (reverse @{$self->req->url->path->parts})[0] =~/FruitFLYgenes/ ) {
+%		$genome = "FruitFLYgenes";
+%		$self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+%	}
+%  	my ($transcripts,$tnmb,$alltrns,$allgenes,$gsym,$goterm) = Sym::Controller::Genes->gene_data($ge,$obj->{tagin},$genome);
+   <div style="float:left; width:400px;">
+	<dl class="rsummary">
+	<dt>CellPh DB internal ID:</dt>
+		<dd class=highlight><b><%= $obj->{rgID} %></b></dd>
+	</dl>
+	<dl class="rsummary">
+	<dt>Supplier:</dt><dd>
+%		if ($sname) {
+		<%= $sname %>, <%= $descr %></dd>
+%		} else {
+			no data
+%		}
+	</dl>
+	<dl class="rsummary">
+	<dt>Supplier reagent ID:</dt>
+		<dd><%= $obj->{probeID} %></dd>
+	</dl>
+	<dl class="rsummary">
+	<dt>Sequence:</dt>
+
+% if ($obj->{seq1}) {
+%	my $seq_1 = $obj->{seq1};
+% 	my $seq_2 = join("",reverse(split(//,$obj->{seq2})));
+	<dd>
+% 	if ( length($seq_1) < 35 ) {
+	<PRE>  <%= $seq_1 %>
+<%= $seq_2 %></PRE>
+%	} else {
+%		my @seq1 = split(//,$seq_1);
+%		my $n=1; 
+%		$seq_1 = ""; 
+%		map { $seq_1 .= ($n++%35 == 0) ? $_."\n" : $_;  } @seq1; 
+		<PRE><%= $seq_1 %></PRE>
+%	}
+</dd>
+% } else {
+<dd><font color=red>Sequence is not public!</font></dd>
+% }
+	</dl>
+  </div>
+   <div style="float:right; width:320px;">
+% # warn "$gsym & $ensgid || $tmpl";
+% if ($gsym && ($ensgid || $tmpl==1) ) {
+% 	$transcripts = $transcripts ? $transcripts : "?";
+%	$ensgid = $ensgid ? $ensgid : $ge;
+	<dl class="rsummary">
+	  <dt style="width:190px;">Target gene:</dt>
+		<dd><a href="<%= $relpath %>/gene/<%= $genome %>:<%= $ensgid %>"><b><%= $gsym %></b></a></dd>
+	</dl>
+	<dl class="rsummary">
+	  <dt style="width:190px;">Ensembl ID:</dt><dd><a href="http://www.ensembl.org/Multi/Search/Results?q=<%= $ensgid %>;site=ensembl"><%= $ensgid %></a></dd>
+	</dl>
+	<dl class="rsummary">
+	  <dt style="width:190px;">Gene Ontology:</dt>
+		<dd>
+% my %goterm = %{$goterm};			
+%	if (scalar keys %goterm > 0) {
+		<a href="#" onMouseOver = "switchElSwitchImg('onto', 'ogif');">show</a>
+		  <div id="onto" class="boxed_sh" style="display:none; z-index:500; margin:5px 0 0 0px;position:absolute;width:400px;">
+			<div style="margin:2px 2px 2px 5px;display:table-row; width:380px">			  
+				<div style="display:table-cell;margin:2px 2px 2px 5px; width:372px; padding:4px;"><span class="reagent"><span class="reagent">Gene Ontology:</span></div>
+				<div style="display:cell;margin-top:-2px;width:10px">
+					<a id = "ogif" onClick = "switchElSwitchImg('onto', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a>
+				</div>
+			</div>
+			<div style="margin:2px 2px 2px 5px;display:table;width:390px">
+% my $k=0;				
+% 		foreach my $trs (keys %goterm) {
+%			$k++;	
+%			my $clr= ($k%2 == 0) ? "#f8f8f8" : "#fdfdfd";		
+%			my $nms = $trs;
+%			$nms =~s/\s/\n/gsm;	
+				<div style="background-color:<%= $clr %>;display:table-row;width:390px">
+					<div style="padding:0 10px 0 2px;display:table-cell;width:120;color:#3F5946;"><pre><%= $nms %>:</pre></div>
+					<div style="display:table-cell;width:260;min-width:270;"><%= substr($goterm{$trs},0,-2) %></div>
+				</div>
+% 		}
+			</div>
+		  </div>
+% 	} else {
+		<div>&nbsp;</div>
+% 	}
+		</dd>
+	    </dl>
+	<dl class="rsummary">
+	  <dt style="width:190px;">Transcript Hit/Total transcripts: (<a
+		onMouseOver="javascript:showDiv('trns-explain')" onMouseOut="javascript:hideDiv('trns-explain')" style="cursor:pointer;color:darkgreen">?</a>)
+	  <div class="tooltip" id="trns-explain">
+	  This ratio represents the number of transcripts of the target gene that are mapped by the reagent over the total number of transcripts produced by the target gene
+	  </div>
+	  </dt>
+	    <dd>
+	    <%= $transcripts %> / <%= $tnmb %>
+	    </dd>
+	</dl>
+	<dl class="rsummary">
+	  <dt style="width:190px;">Match:</dt>
+	    <dd>exact</dd>
+	</dl>
+% } elsif (scalar (keys %{$nphenos}) > 0) {
+    <span class=highlight>This reagent is mapping several genes, see below</span>
+% } else {
+%		if ($ensgid) {
+		    <span class=highlight>This is not mapping reagent</span>
+%		} else {
+    		<span class=highlight>No phenotype assigned</span>
+%		}
+% }
+  </div>
+</div>
+</fieldset>
+<div style="width:870px;">
+% my $cnt=0;	
+% unless ($gsym && ($ensgid || $tmpl==1) ) {
+%	my $rcrs = Sym::Model::MongoQ->get_reagent_by_probeID( $obj->{probeID} );
+  <fieldset>
+  <legend>Gene(s) mapped:</legend>
+  <table cellspacing="1" cellpadding="5" style="padding:0; margin:0; width:600px">
+%	while (my $obj = $rcrs->next) {
+%		foreach my $ensgid ( @{$obj->{genes}} ) {
+%			$cnt++;
+%			my $symbol;
+%		map { $symbol = $_->{symbol} if $ensgid eq $_->{ensGID} } @{$obj->{tagin}};
+	<tr style="background-color:#fff"><td>
+		<div>	<div style="float:left;display:inline"><a href="<%= $relpath %>/gene/<%= $genome %>:<%= $ensgid %>"><%= $symbol %></a></div>
+			<div style="float:right;display:inline;width:220px;text-align:right">Ensembl ID: <a href="http://www.ensembl.org/Homo_sapiens/Gene/Summary?g=<%= $ensgid %>"><%= $ensgid %></a></div>
+		</div>
+	</td></tr>
+%		}
+% 	}
+%	unless ($cnt) {
+	<tr style="background-color:#fff"><td align="center" class="highlight"><b>No mapping found</b></td></tr>
+%	}
+  </table>
+%	if ($cnt) {
+<div align="right" style="margin: 0 200px 0 0">— Total: <%= $cnt %></div>
+% 	}
+  </fieldset>
+% }
+<fieldset>
+<legend>Phenotypes observed:</legend>
+% my %onts = %{Sym::Controller::Ontologies->get_oterms()};
+% if (scalar (keys %{$uphenos}) > 0 || scalar (keys %{$nphenos}) > 0) { # ($onegene, \%uphenos, \%nphenos, \%zphenos, \%freqs)
+    <table cellspacing=1 cellpadding=2 width=850>
+      <tr>
+	<td width=270><span class="highlight"><b>Observed phenotypes</b> (<a onMouseOver="javascript:showDiv('pheno-explain')" onMouseOut="javascript:hideDiv('pheno-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>):</span>
+		<div style="position:absolute;display:none;margin-left:50px;margin-top:5px;z-index:20; width:300px;background-color:#fdfdfd;" id="pheno-explain" class="tooltip">
+		These terms represent the phenotypic classes observed following the suppression of the expression of the selected gene across independent screens
+		</div>
+	</td>
+	<td width=320><span class="highlight"><b>Assigned ontology terms</b> (<a onMouseOver="javascript:showDiv('ont-explain')" onMouseOut="javascript:hideDiv('ont-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>):</span>
+		<div style="position:absolute;display:none;margin-left:50px;margin-top:5px;z-index:20; width:300px;background-color:#fdfdfd;" id="ont-explain" class="tooltip">
+		These terms represent the cellular phenotype ontology terms assigned to the observed phenotypes
+		</div>
+	</td>
+	<td width=80><div style="font-weight:bold; margin:1px 0 0 0"><span class="highlight">Evidence</span></div></td>	
+	<td width=90><div style="font-weight:bold; margin:1px 0 0 0"><span class="highlight">Screen</span></div></td>
+	<td width=90><div style="font-weight:bold;margin:0"><span class="highlight"><b>In set <sup>*)</sup> </b></span></div></td>
+      </tr>
+% my $n=0;
+%	foreach my $ScrID (keys %{$uphenos}, keys %{$nphenos}) {
+%		my $color = ($n%2 == 1) ? "#f5faff" : "#F6F5FF";
+%		my $StdID = substr($ScrID,0,-2);
+%		my @phweights = (scalar (keys %{$uphenos}) > 0) ? @{${$uphenos}{$ScrID}} : @{${$nphenos}{$ScrID}};
+	<tr style="background:<%= $color %>">
+	<td valign=top colspan=5>
+	  <div style="width:850px;display:table;">	
+		<div style="display:table; width:650px;float:left;display:cell;">
+%		my $border = "border:1px solid #aaa;";
+% my $k;
+%		foreach (@phweights) {
+%			$k++;	
+%			my $rcolor= ($k%2 == 0) ? "#f8f8f8" : "#fdfdfd";
+		  <div style="display:table-row;padding:4px; width:600px;background-color:<%= $rcolor %>">	
+			<div style="width:260px; display:cell; padding:3px; ">
+				<span class="highlight"><%= ${$_}{phNAME} %></span>
+			</div>
+		%   my @ont_array = $onts{ ${$_}{phID}."__".$ScrID } ? @{ $onts{ ${$_}{phID}."__".$ScrID } } : ();
+			<div style="padding:1px; width:330px; display:table-cell;">
+		%	foreach my $oi (@ont_array) {
+		%		my ($OntID,$name,@syns) = split(/__/,$oi);
+		%		$name =~s/phenotype$//gsm;
+				<div class="highlight"><%= ucfirst($name) %>
+		%			if (@syns) {
+		%				map { $_ = ucfirst($_) } @syns;
+					<div style="opacity:0.6;padding-left:10px;line-height:14px;">synonyms:
+						<div style="padding-left:20px;">
+						% my $synstr = join("\n",@syns);
+						<span class="highlight"><pre style="margin:0;padding:0;font-family:arial"><%= $synstr %></pre></span>
+						</div>
+					</div>
+		%			}
+				</div>
+		%	}
+		%	unless (scalar @ont_array > 0) {
+			<span class="highlight">: Terms is not assigned</span>
+		%	}		
+			</div>				
+			<div style="margin:0;padding:0; width:60px; display:table-cell; padding:4px; ">
+%			my $weight = ${$_}{phWEIGHT};
+% 			my $r = 0;
+%			my $g = int(100*(1.5-$weight)/$weight);
+% 			my $b = int($weight*$weight*250*(2-$weight));
+%			my $show = "rgb($r,$g,$b)";
+%			my $w = substr($weight,0,4);
+				<div style="width:10%;text-align:right;padding: 0 0 4px 0">
+					<div style="background-color:<%= $show %>;width:30px;color:#fff; <%= $border %>; opacity:0.6;filter:alpha(opacity=60);font-size:95%;" id="white">
+						<a href="<%= $relpath %>/replica/<%= $obj->{rgID} %>:<%= $ScrID %>:<%= $ensgid %>:<%= $gsym %>">&nbsp;<%= $w %></a>&nbsp;
+					</div>
+				</div>
+			</div>
+		  </div>	
+%		}
+		</div>
+		<div style="display:table; width:180px; float:right;display:table-cell;">		
+			<div style="padding:5px 0 0 0; width:90px; display:table-cell;">
+				<a href="<%= $relpath %>/study/<%= $StdID %>"><%= $ScrID %></a>
+			</div>
+			<div style="margin:0;padding:0; width:90px; display:table-cell;font-size:11px">phenotype view:<br>
+		%	my ($fr, $fg, $phcluster) = split(/\|/, ${$freqs}{$ScrID});
+		%   my @p_url;
+		%	map { push @p_url, $_."__".$ScrID } split (/\-/,$phcluster);
+		%	my $p_url = join("-",@p_url);
+				<a href="<%= $relpath %>/search/pheno/<%= $p_url %>;ex;true;p"><%= $fr %> / <%= $fg %></a>
+				<div style="opacity:0.6;">ontology view:<br>
+				 <a href="<%= $relpath %>/search/pheno/<%= $p_url %>;ex;true;o"><%= $fr %> / <%= $fg %></a>
+				</div>	 		
+			</div>		
+		</div>
+	  </div>
+	</td>
+	</tr>
+%	$n++;
+%	}
+    </table>
+    <span class="highlight"><br>
+      <span style="white-space: no-wrap; margin: 0 0 0 480px; padding:0; font-size:11px">*) Number of gene/reagents with the same phenotype(s) (unique mapping) </span>
+      <br>
+%    if (scalar (keys %{$nphenos}) > 0) {
+%	if ($ensgid && scalar (keys %{$allgenes}) > 0) {
+	  NB: this reagent maps several genes listed <a href="#many" style="font-weight:bold">below</a>
+%	} elsif ($cnt == 0) {
+	  NB: this is a non-mapping reagent 		
+%	} else {
+	  NB: this reagent maps several genes listed above
+%	}
+%    }
+    </span>
+% } else {
+% 	if ($gsym) {
+	<div align="center"><b>no phenotype was assigned to this reagent</b></div>
+%	} else {
+	<div align="center"><b>no phenotype observed</b></div>
+%	}
+% }
+</fieldset>
+
+% if ($gsym && ($ensgid || $tmpl==1) ) {
+%   my $height=($alltrns < 3) ? $alltrns*50 : ($alltrns < 5 && $alltrns > 2) ? $alltrns*30 : $alltrns*25;
+<div style="width:870px;margin:5px 0 0 0;">
+<fieldset style="height:<%= $height + 75 %>pt;padding:6px;">
+<legend>Alignment information:</legend>
+  <div style="width:860px;height:50px;display:block;">
+	<div style="float:left;width:250px;padding:5px 0 0 5px;"><span class="highlight">Mapping to transcripts of <%= $gsym %>:</span></div>
+	<div style="float:right;width:620px;display:inline;border:">
+<span class="reagent"><span style="font-size:16px;line-height:22px;position:absolute;width:30px;margin-top:-5px;">•</span>&nbsp;&nbsp;&nbsp;</span> for coding transcript,
+	and
+<span class="reagent"> &nbsp;<span style="font-size:16px; margin-top:10px;position:absolute;width:30px;margin-top:-1px;line-height:20px; "> °</span>&nbsp;&nbsp;&nbsp;</span> for non-coding transcript<br>
+regions of reagent's mapping to <span class="exon">exons</span> are coloured with <span class="reagent">dark blue</span> and indicated with <span class="red">red </span><br>
+	</div>
+  </div>
+  <div style="width:860px;height:<%= $height %>pt;margin:0">
+        <div style="width:860px;text-align:center;padding:40px 0 0 0;" id="loading"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+	<div style="width:860px;display:none;" id="trns" ><img src="<%= $relpath %>/transcript/<%= $obj->{rgID} %>:<%= $genome %>:<%= $ge %>" onload="hideLoadingDiv('loading','trns');" style="border: 1px solid #ccc;margin:0"></div>
+  </div>
+</fieldset>
+</div>
+<a name="many"></a>
+<div style="background:#fff; width:100%;">
+%	if ( scalar (keys %{$allgenes}) > 0 ) {
+%		my $height = 20*(scalar (keys %{$allgenes}));
+		<div style="width:850px;padding:40px 0 50px 5px; height:<%= $height %>px; background:#fff">
+		  <P>And there are also <a href="<%= $relpath %>/reagent/<%= $obj->{rgID} %>:<%= $genome %>"><%= scalar ( keys %{$allgenes}) %> genes</a> targeted by this reagent: <P>
+%		my @arr = sort keys %{$allgenes};
+%		foreach (@arr) {
+%			my ($g,$eg) = split(/\|/,$_);
+%			unless ($_ eq @arr[scalar @arr -1]) {
+				<a href="<%= $relpath %>/reagent/<%= $obj->{rgID} %>:<%= $genome %>:<%= $eg %>"><%= $g %></a>,
+%			} else {
+				<a href="<%= $relpath %>/reagent/<%= $obj->{rgID} %>:<%= $genome %>:<%= $eg %>"><%= $g %></a>
+% 			}
+%		}
+		</div>
+%	}
+</div>
+<div style="width:100%;margin:10px 0 0 0;padding:10px 0 0 0;background:#fff">
+<hr size=1 style="color:#ccc;margin: 20px 0 15px 0" width="800px" align="left">
+</div>
+%   }
+% }

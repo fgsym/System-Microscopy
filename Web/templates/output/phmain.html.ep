@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	function hideDiv(d) {
+		document.getElementById(d).style.display = "none";
+	}
+</script>
+% my $showexp = $self->param('study') ? $self->param('study') : "";
+% my $url = (reverse @{$self->req->url->path->parts})[0];
+% my $height = ($StdID && $phenos)? (scalar @{$phenos})*23+90 : (!$StdID && $phenos) ? (scalar @{$phenos})*23+50 : 0;
+<div style="margin:0 0 25px 0; height:<%= $height+10 %>px; padding-top:8px;">
+<div id="phlist" style="width:761px;position:absolute; z-index:10; border-left:1px solid #aaa; border-right:1px solid #aaa; margin: -5px 2px 20px -9px; padding: 0 0px 10px 0;height:<%= $height %>px; border-bottom:2px solid #aaa; background:#d6efdd;">
+% if ($StdID && $phenos) {
+  <div style="float:left;position:absolute;width:610px;display:block;padding: 0 10px 0 0;">
+  <input type="hidden" name="study" value="<%= $StdID %>">
+<%= include 'search/phenofilter', phenotypes=>$phenos, cgenes=>"", choice => "", StdID => $StdID %>
+  </div>
+  <div style="float:right;width:138px;display:inline;margin:0 0 0 5px;">
+<i>Tips:</i><br>
+   <div style="width: 145px; visibility: visible; display: block;">
+<p style="width:120px;">Some phenotypes from the different screens may have the same name, but they cannot be observed in the same time.</p>
+   </div>
+ </div>
+% } else {
+<%= include 'search/phenofilter', phenotypes=>$phenos, cgenes=>"", choice => "", expID => $StdID %>
+% }
+</div>
+</div>

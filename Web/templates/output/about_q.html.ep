@@ -1,0 +1,76 @@
+% layout 'default';
+% title 'About Cellular Phenotype Database';
+<h2>About Cellular Phenotype Database</h2>
+<style>
+p {text-align:left; width:865px}
+</style>
+<p>The Cellular Phenotype database stores data derived from high-throughput phenotypic studies and it is being developed as part of
+the <a href="http://systemsmicroscopy.eu/">Systems Microscopy Network of Excellence project</a>.
+
+<p>The aim of the Cellular Phenotype database is to provide easy access to phenotypic data and facilitate the integration of independent phenotypic studies.
+
+<p>Through its interface, users can <a href="<%= $relpath %>/tutorial#gene_seach">search for a gene</a> of interest, or a collection of genes, and retrieve the loss-of-function phenotypes observed, in human cells, by suppressing the expression of the selected gene(s), through RNA interference (RNAi), across independent phenotypic studies.
+
+<p>Similarly, users can <a href="<%= $relpath %>/tutorial#phenotype_seach">search for a phenotype</a> of interest and retrieve the RNAi reagents that have caused such phenotype and the associated target genes.
+Information about specific RNAi reagents can also be obtained when <a href="<%= $relpath %>/tutorial#reagent_seach">searching for a reagent ID</a>.
+
+<p>Alternatively, users can explore all datasets loaded in the database by <a href="<%= $relpath %>/tutorial#browse_phenotypes">browsing the phenotypes</a> as well as <a href="<%= $relpath %>/tutorial#study_seach">searching studies</a> by keyword.
+<script language="JavaScript">
+<!--
+function ar(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="phenotype"+ar; return ar};
+function subj()   {return "?Subject= * Express query from Cellular Phenotype Database site (about page)"};
+function lnka(){this.location="mailto:"+ar()+subj(); return false};
+function word(){return "Contact us"};
+//-->
+</script>
+<p>If you have any question, please contact us at <a href="mailto:[Contact us]" onclick="return lnka()">phenotype@ebi.ac.uk</a>.
+
+<h4>Funding</h4>
+
+<p>Funding for the Cellular Phenotype Database is provided by the European Union’s Seventh Framework Programme (FP7/2007-2013) under grant agreement number 258068, EU-FP7-Systems Microscopy NoE.
+
+<p>If you ponder to submit your study results to us please read our <a href="<%= $relpath %>/submit">information for submitters</a>.
+You also can put your inquiry, feedback or suggestion in the form below:
+<style>
+.ltitle {width:180px;display:table-cell; vertical-align:top}
+.rvalue {width:250px;display:table-cell; }
+.tbl {width:435px;display:table; padding:3px; margin:2px;}
+.right { text-align:right; padding-right:15px;}
+</style>
+<form name="send" id="submit" method=post>
+<div style="padding-left:40px;">
+  <div class="boxed" style="width:440px;">
+    <div class="tbl"><div class="ltitle">Your name:</div>
+      <div class="rvalue"><input type=text name="name" id="name" size=27><label for="name"></label></div></div>
+    <div class="tbl"><div class=ltitle>Your institution/lab:</div>
+      <div class="rvalue"><input type=text name="inst" id="inst" size=27><label for="inst"></label></div></div>
+    <div class="tbl"><div class=ltitle>Your email: <br><small>(only to contact you, will be hidden)</small></div>
+      <div class="rvalue"><input type=text name="email" id="email" size=27><label for="email"></label></div></div>
+    <div class="tbl"><div class=ltitle>Your message: </div>
+      <div class="rvalue"><textarea name="msg" id="msg" cols=25 rows=5></textarea><label for="msg"></label></div></div>
+    <div class="tbl"><div class=ltitle></div>
+      <div class="rvalue right"> <input type="submit" value="Send form" class="locsubmit" id="m2"></div></div>
+  </div>
+</form>
+  <div style="position:absolute;display:none;margin-top:5px;z-index:20; padding:3px;" id="RNAi" class="boxed_sh">
+    <img src="<%= $relpath %>/imgs/Illustration.jpg" style="padding:0 10px 10px 50px;" >
+  </div>
+<div id="showi">
+<%= include 'output/messages', msgs=>$msgs %>
+
+</div>
+  <div id="phload" style="width:30px; padding:0px 5px 0 710px;position:absolute; display:none">
+      <img src="<%= $relpath %>/imgs/loading.gif" style="margin:0" align="right">
+  </div>
+</div>
+<script>
+	$(function() {
+		   $('#m2').click(function () {
+			var data = $('form').serialize();
+			$.post('<%= $relpath %>/messages', data);
+		    });
+	    $("input:checkbox.delch").each(function () {
+	      $(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } );
+	    });
+	});
+</script>

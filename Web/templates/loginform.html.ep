@@ -1,0 +1,15 @@
+<div id="login-form">
+<div style="width:250px;">
+<form method='POST' action='<%= url_for "auth_login" %>'>
+<br>
+
+<div style="float:right;"><input type="button" value="x" onClick="hideLogin()" class="button"></div>
+<br>
+<a href="/askreg/">Register</a><br>
+<div style="float:left;">Login:  </div><div style="float:right;"><input name="email" type="text" value="" size="20" style="width: 100%;"></div>
+<div style="float:left;">Password: </div><div style="float:right;"><input name="passwd" type="password" value="" size="20" style="width: 100%;"></div>
+<br>
+<div style="float:left;"><a href="/askpass/">Forgot a passsword?</a> </div><div style="float:right;">
+<input type="submit" value="Go" id="loginsubmit" class="button" name="loginsubmit"></div>
+</div>
+</div>

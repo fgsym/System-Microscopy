@@ -1,0 +1,30 @@
+% layout 'default';
+% title 'Phenotypes';
+<script type="text/javascript" src="<%= $relpath %>/src/ajax.js"></script>
+
+<h2>Phenotypes per Gene / dsRNA: <%= $phcnt %></h2>
+<div>
+%   while (my $obj = $crs->next) {
+  <div id="show_<%= $obj->{'_id'} %>" style="float:left; margin: 0 0 0 -40px; position:inherit"></div>
+        <div style="display:inline;height:50px;">Gene / dsRNA count: <a onMouseDown='showInfo("<%= $relpath %>/phenoshow/", this.id)' id='<%= $obj->{"_id"} %>'
+	    style="cursor:pointer">
+		<span style="color:darkgreen">
+<!--<%= $obj->{"ucountgenes"} %> / <%= $obj->{"countreagent"} %> |-->
+<%= $obj->{"bestgenes"} ? $obj->{"bestgenes"} : $obj->{"ucountgenes"} %> / <%= $obj->{"bestreags"} ? $obj->{"bestreags"} : $obj->{"countreagent"}%>
+		</span></a>
+<!--	    phenoprint:  <%= $obj->{"phenoprint"} %>-->
+  <div onMouseDown="hideInfo('<%= $obj->{'_id'} %>')" style="position: relative; float:right; margin: 12px 80px 2px 10px; width:12px; height:14px; display:none; cursor:pointer; z-index:100;font-size:20px;font-weight:bold;color:#888;"
+      id="close_<%= $obj->{'_id'} %>"> × </div>
+  <div id="show<%= $obj->{'_id'} %>" class="showajax"></div>
+  <table style="padding:10px" width="700">
+% my @phenos;
+%	foreach my $p ( @{$obj->{"phenotypes"}} ) {
+%		push (@phenos, ${$p}{phNAME}."|".${$p}{phID} )
+%	}
+%	foreach (sort @phenos) {
+%	   my ($name, $id) = split(/\|/,$_);
+           <tr><td width=500 class="highlight"><%= ucfirst($name) %></td><td width=100><!--<%= $id %>--></td></tr>
+%	}
+  </table></div>
+%      }
+</div>

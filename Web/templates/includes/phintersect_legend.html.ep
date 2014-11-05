@@ -1,0 +1,13 @@
+<div style="line-height:14px;"><b>Legend:</b></div>
+<div style="width:275px;">
+	  <div style="background:url('<%= $relpath %>/imgs/evidence.gif'); background-repeat: repeat-y; width:75px; border:1px solid #aaa; color:#fff; text-align:center;display:table-cell; height: 15px; margin-top:2px;opacity:0.6;filter:alpha(opacity=60);display:table-cell">&nbsp;1 .. 0.5&nbsp;</div>
+	  <div style="padding:3px 0 0 0;display:table-cell; width:190px;">&nbsp;&nbsp;— evidence (reproducibility) </div>
+</div>
+<div style="width:275px;">
+	  <div style=" width:75px; display:table-cell; text-align:right;"><font color="#3F4659" size=2>•</font>&nbsp;</div>
+	  <div style="padding:3px 0 0 2px;display:table-cell; width:190px;">&nbsp;&nbsp;— unique mapping </div>
+</div>
+<div style="width:275px;">
+	  <div style=" width:75px; display:table-cell; text-align:right;"><font color="#3F4659" size=2>×</font></div>
+	  <div style="padding:3px 0 0 2px;display:table-cell; width:190px;">&nbsp;&nbsp;— not unique mapping </div>
+</div>

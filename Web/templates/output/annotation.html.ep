@@ -1,0 +1,22 @@
+% layout 'default';
+% title 'Cellular Phenotype Annotation';
+<h2>Cellular Phenotype Annotation</h2>
+<style>
+p {text-align:left; width:865px}
+</style>
+<p>
+The integration of independent phenotypic studies requires taking the user submitted phenotypic descriptions, which are based on free text, and matching them against ontology terms. Harmonizing and mapping phenotypic descriptions from independent studies to ontologies allows performing flexible queries and more comprehensive searches over the data.
+<br><br>
+This annotation process can be carried out in two ways:
+<ol style="width:800px;">
+	<li style="margin:10px;">Submitters annotate their cellular phenotypes utilizing dedicated software, which is designed to facilitate the annotation of biological phenotypes using ontologies (software currently under development). Such software can be a standalone application that data producers can use to annotate the data while it is being produced or can be integrated in the submission tool utilized to deposit the data in the Cellular Phenotype database; or
+
+	<li style="margin:10px;">Submitters send us their data without ontology annotation and then we map phenotypes original names to existing ontologies at the stage of curation.
+</ol>
+<p>
+
+
+<div style="height:300px">
+<p>
+&nbsp;
+</div>

@@ -1,0 +1,17 @@
+%		my %phash;
+%		my @scrs = @{$scrs};
+%		my @codes = @{$codes};
+%		foreach (0 .. $#codes) { 
+%			my %hash = %{ $codes[$_] };
+%			my %shash = %{ $scrs[$_] };
+%			$phash{ $hash{prName} } = $shash{ $hash{prID} }
+%		}
+%		foreach (sort (keys %phash) ) { 
+%			my $tipcolor = ($phash{$_} <= 1) ? $phash{$_} : $phash{$_}/10;
+% 	my $r = 250-int($tipcolor*100);
+%	my $g = 250-int($tipcolor*50);
+% 	my $b = 150+int($tipcolor*100);
+   		<li type="square" style="line-height:16px;background-color:rgb(<%= $r %>,<%= $g %>,<%= $b %>);margin:2px;padding:1px;opacity:0.6;filter:alpha(opacity=60);">
+      			<div style="display:inline;width:500px;color:black;padding:5px 0 2px 5px;"><div style="float:left;display:inline;width:400px;color:black;"><%= $_ %></div><div style="float:right;width:30px;display:inline;"><%= sprintf("%.2f", $phash{ $_ }) %></div></div></li>
+
+%		}

@@ -1,0 +1,159 @@
+% if (scalar @{$ids} > 0 ) {
+% 	my ($ucntgenes, $ucntreagents, $expr, $uphenos, $phash, $phids, $phtoexp) = Sym::Controller::Phenotypes->phenotypes_by_gene_and_reagent($sids, $ensgid, $ids);
+	% if (scalar @{$uphenos} > 0) {
+<fieldset>
+<legend>Phenotypes observed:</legend>
+	<table width="850" cellspacing="1" cellpadding="2">
+		<tr>
+			<td rowspan=2 width=240> <span class="highlight"><b>Observed phenotypes</b> (<a onMouseOver="javascript:showDiv('pheno-explain')" onMouseOut="javascript:hideDiv('pheno-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>):</span>
+	<div style="position:absolute;display:none;margin-left:50px;margin-top:5px;z-index:20; width:300px;background-color:#fdfdfd;" id="pheno-explain" class="tooltip">
+		These terms represent the phenotypic classes observed following the suppression of the expression of the selected gene across independent screens
+	</div>
+			</td>
+			<td rowspan=2 width=270> <span class="highlight"><b>Assigned ontology terms</b> (<a onMouseOver="javascript:showDiv('ont-explain')" onMouseOut="javascript:hideDiv('ont-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>):</span>
+	<div style="position:absolute;display:none;margin-left:50px;margin-top:5px;z-index:20; width:300px;background-color:#fdfdfd;" id="ont-explain" class="tooltip">
+		These terms represent the cellular phenotype ontology terms assigned to the observed phenotypes
+	</div>
+			</td>
+			<td align=center width=90 rowspan=2 valign=middle><b>Screen</b> (<a onMouseOver="javascript:showDiv('screen-explain')" onMouseOut="javascript:hideDiv('screen-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+	<div style="position:absolute;display:none;margin-left:70px;margin-top:5px;z-index:20; padding:3px;width:300px;text-align:left;background-color:#fdfdfd;" class="tooltip"
+			 id="screen-explain">Screen ID link to additional information available for each study and screen
+	</div></td>
+			<td colspan="<%= scalar @{$ids} %>" align=center><b>Reagent ID</b> (<a onMouseOver="javascript:showDiv('reagent-explain')" onMouseOut="javascript:hideDiv('reagent-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+	<div style="position:absolute;display:none;margin-left:310px;margin-top:5px;z-index:20;padding:3px;width:300px;text-align:left;background-color:#fdfdfd;" class="tooltip"
+			 id="reagent-explain">
+		Each identifier represents a reagent that was used in a particular screen to suppress the expression of its target gene and for which a phenotype has been observed. The reagents listed here uniquely map to their target gene. The reagent ID displayed is the SysMicro internal ID
+	</div></td>
+		</tr>
+	<tr>
+	%	my %sids = %{$sids};
+	%	my %ucntgenes = %{$ucntgenes};
+	%	my %ucntreagents = %{$ucntreagents};
+	%	my %expr = %{$expr};
+	%	my %phash = %{$phash};
+	%	my %phtoexp = %{$phtoexp};
+	%	my %phids = %{$phids};
+	%	my %scr_data = %{$scr_data};
+	% 	my %onts = %{Sym::Controller::Ontologies->get_oterms()};
+	% 	foreach my $id (sort @{$ids}) {
+	%		my ($r,$s) = split(/\#/,$id);
+			<td align="center"><a href="<%= $relpath %>/reagent/<%= $id %>:<%= $genome %>:<%= $ensgid %>"><span style="font-size:11px; font-weight:bold"><u><%= $id %></u></span></a> </td>
+	% 	}
+	</tr>
+	%   my $n=1;
+	%  	foreach my $up (sort @{$uphenos}) {
+		%	my ($name,$phID,$ScrID) = split(/__/,$up);
+		%	my $color = ($n%2 == 1) ? "#f5faff" : "#ffffff";
+		%	my $StdID = substr($phtoexp{$up},0,-2);
+		%   my ($ScrTitle, $ScrType) = split(/__/, $scr_data{ $phtoexp{$up} });
+	<tr style="background-color:<%= $color %>">
+		    <td valign=top style="min-width:200px;padding:3px 0 5px 2px">
+				<span class="highlight"><%= $name %></span>
+			</td>
+		%   my @ont_array = $onts{ $phID."__".$ScrID } ? @{ $onts{ $phID."__".$ScrID } } : ();
+		    <td valign=top style="min-width:200px;padding:3px 0 5px 2px">
+		%	foreach my $oi (@ont_array) {
+		%			my ($OntID,$name,@syns) = split(/__/,$oi);
+		%			$name =~s/phenotype$//gsm;
+					<li class="highlight"><%= ucfirst($name) %>
+		%			if (@syns) {
+		%				map { $_ = ucfirst($_) } @syns;
+						<div style="opacity:0.6;padding-left:10px;">synonyms:
+							<div style="padding-left:20px;">
+		%				my $synstr = join("\n",@syns);
+								<span class="highlight"><pre style="margin:0;padding:0;font-family:arial"><%= $synstr %></pre></span>
+							</div>
+						</div>
+		%			}
+		%	}
+		%	unless (scalar @ont_array>0) {
+			<span class="highlight">: Terms is not assigned</span>
+		%	}
+			</td> 
+		    <td align="center"><a href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $ScrTitle %>: <%= $ScrType %> screen"><%= $phtoexp{$up} %></a></td>
+		% 	foreach my $id (sort @{$ids}) {
+		%		my ($r,$s) = split(/\#/,$id);
+		%		my $show = ""; my $w; my $border;
+		%		foreach ( sort keys %{$phash{ $r }} ) {
+		%			my ($phNAME, $phID, $ScrID, $weight) = split (/__/,$_);
+		% 			my $r = 0;
+		%			my $g = int(100*(1.5-$weight)/$weight);
+		% 			my $b = int($weight*$weight*250*(2-$weight));
+		%			if ( $up eq $phNAME."__".$phID."__".$ScrID) {
+		%				$show = "rgb($r,$g,$b)";
+		%				$w = substr($weight,0,4);
+		%				$border = "border:1px solid #aaa;";
+		%			}
+		%		}
+			<td align="center"><div id="white"
+			    style="background-color:<%= $show %>; width:40px; <%= $border %>; opacity:0.6;filter:alpha(opacity=60);">
+			    <a href="<%= $relpath %>/replica/<%= $id %>:<%= $ScrID %>:<%= $ensgid %>:<%= $gene %>">&nbsp;<%= $w %>&nbsp;</a></div></td>
+		% 	}
+		%   $n++;
+	</tr>		
+	%   }
+	<tr><td align="right" colspan=2 valign=top style="white-space:no-wrap;min-width:420px;">
+			<span class="highlight" style="font-size:11px;">All genes with the same set of phenotypes (number of genes / number of reagents):</span>
+		</td>
+		<td align="right" valign=top style="white-space: no-wrap; min-width:80px;">
+			<div style="font-size:11px; color:#444; line-height:14px;">phenotype view</div>
+			<div style="font-size:11px; color:#777; line-height:14px;">ontology view</div>
+		</td>
+	%	foreach my $id (sort @{$ids}) {
+	%		my @phcluster;
+	%		my %screens;
+	%		my ($r,$s) = split(/\#/,$id);
+	%		foreach ( keys %{$phids{ $r }} ) {
+	%				my ($phID, $ScrID) = split(/__/,$_);
+	%				$screens{$ScrID}++;
+	%				push (@phcluster, $_);
+	%		}
+	%		my $face = (scalar (keys %screens) == 1) ? "true" : "false";
+	%# warn $face;
+	%		my $phenoprint = join("-", @phcluster);
+	%      	   	##################################### ( $ucntreagents{$r} = $withgenes + $nogenes ? );
+	%      	   	##### href to intersect if several ScrID
+			<td align="center">
+				<a href="<%= $relpath %>/search/pheno/<%= $phenoprint %>;ex;<%= $face %>;p"
+				onMouseOver="javascript:showPh('<%= $ScrID %>_<%= $phenoprint %>_p')"
+				onMouseOut="javascript:hidePh('<%= $ScrID %>_<%= $phenoprint %>_p')"><%= $ucntgenes{$r} %> / <%= $ucntreagents{$r} %></a> 
+				<div class="tooltip" id="<%= $ScrID %>_<%= $phenoprint %>_p"><b>Phenotype set for these genes/reagents:</b>
+					<dl>
+		%			foreach (sort keys %{$phash{ $r }} ) {
+		%				my ($phNAME, $phID, $ScrID, $weight) = split (/\__/,$_);
+						<dd>— <%= $phNAME %>
+		%			}
+					</dl>
+				</div>
+				<div style="opacity:0.6;">
+					<a href="<%= $relpath %>/search/pheno/<%= $phenoprint %>;ex;<%= $face %>;o"
+					onMouseOver="javascript:showPh('<%= $ScrID %>_<%= $phenoprint %>_o')"
+					onMouseOut="javascript:hidePh('<%= $ScrID %>_<%= $phenoprint %>_o')"><%= $ucntgenes{$r} %> / <%= $ucntreagents{$r} %></a> 
+				</div>
+				<div class="tooltip" id="<%= $ScrID %>_<%= $phenoprint %>_o"><b>Ontology set for these genes/reagents:</b>
+					<dl>
+		%			foreach (sort keys %{$phash{ $r }} ) {
+		%				my ($phNAME, $phID, $ScrID, $weight) = split (/\__/,$_);
+					%   my @ont_array = $onts{ $phID."__".$ScrID } ? @{ $onts{ $phID."__".$ScrID } } : ();
+					%	foreach my $oi (@ont_array) {
+					%			my ($OntID,$name,@syns) = split(/__/,$oi);
+					%			$name =~s/phenotype$//gsm;
+										<dd>— <%= ucfirst($name) %>
+					%	}
+					%	unless (scalar @ont_array > 0) {
+						<dd>: Terms is not assigned
+					%	}					
+						
+		%			}
+					</dl>
+				</div>				
+			</td>
+	%	}
+	</tr>
+	</table>
+	<div style="margin-top:10px; height:23px; width:235px;">
+	  <div style="background:url('<%= $relpath %>/imgs/evidence.gif'); background-repeat: repeat-y; width:75px; border:1px solid #aaa; color:#fff; text-align:center;float:left; height:14px;margin-top:2px; opacity:0.6;filter:alpha(opacity=60);">&nbsp;1 .. 0.5&nbsp;</div> <div style="padding:3px 0 0 0;display:inline;float:right;">&nbsp;&nbsp;— evidence (reproducibility) </div>
+	</div>
+</fieldset>
+	% }
+% }

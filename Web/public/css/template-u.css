@@ -1,0 +1,227 @@
+.ebiheader{
+	background: #dedede url(http://www.ebi.ac.uk/inc/images/embl_green.gif) repeat top left; 
+	color: #000000;
+	left:0px;
+	top:0px;
+	padding:0px;
+	margin:0px;
+	width:100%;
+	border: 0;
+	clear: both;
+	height:57px;
+}
+
+.headerleft{
+	left:0px;
+	top:0px;
+	position:absolute;	
+	padding:0px;
+	margin:0px;
+	width:126px;
+	height:35px;
+	float:left;
+	border:0px;
+}
+
+.headerleft img{
+	border:0px;
+	width: 120px;
+	height:32px;
+	margin: 0;
+	padding-right: 0; padding-left: 0;
+	padding-top: 2px;
+	padding-bottom: 1px;
+}
+
+.headerright{
+  	position:absolute;
+	left:0px;
+	top:0px;
+	padding:0px;
+	margin:0px;
+	height:35px;
+	right: 0px;
+}
+
+.headermenurow{
+	width: 100%;
+	padding:0px;
+	margin:0px;
+	left: 0px;
+	float: left;
+	position: absolute;	
+	top: 35px;
+	color: #000000; 
+	background: #404040; /* added bg css warn */
+	border: 0;
+	height: 22px;
+	/*background: #404040 url(http://www.ebi.ac.uk/inc/images/menu1.jpg) repeat-x;*/
+	white-space: nowrap;
+}
+
+
+.search{
+	/*float: left;
+	float:right;*/
+	margin-left: 0;
+	pdding:0;
+	vertical-align: top;
+	height: 35px;
+	margin: 6px 0 0 350px;
+	width:auto;
+	/*min-width: 555px;*/
+	/*min-width: 640px;*/
+} 
+
+.headerform{
+	border: 0;
+	margin:0;
+	padding: 0;
+}
+
+.headertextinput {
+	border: 1px solid #a5acb2;
+	color: #cccccc; 
+	background-color: #ffffff; 
+	width:235px; 
+	padding: 2px 0 2px 2px;
+}
+.headertextinput:focus {
+	color: #404040; 
+}
+
+
+.div_headertextinput{
+	position: relative;
+	/*width: 284px;*/
+	width: 235px;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+
+.therightstuff a{ 
+	color: #dedede;
+	background-color: #207a7a;
+	text-decoration: underline;
+	border: 0px;
+	/*padding-left: 9px;*/
+	/*background: url(http://www.ebi.ac.uk/inc/images/headerarrow.gif) no-repeat top left;*/
+	/*font-size: 7pt;*/
+	font-size:1px;
+	white-space: nowrap;
+}
+
+.therightstuff a img{
+	border: 0;
+	padding: 0;
+	margin: 0;
+	width: 94px;
+	height: 13px;
+}
+
+.headertextinput, .search, .icons, .menu, #menubar,  .therightstuff, .headermenurow, .therighticons{
+	font-size: 9pt;
+	font-family: helvetica, "trebuchet MS", arial, sans-serif;
+}
+
+/*
+.therightstuff a:link, .therightstuff a:visited{
+	text-decoration: none;
+	color: #deebeb;
+	background-color: #207a7a;
+}
+
+.therightstuff a:active, .therightstuff a:hover{
+	text-decoration: underline;
+	color: #a1c7c7;
+	background-color: #207a7a;
+}
+*/
+
+.therighticons{
+	position: absolute;
+	top: 35px;
+	padding:0px;
+	margin-left:0px; 
+	margin-right:0px;
+	float: right;
+	height: 15px;
+	left: 666px;
+	white-space: nowrap;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	width: 100px;
+	text-align: right; 
+}
+
+.therighticons img.rssicon{
+	border: 0;
+	width: 22px;
+	height: 16px;
+}
+
+.therighticons img.print{
+	border: 0;
+	width: 16px;
+	height: 19px;
+}
+
+.therighticons img.sitemap{
+	border: 0;
+	width: 45px;
+	height: 19px;
+}
+
+.therighticons a{
+	border: 0;
+}
+
+/* HEADER Customisations - Francis Rowland, March 2011 */
+div#search form input.headertextinput {
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border-color: #134d4d #50b3b3 #50b3b3 #134d4d;
+	padding:3px;
+}
+
+div#search form input#FormsButton3 {
+	background: none repeat scroll 0 0 #72B55F;
+    color: #FFFFFF;
+	margin:0 10px;
+	font-size:12px;
+    padding:2px 4px;	
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;	
+    border: 1px solid #134d4d;
+	border-color:#0a4f4f #333 #333 #0a4f4f;
+	text-align:center;
+	width:auto;
+}
+
+div#search form input#FormsButton3:hover { background-color:#54bdbd; }
+
+div#search form span {
+	margin:0 10px 0 20px;	
+}
+
+div#search form span a:link,
+div#search form span a:visited {
+	color:#e7e7e7;
+	text-decoration:none;
+}
+
+div#search form span a:hover,
+div#search form span a:focus,
+div#search form span a:active {
+	text-decoration: underline;
+	color:#fff;	
+}
+
+
+/* END HEADER */

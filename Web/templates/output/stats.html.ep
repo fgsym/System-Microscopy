@@ -1,0 +1,93 @@
+% layout 'default';
+% title 'Statistics :: Cellular Phenotype Database';
+ <script type="text/javascript">
+	function hideLoadingDiv(d,s) {
+		document.getElementById(d).style.display = "none";
+		document.getElementById(s).style.display = "block";
+	}
+</script>
+<h3>Cellular Phenotype Database Statistics, release 0.2.1</h3>
+<style>
+.ltitle {width:250px;display:table-cell;}
+.rvalue {width:50px;display:table-cell; text-align:right}
+.tbl {width:370px;display:table; padding:3px; margin:2px;}
+.alter{background:#f5faff}
+</style>
+<div style="padding-left:40px;">
+  <div class="boxed" style="width:380px;">
+    <div class="tbl"><div class=ltitle>Regents sequences are mapped to Ensemble release: </div><div class="rvalue highlight"><%= $obj->{release} %></div></div>	  
+    <div class="tbl alter"><div class=ltitle>Total number of reagents: </div><div class="rvalue highlight"><%= $obj->{total} %></div></div>
+    <div class="tbl"><div class=ltitle>Uniquely mapping reagents: </div><div class="rvalue highlight"><%= $obj->{uniquemaps} %></div></div>
+    <div class="tbl alter"><div class=ltitle>Mapping reagents (verified) <sup>*</sup>:</div><div class="rvalue highlight"><%= $obj->{verified} %></div></div>
+    <div class="tbl"><div class="ltitle">Studies loaded: </div><div class="rvalue highlight"><%= $obj->{studies} %></div></div>
+  </div>
+  <br><b class="highlight">Genomes: </b>
+  <br><br>
+  <div style="padding-left:30px;">
+% foreach my $g ( @{$obj->{genomes}} ) {
+	<u class="highlight"><%= $g->{name} %>:</u>
+	  <div class="boxed" style="width:380px;">	
+		<div class="tbl alter"><div class=ltitle>Aligner: </div><div class="rvalue highlight"><%= $g->{aligner} %></div></div>
+		<div class="tbl"><div class=ltitle>Total number of reagents: </div><div class="rvalue highlight"><%= $g->{total} %></div></div>		
+		<div class="tbl alter"><div class="ltitle">Uniquely mapping reagents: </div><div class="rvalue highlight"><%= $g->{uniquemaps} %></div></div>
+		<div class="tbl"><div class=ltitle>Uniquely mapped genes with phenotypes: </div><div class="rvalue highlight"><%= $g->{genes_u_phenotyped} %></div></div>
+		<div class="tbl alter"><div class=ltitle>All mapped genes with phenotypes: </div><div class="rvalue highlight"><%= $g->{all_genes_phenotyped} %></div></div>
+	  </div><br>
+% }      
+  </div>
+</div>
+
+<div style="width:700px;display:table; ">
+  <div style="display:table-cell;width:10px;"><sup style="font-size:14px">*</sup></div>
+  <div style="display:table-cell;width:650px;">This includes all reagents for which sequences are available. 
+  Mapping statistics do not cover some Dharmacon reagents, for which sequences are not available.
+  </div>
+</div>
+
+<div style="width:870px;padding-top:10px;">
+  <div style="margin:15px;width:250px;display:table-cell;height:200px;">
+	<div style="margin:5px;padding:5px;font-size:11px" class="boxed_sh">
+	  <span class="highlight">Reagents to gene mapping — number of mapped genes <u>less than 20</u></span>:
+	  <a onClick="javascript:showDiv('less')" style="cursor:pointer;color:darkblue">
+	    <img src="<%= $relpath %>/imgs/statmapping_less_sm.png">
+	  <center>click to see the bigger image</center></a>
+	</div>
+  </div>
+  <div style="margin:15px;width:250px;display:table-cell;height:200px;">
+	<div style="margin:5px;padding:5px;font-size:11px" class="boxed_sh">
+	  <span class="highlight">Reagents to gene mapping — number of mapped genes more than 20:</span>
+	  <a onClick="javascript:showDiv('more')" style="cursor:pointer;color:darkblue">
+	    <img src="<%= $relpath %>/imgs/statmapping_more_sm.png">
+	  <center>click to see the bigger image</center></a>
+	</div>
+  </div>
+  <div style="margin:15px;width:250px;display:table-cell;height:200px;">
+	<div style="margin:5px;padding:5px;font-size:11px;" class="boxed_sh">
+	  <span class="highlight">Reagents to gene mapping — common view:</span><br><br>
+	  <a onClick="javascript:showDiv('full')" style="cursor:pointer;color:darkblue">
+	  <img src="<%= $relpath %>/imgs/statmapping_full_sm.png">
+	  <center>click to see the bigger image</center></a>
+	</div>
+  </div>
+</div>
+
+  <div style="width:700px;display:none; position:absolute; top:250px; left:200px;z-index:500;margin:5px;padding:5px;" id="less" class="boxed_sh">
+    <div style="display:inline;float:right; margin-top:-2px;"><a id = "ogif" onClick = "switchElSwitchImg('less', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a></div>
+	  <center><span class="highlight">Reagents to gene mapping — number of mapped genes <u>less than 20</u>:</span></center>
+        <div style="text-align:center;padding:40px 0 0 0;height:390px" id="loading_less"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+	<div style="display:none;" id="less_b" ><img src="<%= $relpath %>/imgs/statmapping_less.png" style="margin-left:5px;" onload="hideLoadingDiv('loading_less','less_b');"></div>
+  </div>
+
+  <div style="width:700px;display:none; position:absolute; top:250px; left:200px;z-index:500;margin:5px;padding:5px;" id="more" class="boxed_sh">
+    <div style="display:inline;float:right; margin-top:-2px;"><a id = "ogif" onClick = "switchElSwitchImg('more', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a></div>
+	  <center><span class="highlight">Reagents to gene mapping — number of mapped genes more than 20:</span></center>
+        <div style="text-align:center;padding:40px 0 0 0;height:390px" id="loading_more"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+	<div style="display:none;" id="more_b" ><img src="<%= $relpath %>/imgs/statmapping_more.png" style="margin-left:5px;" onload="hideLoadingDiv('loading_more','more_b');"></div>
+  </div>
+  <div style="width:700px;display:none; position:absolute; top:250px; left:200px;z-index:500;margin:5px;padding:5px;" id="full" class="boxed_sh">
+    <div style="display:inline;float:right; margin-top:-2px;"><a id = "ogif" onClick = "switchElSwitchImg('full', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a></div>
+	  <center><span class="highlight">Reagents to gene mapping — common view:</span></center><br><br>
+        <div style="text-align:center;padding:40px 0 0 0;height:390px" id="loading_full"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+	<div style="display:none;" id="full_b" ><img src="<%= $relpath %>/imgs/statmapping_full.png" style="margin-left:5px;" onload="hideLoadingDiv('loading_full','full_b');"></div>
+  </div>
+

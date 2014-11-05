@@ -1,0 +1,130 @@
+% layout 'default';
+% title 'Replica Data :: Cellular Phenotype Database';
+% my $StdID = substr($ScrID,0,-2);
+% my %mkeys = $mkeys ? %{$mkeys} : ();
+% if (scalar (keys %mkeys) > 0) {
+% 	my %ScrPhRules = %{$ScrPhRules};
+<style>
+.title {float:left; width:150px;padding:2px;}
+.tvalue {float:right;width:600px;padding:2px;}
+</style>
+<h3>Measurements for <%= $rgID %></h3>
+<div class="boxed" style="display:table-cell; width:865px">
+  <div style="display:table; ">
+    <div class=title>Screen: </div>
+    <div class=tvalue><span class="highlight"><b><%= $ScrID %></b> (<%= $ScrType %>)</span> </div>
+  </div>
+  <div style="display:table; ">
+    <div class=title>Study: </div>
+    <div class=tvalue><b><a href="<%= $relpath %>/study/<%= $StdID %>"><%= $StdTitle %></a></b></div>
+  </div>
+  <div style="display:table; ">
+    <div class=title>Reagent: </div>
+    <div class=tvalue><a href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $genome %>:<%= $ensgid %>"><%= $rgID %></a></div>
+  </div>
+  <div style="display:table; ">
+    <div class=title>Gene mapped: </div>
+    <div class=tvalue><a href="<%= $relpath %>/gene/<%= $genome %>:<%= $ensgid %>"><%= uc($symbol) %></a></div>
+  </div>
+
+  <div style="display:table; ">
+  <div class=title>Screen scoring method: </div>
+  <div class=tvalue> <%= $ScrScMethod %> </div>
+  </div>
+
+  <div style="padding:2px;">Replicas:</div>
+  % my $r =1;
+  % my %common_printseen;
+  % my %vals;
+  % my @all = @{$all};
+  % foreach my $obj (@all) {
+  %		%common_printseen = %{$obj->{printseen}};
+  %		$vals{$obj} = $obj;
+  % }
+  <table cellspacing="1" cellpadding="5" style="margin:10px;background:#efefef">
+  <tr style="background:#DAE4F5">
+  	<td valign=top>№</td>
+  	<td valign=top style="min-width:200px;">Phenotypes</td>
+  %	foreach (sort keys %mkeys) {
+  %		if (($common_printseen{$_} || $common_printseen{$_}==0) && $_) {
+  				<td valign=top><%= $_ %></td>
+  %		}
+  %	}
+  </tr>
+  % foreach my $obj (@all) {
+  %		my %printseen = %{$obj->{printseen}};
+  %		my @phenoseen = @{$obj->{phenoseen}};
+  %		my $color = ($r%2 == 0)	? "#fff" : "#eaf0f9";
+  %		my @sorted_ph;
+  %   	my @rules;
+  %   	map {
+  %			push @sorted_ph, ${$_}{phNAME}."__".${$_}{phID};
+  %			push @rules, $ScrPhRules{ ${$_}{phNAME} };
+  %		} @phenoseen;
+  <tr style="background:<%= $color %>;">
+  	<td valign=top><%= $r %></td>
+  	<td style="padding: 3px 20px 3px 0">
+	<ul class="highlight" style="padding-left:14px; margin:0" nowrap>
+   %	foreach my $ph (sort @sorted_ph)	{
+   %		my ($phNAME,$phID) = split(/__/,$ph);
+  	%	   my $font = ($phID == 0) ? "normal" : "bold";
+		<li style="font-weight:<%= $font %>;"><%= $phNAME %>
+	% }
+	</ul></td>
+  %	foreach (sort keys %printseen)	{
+  %		my %colors;
+  %		foreach my $rule (@rules) {
+
+  %# gfp_g>=2.5||gfp_g_s>=2.5||gfp_c>=2.5
+  %			(my $expr = $rule) =~ s/([a-zA-Z]\w*)/$printseen{$_}/g;
+  %          $expr =~s/(^\s|\s$)//gsm;
+  %          $expr =~s/or/\|\|/gsm;
+  %          $expr =~s/and/\&\&/gsm;
+  %          $expr =~s/(\w+)\=/$1\=\=/gsm;
+  %			if ($rule =~/$_/) {
+  %				$colors{$_} = "";
+  %				$colors{$_} = "#FDFDBE" if (eval $expr);
+  %			}
+  % 		}
+  %		my $v = substr($printseen{$_},0,6);
+   		<td style="background:<%= $colors{$_} %>"> <%= $v %></td>
+  %	}
+  </tr>
+  %	$r++;
+  % }
+  </table>
+  % warn scalar keys %ScrPhRules;
+  %  if (scalar keys %ScrPhRules) {
+  <div style="display:table; ">
+   <div class=title>Parameters/Rules: </div>
+   <div class=tvalue>
+   	<table cellspacing="1" cellpadding="2">
+   %  my $norule;
+	%	foreach (sort keys %ScrPhRules)	{
+	%			my $rule = $ScrPhRules {$_};
+	%			if ($rule) {
+			<tr><td nowrap class="highlight" style="padding-right:10px"><%= $_ %>:</td>
+   %			$rule =~s/([a-zA-Z]\w*)(\D+|\W+)/$1\#$2/gsm;
+   %			$rule =~s/([0-9]|\.|\d*)(\&\&|\|\|)([a-zA-Z]\w*)/$1\#$2\#$3/gsm;
+   %			my @ar = split(/\#/,$rule);
+   %				foreach (@ar) {
+					<td><%= $_ %></td>
+	%				}
+	%			}
+	%		$norule=1 unless $rule;
+			</tr>
+	% }
+	% if ($norule) {
+	%		foreach (sort keys %mkeys) {
+					<tr><td nowrap class="highlight" style="padding-right:10px"><%= $mkeys{$_} %></td><td><%= $_ %></td></tr>
+	%		}
+		<td colspan=2><br>— phenotypes are defined directly in the study's spreadsheet</td>
+	% }
+		</table>
+   </div>
+  </div>
+  % }
+</div>
+% } else {
+  check the url !
+% }

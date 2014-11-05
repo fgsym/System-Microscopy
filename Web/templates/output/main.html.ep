@@ -1,0 +1,73 @@
+% layout 'default';
+% title 'Cellular Phenotype Database';
+	<style>
+	.mainnav { padding: 7px 4px 7px 4px; font-weight:bold; white-space:nowrap}
+	.chr td.txt {width:100px;}
+	.chr td.num {width:25px;}	
+	.chr td {font-size:11px; padding:1px;white-space:nowrap;}
+	.chr tr.title {background:#E8F0F5; font-weight:bold; color:#3966a2}
+	fieldset.nav {
+	  border:1px solid #7398c6; margin:10px 0 0 0; -moz-border-radius: 7px;-khtml-border-radius: 7px; -webkit-border-radius: 7px; border-radius: 7px;
+	}	
+	</style>
+<div style="width:870px; display:table; margin:15px 0 15px 0; font-weight:bold;font-family:monospace; font-size:13px;">
+The Cellular Phenotype database provides easy access to phenotypic data derived from high-throughput screening, facilitating data sharing and integration.
+</div>
+<div style="width:880px; display:table; margin:0 0 50px 0; padding:15px 0 0 -20px;">
+	<div style="display:table-cell;width:280px;">
+		<fieldset style="height:180px;width:250px;padding-top:10px;" class=nav>
+			<legend>Getting started:</legend>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/gene.png" style="margin-right:8px;"><a href="<%= $relpath %>/tutorial#gene_search">Gene search</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/reagent.png" style="margin-right:8px;"><a href="<%= $relpath %>/tutorial#reagent_search">Reagent search</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/phenotypes.png" style="margin-right:8px;"><a href="<%= $relpath %>/tutorial#phenotype_search">Phenotype search</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/study.png" style="margin-right:8px;"><a href="<%= $relpath %>/tutorial#study_search">Study search</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/browse.png" style="margin-right:8px;"><a href="<%= $relpath %>/tutorial#browse_phenotypes">Browse phenotypes</a></div>
+		</fieldset>
+	</div>
+	<div style="display:table-cell;width:280px;">
+		<fieldset style="height:180px;width:250px;padding-top:10px;" class=nav>
+			<legend>Submit your data:</legend>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/submit.png" style="margin-right:8px;"><a href="<%= $relpath %>/submit/">How to submit to us</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/template.png" style="margin-right:8px;"><a href="<%= $relpath %>/submit#examples">Submission examples</a></div>
+				<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/annotation.png" style="margin-right:8px;"><a href="<%= $relpath %>/annotation/">Cellular phenotype annotation</a></div>
+<script language="JavaScript">
+<!--
+function ar(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="jes"+ar; return ar};
+function cr(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="ugis"+ar; return ar};
+function subj()   {return "?Subject= * Express query from Cellular Phenotype Database site&cc:ugis@ebi.ac.uk"};
+function lnka(){this.location="mailto:"+ar()+","+cr()+subj(); return false};
+function word(){return "Contact us"};
+//-->
+</script>
+			<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/contact.png" style="margin-right:8px;"><a href="mailto:[Contact us]" onclick="return lnka()">Contact us</a></div>
+
+		</fieldset>
+	</div>
+	<div style="display:table-cell;width:300px;">
+		<fieldset style="height:180px;width:281px;padding-top:10px;" class=nav>
+			<legend>Latest release:</legend>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/about.png" style="margin-right:8px;"><a href="<%= $relpath %>/about">About the project</a></div>
+	    		<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/statistics.png" style="margin-right:8px;"><a href="<%= $relpath %>/stats">Database statistics</a></div>
+				<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/genebrowse.png" style="margin-right:8px;"><a href="<%= $relpath %>/genebrowse">Gene browsing by mapping frequency</a></div>
+				<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/download.png" style="margin-right:8px;"><a href="<%= $relpath %>/download">Download</a></div>
+				<div class="mainnav"><img src="<%= $relpath %>/imgs/icons/team.png" style="margin-right:8px;"><a href="<%= $relpath %>/about#authors">Authors</a></div>				
+		</fieldset>
+	</div>
+</div>
+<div style="margin:10px 0 0 450px; width:440px;">
+<b class="highlight">Data load chronicle:</b><p>
+<table class=chr>
+	<tr class=title><td class=num>№</td><td class=txt>Month, Year</td><td class=txt>Study type</td><td class=txt>Study name</td></tr>
+	<tr><td>1</td><td>05, 2011</td><td>RNAi</td><td>Mitocheck</td></tr>
+	<tr style="background:#EAF0F9"><td>2</td><td>06, 2011</td><td>RNAi</td><td>Cellmorph</td></tr>
+	<tr><td>3</td><td>11, 2011</td><td>RNAi</td><td>PP2A-B55α</td></tr>
+	<tr style="background:#EAF0F9"><td>4</td><td>08, 2012</td><td>RNAi</td><td>EMBL_secretion_screen</td></tr>
+	<tr><td>5</td><td>08, 2012</td><td>RNAi</td><td>GFP-RNF168</td></tr>
+	<tr style="background:#EAF0F9"><td>6</td><td>09, 2012</td><td>RNAi</td><td>CGSR_DNA_damage</td></tr>
+	<tr><td>7</td><td>10, 2012</td><td>RNAi</td><td>BZH_SH4-mCherry-GFP</td></tr>
+	<tr style="background:#EAF0F9"><td>8</td><td>02, 2013</td><td>RNAi</td><td>NF-kB oscillation screen</td></tr>
+	<tr><td>9</td><td>10, 2013</td><td>RNAi</td><td>Phagokinetic track</td></tr>
+	<tr style="background:#EAF0F9"><td>10</td><td>11, 2013</td><td>RNAi</td><td>JCB Metazoan actinome</td></tr>
+</table>
+<div align="right" style="font-size:11px; margin:15px 0 0 0">see also <a href="<%= $relpath %>/stats">database statistics</a></div>
+</div>

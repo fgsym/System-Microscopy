@@ -1,0 +1,52 @@
+% layout 'default';
+% title 'Gene/Phenotype search result page';
+<script type="text/javascript" src="<%= $relpath %>/src/ajax.js"></script>
+<style>
+td {border-bottom:1px solid lightgrey;padding: 5px 5px 5px 5px}
+</style>
+<h3>Gene page</h3>
+<div style="width:800px; height:100px;">
+<%= include 'search/searchgene_form', phenotypes=>$phenotypes, ephID=>$ephID, choice=>$choice, expID=>$expID, stype=>$stype, phIDs=>$phIDs %>
+</div>
+% if ($stype eq "gn") {
+	<%= include 'search/resgene', crs => $crs, gene => $q, hcrs => $hcrs %>
+% } elsif ($stype eq "ph" && $crs ne "") {
+%		my $feature = ($expID == 1) ? "more ... less" : "effect diversity";
+	<div style="padding: 10px 0 10px 24px; font-size:10pt; width:850px; height:40px; display:block; ">
+		<div style="padding: 10px 0 10px 24px; font-size:10pt; width:500px;float:left;">
+			<div style="float:left;width:150px;font-weight:bold;color:#555;">Experiment:</div> <div style="float:rigth;width:350px;display:inline;font-weight:bold; color:#007137;"><%= $exptitle %></div><br>
+			<div style="float:left;width:150px;font-weight:bold;color:#555;">Measuring:</div> <div style="float:rigth;width:350px;display:inline;">phenotypes <span class="highlight"><%= $expmeasuring %></span></div>
+		</div>
+		<div style="width:120px; margin:-24px 290px 0 0; background-image:url('<%= $relpath %>/css/gradient.gif');opacity:0.6;filter:alpha(opacity=60);text-align:left;white-space:nowrap;display:inline;background-repeat: repeat-y;float:right;">
+				<small class="highlight"> &nbsp; ( <%= $feature %> ) &nbsp; </small>
+		</div>
+	</div>
+<br>
+	<!-- If reagent target no transcripts, it's shown, but no SysMicro ID assigned to it<br> -->
+% 		my @phIDs = @{$phIDs};
+<div style="display:block; width:860px; height:25px;">
+		<div style="float:left; display:inline; width:210px;">Grouping by phenotypes: <INPUT type="checkbox" name="face" id="ajax-face">
+			<div id="phload" style="width:20px; height:25px; display:inline; padding:0 5px 0 5px;">
+				<img src="<%= $relpath %>/imgs/loading.gif" style="margin:0 10px 0 10px" align="right">
+			</div>
+		</div>
+		<div style="float:right;display:inline;width:600px;white-space:nowrap;"><INPUT type="hidden" name="pheno" value="<%= $phenoprint %>" id="ajax-pheno">
+			<INPUT type="hidden" name="experiment" value="<%= $expID %>" id="ajax-exp">
+% 	if ($expID == 1) {
+		Show results, calculated with low evidence too: 
+			<INPUT type="checkbox" name="extend" id="ajax-reload">
+% 	}
+		</div>
+</div>
+	<div id="phenoload" style="width:800px; position:absolute; display:block; padding-bottom:150px;">
+		<%= include 'output/phenoAshow', crs => $crs, phIDs=>$phIDs, extend=>$extend %>
+	</div>
+% } elsif ($stype eq "re") {
+%      	my $obj = $crs->next;
+%	my $rgID = $obj->{rgID};
+%	if ($obj->{rgID}) {
+%		my ($phenos, $darray, $ensgid) = Sym::Controller::Search->reagent_by_id($obj->{rgID},1);
+%		$crs = $ENV{Reags}->find({"rgID" => $obj->{rgID}}); 
+		<%= include 'search/reagent', id => $obj->{rgID}, crs => $crs, ensgid => $ensgid, phenos => $phenos, darray => $darray, tmpl=>1 %>
+%	}
+% }

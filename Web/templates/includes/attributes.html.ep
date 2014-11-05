@@ -1,0 +1,143 @@
+<h4>Gene attribute search result</h4>
+
+% my $terms = ($self->param('aterms') eq "on") ? "p" : "o";
+% my ($attrs, $fullattrs, $phenotypes, $allphenos, $onts) = Sym::Controller::Genes->attributes($crs, $attr, $terms);
+% if ($terms eq "p") {
+	<h5 id="at">Phenotype terms view — <a href="<%= $relpath %>/search/result?goon=<%= $attr %>&aterms=off">switch to ontology view</a></h5>
+% } else {
+	<h5 id="at">Ontology terms view — <a href="<%= $relpath %>/search/result?goon=<%= $attr %>&aterms=on">switch to phenotype view</a></h5>
+% }
+
+<%= include 'includes/phintersect_legend' %>
+
+% my %scr_data = %{$scr_data};
+% my %attrs = %{$attrs};
+% my %onts = %{$onts};
+% my %fullattrs= %{$fullattrs};
+% my %allphenos = %{$allphenos};
+% my %phenotypes = %{$phenotypes};
+% my $current = $self->param("page") ? $self->param("page") : 1;
+		<map name="map">
+%		my @phAll; my $k=0;
+%		foreach my $n (sort keys %{$allphenos}) {
+%			my ($name, $ScrID)	= split(/\__/,$n);
+%			push (@phAll,$allphenos{$n});
+%			my ($c1,$c2,$c3,$c4) = (100+$k*26,15+$k*26,1+$k*26,80+$k*26);
+			<area shape="poly" coords="<%= $c1 %>,7,<%= $c2 %>,95,<%= $c3 %>,85,<%= $c4 %>,7" alt="<%= $name %>" title="<%= ucfirst($name) %>" href="#" />
+%			$k++;
+%		}
+		</map>
+% my $phenoprint = join("-",@phAll);
+
+<style>
+.ahighlight { background-color: #BDF0C7; }
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#highlight-plugin').removeHighlight().ahighlight('<%= $attr %>');
+  });
+</script>
+<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:_:<%= $terms %>" height="0" width="0" border="0" id="preload">
+<b><span class="exon" style="font-size:13px;"><%= $allgenes %></span> genes found for <span class="exon"><%= $attr %></span></b>:
+% my $skip = $self->param('skip') ? $self->param('skip') : 0;
+<form><INPUT type="hidden" name="attr" value="<%= $attr %>"></form>
+% if ($allgenes > 0) {
+% 	my $width = 25*(scalar (keys %allphenos)) + 390;
+<div class="boxed" style="display:table;margin-left:40px;">
+<table cellspacing="0" cellpadding="0" id="highlight-plugin" style="background:#fcfcfc;"><thead height="95" style="height:95px;">
+	<tr width="100%" height="95">
+		<th height="95"><div style="width:120px;">Gene</div></th>
+		<th width="120" height="95"><div style="width:120px;">Internal ID</div></th>
+		<th class="noth" height="95">
+		<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:_:<%= $terms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left"></th></tr>
+	</thead>
+	<tbody onLoad="javascript:void($('#highlight-plugin').removeHighlight().ahighlight('<%= $attr %>'));">
+	<tr style="border-bottom:1px solid #ddd;border-top:1px solid #ddd">
+<td colspan=2 style="padding-right:10px;font-weight:bold;background-color:#DDFFDD;border-bottom:1px solid #ddd;border-top:1px solid #ddd;" align="right">Study:</td><td colspan="2" style="margin:0; padding:0; height:100%;">
+		<table cellspacing="0" cellpadding="0"><tr>
+%	foreach my $p (sort (keys %allphenos)) {
+%		my ($phID,$ScrID) = split(/\__/, $allphenos{$p});
+%		my $StdID = substr($ScrID,0,-2);
+%		my $code = substr($StdID,0,-4);
+%		my $StdTitle = $scr_data{$ScrID};
+		<td width="25" style="border-right:1px solid #ddd;border-bottom:1px solid #ddd;border-top:1px solid #ddd; background-color:#DDFFDD" align="center"><a
+					href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>"><%= $code %></a></td>
+%	}
+		<td></td></tr></table>
+	</td></tr>
+%	my $n = $skip;
+%	foreach my $ge (sort keys %attrs) {
+%		$n++;
+%		my ($symbol, $ensgid) = split(/\|/, $ge);
+%		my $color = ($n%2 == 1) ? "#f5faff" : "#ffffff";
+%		my %phenos = %{$phenotypes{$ensgid}};
+		<tr style="background-color:<%= $color %>;"><td valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" id="hint" class="sorts" style="padding-top:3px;background-color:<%= $color %>;border-bottom:1px solid #ddd;">
+			<div style="width:25px;float:left;text-align:right;padding: 0 4px 0 4px;"><%= $n %>.</div>
+			<a href="<%= $relpath %>/gene/<%=$genome %>:<%= $ensgid %>" style="padding: 3px 0 0 0;"><%= $symbol %></a>
+		<div class=boxed_sh style="position:absolute;display:none;margin-left:80px;margin-top:-15px;z-index:10;width:600px;" id="go_<%= $ensgid %>">
+%		my %sets;
+%		map { $sets{ substr($attrs{$ge}{$_},0,-2) } .= $_.", " } (sort keys %{$attrs{$ge}} );
+%		my %fullsets;
+%		map { $fullsets { substr($fullattrs{$ge}{$_},0,-2) } .= $_.", " } (sort keys %{$fullattrs{$ge}} );
+% 		foreach my $trs (keys %fullsets) {
+<dl style="margin:0 0 0 0; padding: 0 0 0 0;"><dt><span style="color:#3F5946;white-space:normal;"><%= $trs %></span>:</dt>
+	<dd style="padding: 0 0 0 20px;margin:0;"><span style="width:550px;white-space:normal;"><%= substr($fullsets{$trs},0,-2) %></span></dd></dl>
+% 		}
+		</div></td>
+		<td colspan="2" style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd">
+			<table cellspacing="0" cellpadding="0" class="nosort" height="100%">
+%			my $top = $color;
+%			foreach my $re (sort keys %phenos) {
+%				my ($rgID,$goodmatch) = split(/__/,$re);
+%				$goodmatch = $goodmatch ? "•" : "×";
+%				my %phdata;
+%				my %goodmatch;
+%				foreach my $d ( @{ $phenos{$re} } ) {
+%					foreach my $ph (@ { $d->{phenotypes} } ) {
+%						my $weight = $ph->{phWEIGHT};
+% 						my $r = 0;
+%						my $g = int(100*(1.5-$weight)/$weight);
+% 						my $b = int($weight*$weight*250*(2-$weight));
+%						my $name;
+%						$weight = substr($weight,0,4);
+%						if ($terms eq "p") {
+%							$name = $ph->{phNAME};                    
+%						} else {
+%							$name = Sym::Controller::Service->ontname($ph->{phID}, $ph->{ScrID}, \%onts);
+%						}
+% # need $ph->{ScrID}."__".$ph->{phID}  because ontology term can merge phenotypes
+%						$phdata{ $name."__".$ph->{ScrID}."__".$ph->{phID} } = "$r,$g,$b"."__".$weight;
+% warn $name."__".$ph->{ScrID}." .... $terms" if ($name =~/creas/ && $ph->{ScrID} =~/B1/ && $symbol eq "BRAF");
+
+%					}
+%				}
+				<tr><td width="113" style="background-color:<%= $color %>;border-right:1px solid #ccc;padding:3px;border-top:1px solid <%= $top %>;white-space:nowrap;">
+				  <font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;<a
+				href="<%= $relpath %>/reagent/<%= $rgID %>:<%=$genome %>:<%= $ensgid %>"><%= $rgID %></a></td>
+%					my $width = 25;
+%					foreach my $name (sort keys %allphenos) {
+%						my ($phname, $phID, $ScrID) =  split(/__/, $name );
+% warn $phname."__".$ScrID if ($name =~/creas/ && $ScrID =~/B1/ && $symbol eq "BRAF");
+%						$phname = $phname."__".$ScrID."__".$phID;
+%						my ($rgb,$weight) = split(/__/,$phdata{ $phname }) if $phdata{ $phname };
+%						my $have = $rgb ? "rgb(".$rgb.")" : $color;
+						<td width="25"
+style="background-color:<%= $color %>; border-right:1px solid #ccc; border-top:1px solid <%= $top %>;margin:1px;" align="center">
+						  <div id=white
+      style="padding:3px 7px 0 0;font-size:80%; background-color:<%= $have %>;height:16px;width:17px;color:#fff;opacity:0.6;filter:alpha(opacity=60);">
+		<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>">&nbsp;<%= $weight %></a>
+						  </div>
+						</td>
+%					}
+%				$top = "#ccc";
+				<td style="width:98px; background:#fcfcfc;">&nbsp;</td></tr>
+%			}
+			</table>
+		</td></tr>
+%	}
+</tbody>
+</table>
+% }
+% my $np = ($allgenes - $allgenes % 50)/50 + 1;
+<%= include 'includes/pagination', skip => $skip, np => $np, attr => $attr, search => "goon", stype=> "go" %>
+</div>

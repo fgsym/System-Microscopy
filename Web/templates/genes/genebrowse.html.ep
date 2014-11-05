@@ -1,0 +1,113 @@
+% layout 'default';
+% title 'Cellular Phenotype Database: Genes by mapping frequency';
+<h3>Genes by Mapping Reagents frequency</h3>
+<div style="display:table;margin-left:40px;width:580px;">
+
+% if ($obj =~/ARRAY/) {
+%	my @genes = @{$obj};
+%	my $nav = scalar (@genes) > 50 ? 0 : 1;
+<div class="highlight" style="display:table-cell;width:580px;">
+	Mapping frequency: <b><span class="exon" style="font-size:13px;"><%= $matches %></b><br>
+	Genes found: <b><span class="exon" style="font-size:13px;"><%= scalar (@genes) %></span></b>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+	var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+	var oTable = $('.dataTable').dataTable( {
+	    "bRetrieve": true,
+	    "bProcessing": true,
+	    "bDestroy": true,
+	    "sDom":  nav,
+// 	    "sPaginationType": "full_numbers",
+	    "aoColumnDefs": [
+	      { "bSortable": false, "aTargets": [ 0 ] },	    
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 1 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 2 ] },
+	    ],
+	    "aaSorting": [[1,'asc']],
+	    "iDisplayLength": 50,
+	    "aLengthMenu": [[50, 100, -1],[50, 100, 500]]
+		} );
+    } );
+	$("body").children(".fixedHeader").each(function () {
+                $(this).remove();
+    });
+    
+</script>
+	<div style="display:table;">
+		<table cellspacing="0" cellpadding="0" class="display dataTable" style="width:100%">
+
+  			<thead height=25>
+				<tr id="strip"  style="background:#fcfcfc;" height=25>
+					<th id="trh" style="width:30px;">
+	  					<div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">№</span></div>
+					</th>
+					<th id="trh" style="width:290px;">
+	  					<div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Gene symbol</span></div>
+					</th>
+					<th id="trh" style="width:290px;">
+	  					<div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Ensembl ID</span></div>
+					</th>
+				</tr>
+  			</thead>
+  			<tbody>
+% 	my @gsorts;
+%	foreach my $g (@genes) {
+%		push @gsorts, "$g->{symbol}|$g->{ensGID}";
+%	} 				
+% 	my $n=0;
+%	foreach my $g (sort @gsorts) {
+%		$n++;
+%		my ($symb, $ensg) = split(/\|/,$g);
+				<tr class="gradeC" id="cell" height="25">
+					<td><div style="margin-left:20px;"><%= $n %>.</div></td>					
+					<td><div style="margin-left:20px;"><a href="<%= $relpath %>/gene/<%= $genome %>:<%= $ensg %>" ><%= $symb ? $symb : $ensg %></a></div></td>
+					<td><div style="margin-left:20px;"><%= $ensg %></div></td>
+				</tr>
+%	}
+  			</tbody>
+		</table>
+	</div>
+<div align="right" style="font-size:11px; margin:220px 0 0 0"><a href="<%= $relpath %>/genebrowse">back</a></div>
+</div>
+
+% } else {
+
+<p>The majority of genes are mapped just by one reagent, but some genes are mapped by several reagents. <br>
+Here you may see all that genes sorted by mapping reagents frequency (frequency / gene count):
+<div style="width:850px;">
+% foreach my $g ( @{$obj->{genomes}} ) {
+	<br><u class="highlight"><%= $g->{name} %>:</u><br><br>
+% 	my @mapstat = @{$g->{mapstat}};
+% 	my %maphash;
+% 	map {  $maphash { ${$_}{matches} } = ${$_}{count} } @mapstat;
+		<div style="width:80px;display:table-cell">
+			<b>Frequency:<br>Genes:</b>
+		</div>
+% 	foreach my $s ( sort {$a <=> $b} keys %maphash ) {
+		<div style="width:50px;display:table-cell">
+			<b><a href="<%= $relpath %>/genebrowse/all/<%= $g->{collection} %>:<%= $s %>" title="Genes mapped by <%= $s %> reagents"><%= $s %></a></b><br><%= $maphash{$s} %>
+		</div>
+% 	}
+%  }
+<br>
+<p>The genes by reagents mapping — <u>unique maps</u>:<br>
+% foreach my $g ( @{$obj->{genomes}} ) {
+	<br><u class="highlight"><%= $g->{name} %>:</u><br><br>
+% 	my @goodmapstat = @{$g->{goodmapstat}};
+% 	my %goodmaphash;
+% 	map {  $goodmaphash { ${$_}{goodmatches} } = ${$_}{gcount} } @goodmapstat;
+		<div style="width:80px;display:table-cell">
+			<b>Frequency:<br>Genes:</b>
+		</div>
+% 	foreach my $s ( sort {$a <=> $b} keys %goodmaphash ) {
+		<div style="width:50px;display:table-cell">
+			<b><a href="<%= $relpath %>/genebrowse/unique/<%= $g->{collection} %>:<%= $s %>" title="Genes mapped by <%= $s %> reagents"><%= $s %></a></b><br><%= $goodmaphash{$s} %>
+		</div>
+%	}
+%  }
+</div>
+<div align="right" style="font-size:11px; margin:220px 0 0 0">see also <a href="<%= $relpath %>/stats">database statistics</a></div>
+
+% }
+
+

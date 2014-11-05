@@ -1,0 +1,137 @@
+<div id="showi" style="margin: -30px 0 0 0; padding: 0; width:800px;">
+<style>
+/* required to avoid jumping */
+#wrapper {
+  position: fixed;
+}
+.zlink, .zlink a:link, .zlink a:visited  { color: #90B1CA; }
+.phlink, .phlink a:link, .phlink a:visited  { color: #115588; }
+.dlink {color: #3377aa; height:16px;}
+</style>
+<div id="showi" style="margin: -30px 0 0 0; padding: 0; width:800px;">
+%  my @cookies = $self->signed_cookie('genome');
+%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+%  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome);
+% my $showexp = $self->param('study') ? $self->param('study') : "";
+<div id="wrapper">
+  <div id="chPhenos" class="boxed_sh" style="min-height:200; height:auto;position:absolute;background:#fbfbfb;margin: 25px 0 0 450px; min-width:415px;">
+	<div class="highlight" style="height:18px; border-bottom: 1px solid #7cabc6; background:#f2f7ff; text-align:center;width:auto;cursor:move">
+		Please chose here Phenotypes by clicking on them
+	</div>	
+	<div style='width:400px;padding:5px;font-size:13px'>
+			<div style='float:left;width:320px;'>
+				<div style='display:table-cell;padding:1px 5px 1px 0; white-space:nowrap'>
+				Phenotype original term:
+				</div>
+			</div>
+			<div style='float:right;width:80px'>
+				Screen:
+			</div>
+	</div>		
+	<div id="phChosen" style="padding:5px;">
+		
+	</div>		
+	<div id="phContainer" style="padding:5px;height:100%;">
+	      <%= include 'search/grabpheno', phenohash=>"",cgenes=>"", choice=>"",genome=>$genome, terms=>"p" %>
+	</div>
+	<div id="phload" style="margin:10px 0 0 20px; position:absolute; display:none; width:50px">
+		<img src="<%= $relpath %>/imgs/loading.gif" style="margin:0" align="center">
+	</div>	
+  </div>
+</div>
+
+<!-- START LIST-->
+<div style="margin:35px 0 0 20px;width:725px;" class="boxed" id="phform">
+	<div style="width:820px;margin:10px 0 0 40px;">
+		<div class=rowph style="width:20px;">&nbsp;</div>
+		<div class=rowph style="width:500px;"><span class="reagent">Phenotypes by Study and Screen type</span></div>
+		<div class=rowph style="width:100px;"><span class="reagent">Screen type</span></div>
+		<div class=rowph style="width:20px;">&nbsp;</div>
+	</div>
+% my %phs = %{$phenotypes};
+% foreach my $ScrKEY ( sort keys %phs ) {
+%		my ($title, $ScrID, $type) = split(/\|/,$ScrKEY);
+% 		my $StdID = substr($ScrID,0,-2);
+<a name="<%= $StdID %>_1" style="margin-top:-30px;">&nbsp;</a>
+<div style="padding:0 0 0 15px;margin-top:-10px;">
+  <div class=rowph style="width:20px;display:table-cell; ">
+	<img id="ogif_<%= $ScrID %>" src="<%= $relpath %>/imgs/expanded.gif" onClick = "switchElSwitchImg('<%= $ScrID  %>','ogif_<%= $ScrID %>');" style="cursor: pointer; border:0px; width:11px; margin:0">
+  </div>
+  <div class=rowph style="height:30px;width:525px;font-size:13px;font-weight:bold;color:#709ad2;display:table-cell;">
+	  <a href="<%= $relpath %>/study/<%= $StdID %>"><%= $title  %></a> (<%= $ScrID  %>)
+  </div>
+  <div class=rowph style="width:100px;"><%= $type %></div>      
+</div>
+%   	my $n=1;
+%		my $height = 21*(scalar (keys %{$phs{$ScrKEY}}));
+		<div style="padding:0 0 2px 40px;height:<%= $height %>px; display:table-cell;" id="<%= $ScrID  %>">
+%		foreach my $phKEY (sort keys %{$phs{$ScrKEY}}  ) {
+%			my ($name, $phID) = split(/__/,$phKEY);
+%			my $key = $phID."__".$ScrID;
+%			my $color = ($n%2 == 0)	? "#fff" : "#eaf0f9";
+			<div style="background-color:<%= $color %>;height:21px;">
+				<div class=rowph style="width:20px;"><%= $n++ %>. </div>
+				<div class=rowph style="width:620px;">
+					<a class="phlink" style="cursor:pointer;text-decoration:underline" id="<%= $key %>" title="<%= ucfirst($name) %> // <%= $ScrID  %>"><%= ucfirst($name) %></a> 
+				</div>
+			</div>
+%		}
+		</div>
+%        }
+</div>
+<!-- END LIST-->
+<input type="hidden" name="study" value="<%= $showexp %>" id="study">
+</div>
+
+<script>
+	$(function(){
+		$('#chPhenos').draggable().resizable().sticky({topSpacing:0});
+		$('.phlink').click(function () {
+			var name = $(this).attr("title").split(" // ");
+			var lnk = "<div class='dlink' style='cursor:pointer;text-decoration:underline' id=" + $(this).attr("id") + 
+				"><div style='float:left;width:320px;'><div style='display:table-cell;padding:1px 5px 1px 0'>" + name[0] + 
+				"<input type=hidden name=phc value="+ $(this).attr("id") +"></div></div><div style='float:right;color:#333;width:80px;'>" + name[1] + "</div></div>";
+			var res = $(this).attr("class").match(/zlink/g);
+			if ( !res ) {
+				$("#phChosen").append( lnk );
+				$(this).addClass("zlink").removeClass("phlink");				
+			}			
+			$.ajax({
+				url: '<%= $relpath %>/search/grabpheno',
+				beforeSend: function() {
+					$('#phload').show();					
+				},
+				data: $('[name=phc]').serialize() + '&ischecked=' +$(this).is(':checked'),				
+				complete: function() {
+					$('#phload').hide();
+				},
+				success: function(result) {
+					$('#phContainer').html(result);
+					$('#phload').hide();
+				}
+			});
+		});						
+  		$( "#phChosen" ).on( "click", ".dlink", function() {
+			//~ alert ( $(this).attr("class") +" ||| "+ $(this).attr("id") ) ;
+				$(this).remove(); 
+				$("#" + $(this).attr("id") ).addClass('phlink').removeClass('zlink');	
+			$.ajax({
+				url: '<%= $relpath %>/search/grabpheno',				
+				beforeSend: function() {
+					$('#phload').show();
+				},
+				//data: 'phc=' + $("#hash").value() + '&ischecked=' +$(this).attr("id"),
+				data: $('[name=phc]').serialize() + '&terms=o&genome=<%= $genome%>',			
+				complete: function() {
+					$('#phload').hide();
+				},
+				success: function(result) {
+					$('#phContainer').html(result);
+					$('#phload').hide();
+				}
+			});
+		});	
+	});
+</script>

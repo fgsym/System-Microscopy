@@ -1,0 +1,9 @@
+<!doctype html><html>
+  <head><title><%= title %></title>
+  <link href="/src/sym.css" rel=stylesheet type=text/css>
+  <script language="javascript" src="/src/auth.js"></script>
+  </head>
+  <body>
+<%= content %>
+</body>
+</html>

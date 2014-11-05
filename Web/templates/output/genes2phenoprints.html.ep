@@ -1,0 +1,22 @@
+%	 my @withgenes; my @nogenes;
+%	 my %sorted;
+%	 my $g=0;
+%        foreach (@{$obj->{"measuring"}} ) {
+%        	my %hash = %{$_};
+%		$sorted{ $hash{howgood}.$g } = \%hash if $hash{goodmatch}==1;
+%		$g++;    
+%	 }
+%        foreach ( sort {$b <=> $a} keys %sorted) {
+%        	my %hash = %{ $sorted{$_} };
+% 		my $genes = "";
+%		my @agenes;
+% 		foreach my $g (@{$hash{genes}}) { 
+%			push (@agenes,${$g}{symbol});
+%		}
+% 		foreach my $g (sort @agenes) { 
+%			$hash{symbol} = $g
+%		}
+%		if (@agenes) {
+%				push (@withgenes,\%hash);
+%		} else 	{	push (@nogenes,\%hash) 	}
+%	}

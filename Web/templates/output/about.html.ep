@@ -1,0 +1,67 @@
+% layout 'default';
+% title 'About Cellular Phenotype Database';
+<h2>About Cellular Phenotype Database</h2>
+<style>
+p {text-align:left; width:865px}
+</style>
+<p>The Cellular Phenotype database stores data derived from high-throughput phenotypic studies and it is being developed as part of
+the <a href="http://systemsmicroscopy.eu/">Systems Microscopy Network of Excellence project.</a>
+
+<p>The aim of the Cellular Phenotype database is to provide easy access to phenotypic data and facilitate the integration of independent phenotypic studies.
+
+<p>Through its interface, users can <a href="<%= $relpath %>/tutorial#gene_seach">search for a gene</a> of interest, or a collection of genes, and retrieve the loss-of-function phenotypes observed, in human cells, by suppressing the expression of the selected gene(s), through RNA interference (RNAi), across independent phenotypic studies.
+
+<p>Similarly, users can <a href="<%= $relpath %>/tutorial#phenotype_seach">search for a phenotype</a> of interest and retrieve the RNAi reagents that have caused such phenotype and the associated target genes.
+Information about specific RNAi reagents can also be obtained when <a href="<%= $relpath %>/tutorial#reagent_seach">searching for a reagent ID</a>.
+
+<p>Alternatively, users can explore all datasets loaded in the database by <a href="<%= $relpath %>/tutorial#browse_phenotypes">browsing the phenotypes</a> as well as <a href="<%= $relpath %>/tutorial#study_seach">searching studies</a> by keyword.
+<script language="JavaScript">
+<!--
+function ar(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="jes"+ar; return ar};
+function cr(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="ugis"+ar; return ar};
+function subj()   {return "?Subject= * Express query from Cellular Phenotype Database site&cc:ugis@ebi.ac.uk"};
+function lnka(){this.location="mailto:"+ar()+","+cr()+subj(); return false};
+function word(){return "Contact us"};
+//-->
+</script>
+<p>If you have any question, please contact us at <a href="mailto:[Contact us]" onclick="return lnka()">these addresses</a>.
+
+<h4>Funding</h4>
+
+<p>Funding for the Cellular Phenotype Database is provided by the European Union’s Seventh Framework Programme (FP7/2007-2013) under grant agreement number 258068, EU-FP7-Systems Microscopy NoE.
+Funding for the Cellular Microscopy Phenotype Ontology (CMPO) development is provided by the European Commission within Research Infrastructures of the FP7 Capacities Specific Programme, grant agreement number 284209. 
+<p>
+&nbsp;
+<h4>Authors</h4>
+<p>
+<a name="about">
+<div style="width:850px;padding:5px;">
+	<div style="width:300px;display:table-cell;font-style:italic">Catherine Kirsanova</div>
+	<div style="width:350px;display:table-cell;">database architecture and development, data storage formats, web-interfaces</div>
+	<div style="width:200px;display:table-cell;">2011 — 2014</div>
+</div>
+</a>
+<div style="width:850px;padding:5px;">
+	<div style="width:300px;display:table-cell;font-style:italic">Gabriella Rustici</div>
+	<div style="width:350px;display:table-cell;">project coordination</div>
+	<div style="width:200px;display:table-cell;">2011 — 2013/11</div>
+</div>	
+<div style="width:850px;padding:5px;">
+	<div style="width:300px;display:table-cell;font-style:italic">EBI Samples, Phenotypes and Ontologies Team<br>Simon Jupp<br>Gabriella Rustici</div>
+	<div style="width:350px;display:table-cell;">phenotype terms to ontology terms (CMPO) mapping</div>
+	<div style="width:200px;display:table-cell;">2012 — 2014</div>
+</div>	
+<div style="width:850px;padding:5px;">
+	<div style="width:300px;display:table-cell;font-style:italic">Ugis Sarkans</div>
+	<div style="width:350px;display:table-cell;">project supervision</div>
+	<div style="width:200px;display:table-cell;">2013 — 2014</div>
+</div>	
+<div style="width:850px;padding:5px;">
+	<div style="width:300px;display:table-cell;font-style:italic">Alvis Brazma</div>
+	<div style="width:350px;display:table-cell;"><a href="http://systemsmicroscopy.eu/wp9">WP9</a> leader</div>
+	<div style="width:200px;display:table-cell;">2011 — 2014</div>
+</div>	
+<div style="height:210px">
+<p>
+&nbsp;
+</div>

@@ -1,0 +1,1475 @@
+[Thu Nov  3 09:28:08 2011] [info] Server listening (http://*:8080)
+[Thu Nov  3 09:35:43 2011] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+254: 
+255:     my ($query, $info) = MongoDB::write_query($self->_ns, $opts, $self->_skip, $self->_limit, $self->_query, $self->_fields);
+256:     $self->_request_id($info->{'request_id'});
+257: 
+258:     $self->_connection->send($query);
+259:     $self->_connection->recv($self);
+260: 
+261:     $self->started_iterating(1);
+262: }
+263: 
+264: =head2 fields (\%f)
+
+[Thu Nov  3 09:36:25 2011] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Thu Nov  3 09:36:25 2011] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Thu Nov  3 09:36:35 2011] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Thu Nov  3 09:36:35 2011] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Thu Nov  3 09:39:16 2011] [info] Server listening (http://*:8080)
+[Mon Nov  7 12:16:15 2011] [info] Server listening (http://*:8080)
+[Tue Apr 17 16:43:46 2012] [info] Server listening (http://*:8080)
+[Tue Apr 17 16:45:20 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:45:21 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:45:27 2012] [error] error getting database response: Interrupted system call
+
+[Tue Apr 17 16:45:27 2012] [error] error getting database response: Interrupted system call
+
+[Tue Apr 17 16:45:27 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:45:27 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:46:13 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:46:14 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:46:16 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:46:16 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:47:41 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:47:41 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 16:54:04 2012] [info] Server listening (http://*:8080)
+[Tue Apr 17 17:11:21 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:11:21 2012] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:11:21 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:11:21 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:11:31 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:11:31 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+
+[Tue Apr 17 17:12:17 2012] [error] can't get db response, not connected at /usr/local/lib/perl/5.10.1/MongoDB/Cursor.pm line 259.
+254: 
+255:     my ($query, $info) = MongoDB::write_query($self->_ns, $opts, $self->_skip, $self->_limit, $self->_query, $self->_fields);
+256:     $self->_request_id($info->{'request_id'});
+257: 
+258:     $self->_connection->send($query);
+259:     $self->_connection->recv($self);
+260: 
+261:     $self->started_iterating(1);
+262: }
+263: 
+264: =head2 fields (\%f)
+
+[Wed Nov 28 11:09:32 2012] [info] Hypnotoad server 9449 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:09:32 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:09:32 2012] [info] Upgrade successful, stopping 9318.
+[Wed Nov 28 11:09:33 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:10:25 2012] [info] Hypnotoad server 9483 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:10:25 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:10:25 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:11:27 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 11:11:27 2012] [error] type -50 not supported
+
+[Wed Nov 28 11:18:07 2012] [info] Worker 9484 has no heartbeat, restarting.
+[Wed Nov 28 11:18:07 2012] [error] couldn't get response to throw out at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 11:18:58 2012] [info] Hypnotoad server 9556 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:18:58 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:18:58 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:19:51 2012] [info] Hypnotoad server 9586 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:19:51 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:19:51 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:36:45 2012] [info] Hypnotoad server 9729 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:36:45 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:36:45 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:37:59 2012] [info] Hypnotoad server 9754 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:37:59 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:37:59 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 11:58:54 2012] [info] Hypnotoad server 9898 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 11:58:54 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 11:58:54 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:02:43 2012] [info] Hypnotoad server 9948 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 12:02:43 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 12:02:43 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:04:41 2012] [info] Hypnotoad server 9985 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 12:04:41 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 12:04:41 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:07:13 2012] [info] Hypnotoad server 10016 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 12:07:13 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 12:07:13 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:09:30 2012] [info] Hypnotoad server 10061 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 12:09:30 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 12:09:30 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:10:07 2012] [info] Hypnotoad server 10083 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 12:10:07 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 12:10:07 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 12:14:03 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:14:03 2012] [error] missed the response we wanted, please try again at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:14:03 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:14:03 2012] [error] type 114 not supported
+
+[Wed Nov 28 12:14:28 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:36:23 2012] [info] Worker 10086 has no heartbeat, restarting.
+[Wed Nov 28 12:36:24 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:36:25 2012] [info] Worker 10084 has no heartbeat, restarting.
+[Wed Nov 28 12:36:26 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:36:27 2012] [info] Worker 10085 has no heartbeat, restarting.
+[Wed Nov 28 12:36:28 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:36:30 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:37:53 2012] [error] missed the response we wanted, please try again at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:37:56 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:38:50 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+255: 
+256:     my ($query, $info) = MongoDB::write_query($self->_ns, $opts, $self->_skip, $self->_limit, $self->_query, $self->_fields);
+257:     $self->_request_id($info->{'request_id'});
+258: 
+259:     $self->_connection->send($query);
+260:     $self->_connection->recv($self);
+261: 
+262:     $self->started_iterating(1);
+263: }
+264: 
+265: =head2 fields (\%f)
+
+[Wed Nov 28 12:38:53 2012] [error] missed the response we wanted, please try again at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:39:59 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:40:20 2012] [info] Worker 10207 has no heartbeat, restarting.
+[Wed Nov 28 12:40:22 2012] [info] Worker 10208 has no heartbeat, restarting.
+[Wed Nov 28 12:40:22 2012] [error] can't get db response, not connected at /home/jes/Git/Web/lib/Sym/Controller/Service.pm line 41.
+
+[Wed Nov 28 12:40:22 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:40:22 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:40:23 2012] [info] Worker 10214 has no heartbeat, restarting.
+[Wed Nov 28 12:40:24 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:40:24 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 12:40:29 2012] [error] can't get db response, not connected at /usr/lib/perl5/MongoDB/Cursor.pm line 260.
+
+[Wed Nov 28 13:54:14 2012] [info] Hypnotoad server 10360 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 13:54:14 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 13:54:14 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 13:54:47 2012] [info] Hypnotoad server 10428 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 13:54:47 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 13:54:47 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 13:56:04 2012] [info] Hypnotoad server 10474 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 13:56:04 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 13:56:04 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 13:59:10 2012] [info] Hypnotoad server 10500 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 13:59:10 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 13:59:10 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:00:41 2012] [info] Hypnotoad server 10530 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:00:41 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:00:41 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:03:34 2012] [info] Hypnotoad server 10564 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:03:34 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:03:34 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:05:47 2012] [info] Hypnotoad server 10582 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:05:47 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:05:47 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:07:18 2012] [info] Hypnotoad server 10609 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:07:18 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:07:18 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:08:05 2012] [info] Hypnotoad server 10636 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:08:05 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:08:05 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:08:33 2012] [info] Hypnotoad server 10658 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:08:33 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:08:33 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Nov 28 14:09:02 2012] [info] Hypnotoad server 10685 started for "/home/jes/Git/Web/script/sym".
+[Wed Nov 28 14:09:02 2012] [info] Listening at "http://*:3000".
+[Wed Nov 28 14:09:02 2012] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 10:52:45 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 10:52:45 2013] [info] Manager 5837 started.
+[Wed Oct  9 10:52:45 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 10:57:20 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 10:57:20 2013] [info] Manager 5997 started.
+[Wed Oct  9 10:57:20 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 10:57:47 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 10:58:32 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 10:58:32 2013] [info] Manager 6055 started.
+[Wed Oct  9 10:58:32 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 10:58:46 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:00:03 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 11:00:03 2013] [info] Manager 6110 started.
+[Wed Oct  9 11:00:03 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 11:00:49 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:03:16 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 11:03:16 2013] [info] Manager 6187 started.
+[Wed Oct  9 11:03:16 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 11:05:41 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:07:29 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:07:58 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:08:09 2013] [error] couldn't connect to server localhost:27017 at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:08:12 2013] [error] couldn't connect to server localhost:27017 at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:08:22 2013] [error] couldn't connect to server localhost:27017 at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:08:31 2013] [error] couldn't connect to server localhost:27017 at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:08:35 2013] [error] couldn't connect to server localhost:27017 at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:09:01 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 11:09:01 2013] [info] Manager 6371 started.
+[Wed Oct  9 11:09:01 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 11:09:06 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:09:28 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 159.
+
+[Wed Oct  9 11:25:32 2013] [info] Starting zero downtime software upgrade.
+[Wed Oct  9 11:25:32 2013] [info] Listening at "http://*:3000".
+[Wed Oct  9 11:25:32 2013] [info] Manager 6596 started.
+[Wed Oct  9 11:25:32 2013] [info] Upgrade successful, stopping 6371.
+[Wed Oct  9 11:25:33 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Wed Oct  9 11:45:49 2013] [error] couldn't get response to throw out at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:45:49 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Wed Oct  9 11:45:49 2013] [info] Worker 6604 has no heartbeat, restarting.
+[Wed Oct  9 11:45:49 2013] [info] Worker 6603 has no heartbeat, restarting.
+[Thu Oct 10 14:52:49 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Thu Oct 10 14:54:04 2013] [info] Starting zero downtime software upgrade.
+[Thu Oct 10 14:54:05 2013] [info] Listening at "http://*:3000".
+[Thu Oct 10 14:54:05 2013] [info] Manager 15533 started.
+[Thu Oct 10 14:54:05 2013] [info] Upgrade successful, stopping 6596.
+[Thu Oct 10 14:54:07 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Thu Oct 10 14:54:30 2013] [info] Worker 15542 has no heartbeat, restarting.
+[Thu Oct 10 14:54:30 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+155: 
+156:     my ($query, $info) = MongoDB::write_query($self->_ns, $opts, $self->_skip, $self->_limit, $self->_query, $self->_fields);
+157:     $self->_request_id($info->{'request_id'});
+158: 
+159:     $self->_client->send($query);
+160:     $self->_client->recv($self);
+161: 
+162:     $self->started_iterating(1);
+163: }
+164: 
+165: 
+
+[Thu Oct 10 14:54:57 2013] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Thu Oct 10 14:55:01 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Thu Oct 10 14:55:39 2013] [info] Starting zero downtime software upgrade.
+[Thu Oct 10 14:55:40 2013] [info] Listening at "http://*:3000".
+[Thu Oct 10 14:55:40 2013] [info] Manager 15586 started.
+[Thu Oct 10 14:55:40 2013] [info] Upgrade successful, stopping 15533.
+[Thu Oct 10 14:55:41 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Oct 14 13:36:48 2013] [info] Listening at "http://*:3000".
+[Mon Oct 14 13:36:48 2013] [info] Manager 13398 started.
+[Mon Oct 14 13:36:48 2013] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Oct 14 15:10:01 2013] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 160.
+
+[Mon Mar 10 12:00:01 2014] [info] Listening at "http://*:3000".
+[Mon Mar 10 12:00:01 2014] [info] Manager 25658 started.
+[Mon Mar 10 12:00:01 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Mar 10 12:02:04 2014] [info] Listening at "http://*:3000".
+[Mon Mar 10 12:02:04 2014] [info] Manager 25711 started.
+[Mon Mar 10 12:02:04 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:08:15 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:08:15 2014] [info] Manager 8830 started.
+[Fri Jul  4 15:08:15 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:10:01 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+Global symbol "$scr_obj" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$phenotypes" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$ephID" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$choice" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$ScrID" requires explicit package name at template layouts/fail.html.ep line 107.
+102: 	</div>
+103: 
+104: 	<div style="margin:0; padding:0; height:80px; width:690px;float:right;" id="sform">
+105: 	    <div class=boxed style="background-color:#f2f7ff;">
+106: 	      <div style="height:80px; width:600px; padding: 0 0 0 40px;">
+107: 	      <%= include 'includes/search_form', scr_obj=>$scr_obj, phenotypes=>$phenotypes, ephID=>$ephID, choice=>$choice, ScrID=>$ScrID, phIDs=>"" %>
+108: 	      </div>
+109: 	    </div>
+110: 	</div>
+111: 	</nav>
+112: 	</div>
+
+[Fri Jul  4 15:10:01 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:10:16 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+Global symbol "$scr_obj" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$phenotypes" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$ephID" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$choice" requires explicit package name at template layouts/fail.html.ep line 107.
+Global symbol "$ScrID" requires explicit package name at template layouts/fail.html.ep line 107.
+102: 	</div>
+103: 
+104: 	<div style="margin:0; padding:0; height:80px; width:690px;float:right;" id="sform">
+105: 	    <div class=boxed style="background-color:#f2f7ff;">
+106: 	      <div style="height:80px; width:600px; padding: 0 0 0 40px;">
+107: 	      <%= include 'includes/search_form', scr_obj=>$scr_obj, phenotypes=>$phenotypes, ephID=>$ephID, choice=>$choice, ScrID=>$ScrID, phIDs=>"" %>
+108: 	      </div>
+109: 	    </div>
+110: 	</div>
+111: 	</nav>
+112: 	</div>
+
+[Fri Jul  4 15:10:16 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:13:05 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:13:05 2014] [info] Manager 8893 started.
+[Fri Jul  4 15:13:05 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:13:16 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:13:16 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:13:31 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:13:31 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:15:43 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:15:43 2014] [info] Manager 8922 started.
+[Fri Jul  4 15:15:43 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:15:52 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:15:52 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:16:08 2014] [error] Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template layouts/fail.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:16:08 2014] [error] Event "read" failed: Global symbol "$relpath" requires explicit package name at template exception.html.ep line 14.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 21.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 22.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 23.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 24.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 25.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 26.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 29.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 30.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 31.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 32.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 33.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 34.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 35.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 36.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 37.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 38.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 71.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 79.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 98.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 99.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 100.
+Global symbol "$relpath" requires explicit package name at template exception.html.ep line 101.
+96: 	<nav id="navtop">
+97: 	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+98: 	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+99: 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+100: 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+101: 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+102: 	</div>
+103: 	</nav>
+104: 	</div>
+105: 	<div style="padding-bottom:20px;">
+106: 	  <div style="height:300px; padding:50px; width:500px;font-size:14px;font-weight:bold; color:grey">
+
+[Fri Jul  4 15:17:40 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:17:40 2014] [info] Manager 8969 started.
+[Fri Jul  4 15:17:40 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:17:50 2014] [error] Can't call method "run_command" on an undefined value at /home/jes/Git/Web/lib/Sym/Model/MongoQ.pm line 41.
+
+[Fri Jul  4 15:17:50 2014] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:17:50 2014] [error] invalid header received at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:17:50 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:19:28 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:19:28 2014] [info] Manager 9017 started.
+[Fri Jul  4 15:19:28 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:19:31 2014] [error] Can't locate object method "db" via package "Sym::Model::MongoQ" at /home/jes/Git/Web/lib/Sym/Model/MongoQ.pm line 41.
+
+[Fri Jul  4 15:19:31 2014] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:19:31 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:19:31 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:20:59 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:20:59 2014] [info] Manager 9042 started.
+[Fri Jul  4 15:20:59 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:21:04 2014] [error] Can't locate object method "db" via package "Sym::Model::MongoQ" at /home/jes/Git/Web/lib/Sym/Model/MongoQ.pm line 41.
+
+[Fri Jul  4 15:21:50 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:21:50 2014] [info] Manager 9065 started.
+[Fri Jul  4 15:21:50 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:35:42 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:35:42 2014] [info] Manager 9209 started.
+[Fri Jul  4 15:35:42 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:38:14 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:38:14 2014] [info] Manager 9260 started.
+[Fri Jul  4 15:38:15 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:38:46 2014] [info] Starting zero downtime software upgrade.
+[Fri Jul  4 15:38:47 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:38:47 2014] [info] Manager 9282 started.
+[Fri Jul  4 15:38:47 2014] [info] Upgrade successful, stopping 9260.
+[Fri Jul  4 15:38:48 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:38:56 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:00 2014] [info] Listening at "http://*:3000".
+[Fri Jul  4 15:40:00 2014] [info] Manager 9337 started.
+[Fri Jul  4 15:40:00 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 291.
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+296:         $self->_client->send($query); 
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Jul  4 15:40:17 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.14.2/MongoDB/Cursor.pm line 290.
+285:             size => length $query,
+286:         );
+287:     }
+288: 
+289:     eval {
+290:         $self->_client->send($query);
+291:         $self->_client->recv($self); 
+292:     };
+293:     if ($@ && $self->_master->_readpref_pinned) {
+294:         $self->_master->repin();
+295:         $self->_client($self->_master->_readpref_pinned);
+
+[Fri Aug 29 18:07:15 2014] [info] Listening at "http://*:3000".
+[Fri Aug 29 18:07:15 2014] [info] Manager 11482 started.
+[Fri Aug 29 18:07:15 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Aug 29 18:07:35 2014] [error] Can't use string ("Sym::Controller::Genes") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 409.
+404: 
+405: sub _stash {
+406:   my ($name, $object) = (shift, shift);
+407: 
+408:   # Hash
+409:   my $dict = $object->{$name} ||= {};
+410:   return $dict unless @_;
+411: 
+412:   # Get
+413:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+414: 
+
+[Fri Sep 12 14:18:28 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 14:18:28 2014] [info] Manager 27166 started.
+[Fri Sep 12 14:18:28 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 14:18:50 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 14:20:07 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 14:20:07 2014] [info] Manager 27192 started.
+[Fri Sep 12 14:20:07 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 14:20:14 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 14:21:09 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 14:21:09 2014] [info] Manager 27224 started.
+[Fri Sep 12 14:21:09 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 14:21:15 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 14:21:15 2014] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:21:15 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:21:15 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:21:16 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:21:47 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 14:21:47 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:21:47 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 14:22:42 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 14:22:42 2014] [info] Manager 27254 started.
+[Fri Sep 12 14:22:42 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 14:22:54 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 14:23:48 2014] [error] recv timed out (10000 ms) at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:13 2014] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:13 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:33 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:36 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:55 2014] [error] recv timed out (10000 ms) at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:16:55 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 15:16:55 2014] [error] missed the response we wanted, please try again at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 15:17:05 2014] [error] recv timed out (10000 ms) at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 15:21:57 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+
+[Fri Sep 12 15:22:08 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 15:22:55 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 15:22:55 2014] [info] Manager 27540 started.
+[Fri Sep 12 15:22:55 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 15:23:03 2014] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at /usr/local/share/perl/5.18.2/Mojo/Util.pm line 412.
+407: 
+408: sub _stash {
+409:   my ($name, $object) = (shift, shift);
+410: 
+411:   # Hash
+412:   my $dict = $object->{$name} ||= {};
+413:   return $dict unless @_;
+414: 
+415:   # Get
+416:   return $dict->{$_[0]} unless @_ > 1 || ref $_[0];
+417: 
+
+[Fri Sep 12 15:23:24 2014] [error] can't get db response, not connected at /usr/local/lib/perl/5.18.2/MongoDB/Cursor.pm line 301.
+296:         );
+297:     }
+298: 
+299:     eval {
+300:         $self->_client->send($query);
+301:         $self->_client->recv($self); 
+302:     };
+303:     if ($@ && $self->_master->_readpref_pinned) {
+304:         $self->_master->repin();
+305:         $self->_client($self->_master->_readpref_pinned);
+306:         $self->_client->send($query); 
+
+[Fri Sep 12 15:23:42 2014] [info] Listening at "http://*:3000".
+[Fri Sep 12 15:23:42 2014] [info] Manager 27571 started.
+[Fri Sep 12 15:23:42 2014] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Fri Sep 12 15:23:49 2014] [error] Can't use an undefined value as a HASH reference at template search/phintersect.html.ep line 7.
+2: % unless ($phids =~/__/ || $self->param('phn') || $self->param('ohn')) {	# if come from phenotypes filter page output/phenotypes >> search/phenofilter or from search/ontofilter
+3: % 	layout 'default';
+4: % 	title 'Phenotype with common genes search result page :: Cellular Phenotype Database';
+5: % }
+6: % my %scr_data = %{$scr_data};
+7: % my %phenotypes = %{$phenotypes};
+8: % my %allphenos = %{$allphenos};
+9: % my %allgenes = %{$allgenes};
+10: 		<map name="map">
+11: %		my @phAll; my $k=0;
+12: %		foreach my $n (sort keys %allphenos) {
+

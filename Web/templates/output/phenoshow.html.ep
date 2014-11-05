@@ -1,0 +1,143 @@
+<div style="width:680px;padding:0 0 10px 0;">
+% if ($obj) {
+% 	my %withgenes = %{$withgenes};
+% 	my %nogenes = %{$nogenes};
+% 	my $nav = scalar (keys %withgenes) + scalar (keys %nogenes) > 50 ? 0 : 1;
+% 	my @phenos;
+% 	my $showid;
+%   my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()}; 	
+%	foreach my $p ( @{$obj->{"phenotypes"}} ) {
+%		my $name = ${$p}{phNAME};
+%		if ($terms eq "o") {
+		%	$name = "";
+		%   my @ont_array = $onts{ ${$p}{phID}."__".$ScrID } ? @{ $onts{ ${$p}{phID}."__".$ScrID } } : ();
+		%	foreach my $oi (@ont_array) {
+		%			my ($OntID,$oname,@syns) = split(/__/,$oi);
+		%			$oname =~s/ phenotype$//gsm;
+		%			my $synstr;
+		%			if (@syns) {
+		%				map { $_ = ucfirst($_) } @syns;
+		%				$synstr = join(", ",@syns);
+		%			}
+		%			$name .= $synstr ? ucfirst($oname)."#".$synstr."\n"."@" : ucfirst($oname)."@";
+		%	}
+		%	unless (scalar @ont_array > 0) {
+		%		$name .= ": Terms is not assigned"
+		%	}					
+
+		%	
+%		}		
+%		push (@phenos, $name."|".${$p}{phID} );
+%		$showid .= ${$p}{phID}."_";
+%	}
+<ol style="font-weight:bold;">
+%	foreach (sort @phenos) {
+%	   my $color = "#5B5B5B";
+%	   my ($name, $id) = split(/\|/,$_);
+%	   my @names = split(/\@/,$name);
+%	   grep { my ($ph, $scr) = split(/__/,$_); $color = "#337265" if ($id eq $ph) } @{$phIDs} if $phIDs;
+	   <li style="color:<%= $color %>">
+%			foreach  (@names) {
+%				my ($name,$syns) = split(/\#/,$_);
+			<pre style="margin:0;padding:0;font-family:arial"><%= ucfirst($name) %></pre>
+%				if ($syns) {
+					<pre style="margin:0;padding:0 0 0 10px;font-family:arial;opacity:0.6;"><%= $syns %></pre>
+%				}	
+%			}		
+%   }
+</ol>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+	var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+	$('#<%= $showid %>').dataTable( {
+	    "bRetrieve": true,
+	    "bProcessing": true,
+	    "bDestroy": true,
+	    "sDom":  nav,
+// 	    "sPaginationType": "full_numbers",
+	    "aoColumnDefs": [
+	      { "bSortable": false, "aTargets": [ 0 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 1 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 2 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 3 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 4 ] }
+	      ],
+	    "aaSorting": [[1,'asc']],
+	    "iDisplayLength": 50,
+	    "aLengthMenu": [[50, 100, -1],[50, 100, 500]]
+		} );
+    } );
+	$("body").children(".fixedHeader").each(function () {
+                $(this).remove();
+        });
+//     new FixedHeader( aTable, { "bottom": true } );
+</script>
+% my $rcount = scalar (keys %withgenes) + scalar (keys %nogenes);
+<span class="highlight">Gene / dsRNA count: <b><span class="exon" style="font-size:13px;"><%= $obj->{"ucountgenes"} %> / <%= $rcount %></span></b>
+( exactly mapping reagents: <b><%= $obj->{"bestreags"} ? $obj->{"bestreags"} : 0 %></b>)</span>
+<div style="display:table;margin-left:40px;">
+<table cellspacing="0" cellpadding="0" class="display dataTable" id="<%= $showid %>" style="width:100%">
+  <thead height=25>
+	<tr id="strip" height=25>
+	<th style="background:#fcfcfc;width:30px;"></th>
+	<th id="trh" style="width:115px;">
+	  <div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Gene symbol</span></div>
+	</th>
+	<th style="width:130px;"><div style="width:120px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Internal ReagentID</span></div></th>
+	<th style="width:100px;"><div style="width:80px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div></th>
+	<th style="width:100px;">
+	    <div><span style="display:table-cell; vertical-align:middle">Scoring</span>
+	    <div style="font-size:12px; color:#000;font-weight:normal;display:table-cell">&nbsp;&nbsp;(<a
+onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideDiv('scoring-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+	<div class="tooltip" id="scoring-explain">
+	The scoring method is specific to each individual screen. Please refer to the screen specific documentation for more details about the data analysis methods used to score phenotypes
+	</div></div>
+	    </div>
+	</th>
+	</tr>
+  </thead>
+  <tbody>
+%	my $n=0;
+%       foreach ( (sort keys %withgenes), keys %nogenes ) {
+%		$n++;
+%        	my %hash = $_ !~/^\#/ ? %{ $withgenes{$_} } : %{ $nogenes{$_} };
+%		my $color = ($n%2 == 1) ? "#fdfdfd" : "#f1f1f1";
+    <tr class="gradeC">
+      <td><div style="width:35px;float:left;text-align:right;padding-right:4px;"><%= $n %>.</div></td>
+	<td>
+%		if ( $hash{symbol} ) {
+		<a href="<%= $relpath %>/gene/<%= $genome %>:<%= $hash{ensGID} %>"><%= $hash{symbol} %></a>
+%		} else {
+			—
+% 		}
+	</td>
+%	$hash{rgID} = ($hash{rgID} eq "Unassigned") ? "NOT ASSIGNED" : $hash{rgID};
+	<td style="padding-left:20px;"><a href="<%= $relpath %>/reagent/<%= $hash{rgID} %>:<%= $genome %>:<%= $hash{ensGID} %>"><%= $hash{rgID} %></a></td>
+	<td style="padding-left:20px;"><%= $hash{probeID} %></td>
+%		my @scrs;
+%		my @codes;
+%		my @repr;
+%		map { push(@repr, $_) } @{$hash{reproduced}};
+%		map { push(@scrs, $_) } @{$hash{scored}};
+%		map { push(@codes, $_) } @{$hash{phenocodes}};
+%	my @ones;
+%	my $nmb = 0; my $h=1;
+%	map {my ($cc,$kk) = split(/\//,$_); push (@ones, "$cc/$kk") if ($cc == $kk ) } @repr;
+% 	map {my ($cc,$kk) = split(/\//,$_); $nmb = $kk if (scalar @ones == scalar @repr) } @ones;
+%	my $tipcolor = ($hash{howgood} <= 1) ? $hash{howgood} : $hash{howgood}/10;
+% 	my $r = 250-int($tipcolor*100);
+%	my $g = 250-int($tipcolor*50);
+% 	my $b = 150+int($tipcolor*100);
+
+%	my $flt = $nmb ? $hash{howgood}*$nmb : $hash{howgood};
+	<td class="msorts"><div style="display:none">%<%= $flt %></div><div style="background-color:#ddd"><div style="background-color:rgb(<%= $r %>,<%= $g %>,<%= $b %>);height:24px;margin:0px;text-align:center;line-height:22px;"><a href="<%= $relpath %>/replica/<%= $hash{rgID} %>:<%= $obj->{ScrID} %>:<%= $hash{ensGID} %>:<%= $hash{symbol} %>">show</a></div></div>
+
+	</td></tr>
+% }
+  </tbody>
+</table>
+</div>
+% } else {
+<!-- <a href="">back</a> -->
+% }
+</div>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC
+   "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" >
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Language" content="en-GB"/>
+    <meta http-equiv="Window-target" content="_top"/>
+    <meta charset="utf-8">
+    <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/"/>
+    <head><title><%= title %></title>
+
+    <link rel="SHORTCUT ICON" href="<%= $relpath %>/bookmark.ico"/>
+<!-- CSS -->
+    <link href="<%= $relpath %>/css/sym.css" rel=stylesheet type=text/css>
+  <!-- EBI STYLES -->
+            <link type="text/css" rel="stylesheet" href="<%= $relpath %>/css/ebi-mitigation-local.css"/>
+  <!-- EBI STYLES END -->
+    <link rel='stylesheet' type='text/css' href='<%= $relpath %>/src/autoSuggest.css'/>
+    <link href="<%= $relpath %>/src/jquery-autocomplete/jquery.autocomplete.css" rel=stylesheet type=text/css>
+<!-- CSS END-->
+<!-- JS INCLUDES-->
+    <script type="text/javascript" src="<%= $relpath %>/src/auth.js"></script>
+    <script type='text/javascript' src="<%= $relpath %>/src/jquery-1.7.1.min.js"></script>
+    <script type='text/javascript' src='<%= $relpath %>/src/jquery.autoSuggest.js'></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/jquery-ui-1.9.1.custom.min.js"></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/jquery-autocomplete/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/jquery.tablesorter.widgets.js"></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/contents.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<%= $relpath %>/src/jquery.highlight.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () { $('#phload').hide(); });
+
+	function clearText(thefield){
+	if (thefield.defaultValue==thefield.value)
+	thefield.value = ""
+	}
+	function hideDiv(d) {
+		document.getElementById(d).style.display = "none";
+	}
+	function showDiv(d) {
+		document.getElementById(d).style.display = "block";
+	}
+</script>
+  <script type="text/javascript">
+	function showPh(id) {
+		document.getElementById(id).style.display="block";
+	}
+	function hidePh(id) {
+		document.getElementById(id).style.display="none";
+	}
+	var imgExp = "<%= $relpath %>/imgs/expanded.gif";
+	var imgColl = "<%= $relpath %>/imgs/collapsed.gif";
+	function switchElSwitchImg(el_id, img_id) {
+		var el = document.getElementById(el_id);
+		var img = document.getElementById(img_id);
+		if (el != null && img != null)	{
+			if (el.style.display == "block") {
+				el.style.display = "none";
+				img.src = imgColl;
+			}
+			else {
+				el.style.display = "block";
+				img.src = imgExp;
+			}
+		}
+	}
+	function showClick(el_id,t) {
+		var el = document.getElementById(el_id);
+		var txt = document.getElementById(t);
+		if (el != null)	{
+			if (el.style.display == "block") {
+				el.style.display = "none";
+				txt.innerHTML = "show";
+			}
+			else {
+				el.style.display = "block";
+				txt.innerHTML = "hide";
+			}
+		}
+	}
+</script>
+</head>
+<body onload="if(navigator.userAgent.indexOf('MSIE') != -1) {document.getElementById('head').allowTransparency = true;};">
+<div style="height:25px;">
+      <div class="headerdiv" id="headerdiv">
+            <header>
+                <div id="global-masthead" class="masthead grid_24">
+                    <p id="logo">
+                        <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/logo.png" alt="European Bioinformatics Institute"/></a>
+                    </p>
+                    <div class="nav">
+                        <ul id="global-nav">
+                            <li id="services" class="first active" ><a href="/services" title="">Services</a></li>
+                            <li id="research"><a href="/research" title="">Research</a></li>
+                            <li id="training"><a href="/training" title="">Training</a></li>
+                            <li id="industry"><a href="/industry" title="">Industry</a></li>
+                            <li id="about" class="last"><a href="/about" title="">About us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+        </div>
+</div>
+<div style="background-color:#f1f7ff; margin: 0 1% 0 1%; height:80px; padding: 5px 0 5px 0;" >
+<header>
+  <div style="width:580px; float:left;height:75px; display:inline;">
+    <div style="width:530px; padding:5px 0 20px 15px;white-space:normal;"><h1>Systems Microscopy studies data integration</h1></div>
+  </div>
+
+  <div style="width:150px; float:right;height:75px; display:inline; padding: 0 10px 0 0; position:absolute; right:60px;"><a href="http://www.systemsmicroscopy.eu/" title="Systems Microscopy Network of Excellence"><img src="<%= $relpath %>/imgs/logo.gif" border=0 style="display:inline; margin:7px;"></a>
+  </div>
+</header>
+</div>
+<div class="headerdiv" id="headerdiv">
+            <header>
+	    <div id="local-masthead" class="masthead grid_24 _nomenu">
+			<nav>
+				<ul class="grid_24" id="local-nav">
+					<li id="main" class="first"><a href="<%= $relpath %>/">Home</a></li>
+					<li id="phenotypes"><a href="<%= $relpath %>/phenotypes">Phenotypes browsing</a></li>
+					<li id="export"><a href="<%= $relpath %>/export">Data Export</a></li>
+					<li id="genes"><a href="<%= $relpath %>/stats">Database Statistics</a></li>
+					<li id="submit"><a href="<%= $relpath %>/submit">Submit your study</a></li>
+					<li id="about"><a href="<%= $relpath %>/about">About the Project</a></li>
+				</ul>
+			</nav>
+	    </div>
+            </header>
+</div>
+<div id="contents">
+	<div>
+	  <div style="margin:15px 0 0 40px; padding: 20px 0 0 180px; height:80px; width:800px;" id="sform">
+	    <div style="border:1px solid #ccc; height:80px; background-color:#d6e8ef; width:600px; padding: 0 0 0 40px;">
+	    <%= include 'includes/search_form', scr_obj=>$scr_obj, phenotypes=>$phenotypes, ephID=>$ephID, choice=>$choice, ScrID=>$ScrID, phIDs=>"" %>
+	    </div>
+	  </div>
+	  <div id="sym_contents" class="scontents">
+	    <%= content %>
+	  </div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+  $('#tabform').css('display', 'block');
+});
+</script>
+</body>
+</html>

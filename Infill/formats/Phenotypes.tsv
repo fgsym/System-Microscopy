@@ -1,0 +1,10 @@
+screenID	dataFILE	Phenotypes	Rule	imgPREFIX	imgCALC
+1	/home/jes/SysMicroscopy/DATAfiles/Mitocheck/reformated.tsv	Increased Proliferation,Mitotic Delay,Binuclear,Polylobed,Grape,Large,Dynamic changes,Cell Death	ip>3.6966,md>0.04,bn>0.092,pl>0.11,gr>0.03,l>0.0676,dc>0.6197,cd>0.072	http://www.mitocheck.org/cgi-bin/mtc?action=list_movies;query=	3
+2	/home/jes/SysMicroscopy/DATAfiles/CellMorph/probes2phenoprints.tsv	BL phenotype (decrease in the number of cells and increase of metaphase cells),Bright nuclei,Large nuclei,Cells with protrusions,Elongated cells,Elongated cells with protrusions,SM phenotype (abundance of large cells with protrusions and bright nuclei),Small cells,Low eccentricity cells,High actin ratio cells,Metaphase cells,Actin ﬁber cells,Big cells,Large cells,Lamellipodia cells,Lamellipodia + high actin ratio cells,Proliferating cells,Other phenotype	1	http://www.ebi.ac.uk/huber-srv/cellmorph/query.php?search=	0,1
+3	/home/jes/SysMicroscopy/DATAfiles/EMBL_secretion_screen/ncb2510-s1.csv	Mild inhibition of secretion,Strong inhibition of secretion	1	0	0
+3	/home/jes/SysMicroscopy/DATAfiles/EMBL_secretion_screen/ncb2510-s2.csv	Enhanced secretion	1	0	0
+4	/home/jes/SysMicroscopy/DATAfiles/Gerlich/PPase_screen_with_phenotypes.tsv	Normal mitotic exit,Prolonged mitotic exit	1	0	0
+5	/home/jes/SysMicroscopy/DATAfiles/BZH_SH4-mCherry-GFP/Ritzerfeld_BZH_SH4_domain_targeting_primary_screen_data.csv	Intracellular retention of SH4(HASPB)-GFP,Intracellular retention of SH4(YES)-mCherry	gfp_g >= 2.5 || gfp_g_s >= 2.5 || gfp_c >= 2.5,ch_g >= 3.5 || ch_g_s >= 3.5 || ch_c >= 3.5	0	0
+6	/home/jes/SysMicroscopy/DATAfiles/GFP-RNF168_Ubiquitin/mmc1_valid.csv	Accumulation of GFP-RNF168 on nuclear bodies,No phenotype assigned	1	0	0
+7	/home/jes/SysMicroscopy/DATAfiles/CGSR_DNA_damage/ST-2.csv	Reduction in IR-induced 53BP1 foci in HeLa cells,No phenotype assigned	1	0	0
+8	/home/jes/SysMicroscopy/DATAfiles/CGSR_DNA_damage/ST-1.csv	Reduction in IR-induced 53BP1 foci in U2OS cells,No phenotype assigned	1	0	0

@@ -1,0 +1,49 @@
+% my @msgs = $msgs ? @{$msgs} : ();
+% if (@msgs && scalar @msgs > 0) {
+<h3>Messages sent:</h3>
+<form name="admin" id="submit" method=post>
+%  	foreach my $obj (@msgs) {
+%		if ( $obj->{name} && $obj->{inst} && $obj->{msg} && $obj->{date}) {
+    <div class="tbl"><div class="ltitle highlight">Name:</div>
+      <div class="rvalue"><%= $obj->{name} %></div></div>
+    <div class="tbl"><div class="ltitle highlight">From: </div>
+      <div class="rvalue"><%= $obj->{inst} %></div></div>
+    <div class="tbl"><div class="ltitle highlight">Message:</div>
+      <div class="rvalue"><%= $obj->{msg} %></div></div>
+    <div class="tbl"><div class="ltitle highlight">Date:</div>
+      <div class="rvalue right"><%= $obj->{date} %></div></div>
+    % if ($self->param('rule') eq "a") {
+    <div class="tbl">
+      <div class="ltitle">Delete:</div>
+      <div class="rvalue right">
+	  <input type="checkbox" name=delete value="<%=$obj->{_id} %>" id="<%=$obj->{_id} %>" class="delch" checked><label for="<%=$obj->{_id} %>"></label>
+      </div>
+    </div>
+    % }
+%		}
+<hr size=1 style="color:#ccc;margin:0; width:450px;" >
+% 	}
+    % if ($self->param('rule') eq "a") {
+    <div class="tbl"><div class=ltitle>Admin action:</div>
+      <div class="rvalue" style="text-align:right"><input type="submit" value="Delete" class="locsubmit" id="del"></div></div>
+    % }
+% } else {
+%	if ($self->param('name') || $self->param('inst') || $self->param('email') || $self->param('msg')) {
+Message didn't send: probably something wrong with your typing… or you are trying to send message from outside server…
+%	}
+% }
+</form>
+<script>
+	$(document).ready(function () {
+	    $('#del').click(function () {
+	      var data = $('[name=admin]').serialize();
+	      $.post('<%= $relpath %>/messages', data);
+	    });
+	});
+	$('[name=delete]').click(function() {
+	    $('#phform input:checkbox').attr('checked',false);
+	    $("input:checkbox.delch").each(function () {
+	      $(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } );
+	    });
+	});
+</script>

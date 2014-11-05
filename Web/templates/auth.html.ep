@@ -1,0 +1,4 @@
+% layout 'default';
+% title 'Auth';
+cookie!
+<%= $cookie %>

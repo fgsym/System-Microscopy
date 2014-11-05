@@ -1,0 +1,231 @@
+=======================================================================================
+Update gene collections and remap reagents to the Ensembl release (no new data to load)
+=======================================================================================
+
+1. Populate gene collection with new Ensembl release
+====================================================
+	I. install/update Ensembl API: see http://www.ensembl.org/info/docs/api/api_git.html
+	
+	II. in Infill/LoadGenes_n.pl, Infill/LoadGenes_Drosophila.pl :
+	1) change $version to appropriate Ensembl release
+	2) launch the scripts
+		perl Infill/LoadGenes_n.pl
+		perl Infill/LoadGenes_Drosophila.pl
+	NB: LoadGenes_APItest.pl — to test methods in Ensembl API if something has changed
+
+2. New Ensembl release Reagents compliance (mapping):
+=====================================================
+
+	1) get new release:
+	===================
+	(choose appropriate files	)
+	Homo Sapience: /opt/FASTA$ wget 	Homo_sapiens.GRCh37.75.cdna.all.fa.gz .
+	Fruit Fly:		/opt/FASTA$ wget ftp://ftp.ensembl.org/pub/release-75/fasta/drosophila_melanogaster/cdna/Drosophila_melanogaster.BDGP5.75.cdna.all.fa.gz .
+
+	2) extract from DB and align currently loaded Reagents:
+	=======================================================
+	perl Infill/Reagents_2_FASTA.pl (comment/uncomment what's needed there)
+	
+	don't forget if needed ( Reagents_2014-5-20_T.fa )
+		U—>T:
+		$ more oligos.fa | sed 's/U/T/g' > oligosT.fa
+
+bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.75.cdna.all -f /home/jes/Git/infill-load-data/CompoundReagents_2014-5-20.fa /home/jes/Git/infill-load-data/Dharmacon_remap_to_release_75.map
+
+bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.75.cdna.all -f /home/jes/Git/infill-load-data/Reagents_2014-5-20_T.fa /home/jes/Git/infill-load-data/Align-best-existing-reagents-75.map
+
+
+	3) Fruit Fly index and align:
+	=============================
+bowtie2-build -f /opt/FASTA/Drosophila_melanogaster.BDGP5.75.cdna.all.fa Drosophila_melanogaster-75	statistics is the same
+bowtie2 -x Drosophila_melanogaster-75 -f /home/jes/Git/infill-load-data/Droso_2014-5-20.fa -S Drosophila-bowtie2-75.map
+
+3. Reagents update and load into DB
+===================================
+
+=== DOWNLOAD the Reagents from DB:
+	1) db.Reagents.find({aligner:"bowtie"}).count() = 79585: current number of Reagents
+	perl Infill/Reagents_2_FASTA.pl
+=== PREPARE:
+	2)	perl Infill/DharmaconIDs_from_release.pl
+		— backup all pID from seq_array for DharmProbesLoad-to-release.pl 	
+=== EDIT:
+	3) edit $bowtie_dh filename to load the mapping of the current release:
+		Infill/DharmProbesLoad-to-release.pl
+		the same for 
+		Infill/ProbesLoad-to-release.pl ($bowtie)
+=== CLEANING (don't change 2-4 step sequence here!):
+	4)
+		1.
+		> db.Reagents.update({aligner:"bowtie","prefix":{$ne : "DHARM"}},{$unset:{tagin:1,genes:1,t_mapfreq:1,g_mapfreq:1}},false,true);
+		2.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{tagin:1}},false,true);
+			WriteResult({ "nMatched" : 1311, "nUpserted" : 0, "nModified" : 1311 })
+			— remove old mapping data from Dharmacon reagents
+			(NB: "tagin" field is still exist in the Dharmacon reagents without sequences!! (without "seq_array.tagin.*" data) )
+		3.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{seq_array:1}},false,true);
+			— pIDs in seq_array to be restored from DharmaconIDs_from_release.pl.tab 
+		4.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{genes:1}},false,true);
+=== LOAD:
+	5)
+	$ perl Infill/ProbesLoad-to-release.pl
+	$ perl Infill/DharmProbesLoad-to-release.pl
+	$ perl Infill/ReagentsLoad-bowtie2.pl
+	Remapping update date print into Reagents collection;	
+	> db.Reagents.update({},{$set:{release:75,remap:new Date("May 22, 2014")}},false,true);
+=== CHECKS:
+	5)
+	for non-DHARM reagents
+	$ perl Infill/Test_Reagents_load.pl
+	Reagents with mapping sequences:
+		> db.Reagents.find({aligner:"bowtie","seq_array.tagin.ensTID":/\S/,"prefix": "DHARM"}).count();
+		1311
+	Dharmacon reagents without specified probes in compound:
+		> db.Reagents.find({aligner:"bowtie","seq_array.pID":{$not:/D/},"prefix": "DHARM"}).count();
+		281
+
+4. New Reagents load
+====================
+see README-update.txt
+if needed
+
+5. Studies Load
+===============
+see README-update.txt
+if needed
+
+6. Datasets Load
+================
+see README-update.txt
+if needed
+
+7. Processed Data Load
+======================
+	> db.ProcessedData.dropIndex({"cases" : 1})
+	> db.ProcessedData.dropIndex({"cases.genes.ensGID" : 1})
+~/Git/Infill$ perl AnalysisData.pl
+	collection: ProcessedData
+	MUST BE repopulated because mapping data is changed according to new Ensembl release
+	see # IF UPDATE WITH NEW DATA SET line
+	
+8. Phenotypes to Genes 
+======================
+=== CLEAN is needed if phenotypic data were renewed:
+> db.HMSPNSgenes.update({},{$unset:{phenolist:1}},false,true);
+> db.FruitFLYgenes.update({},{$unset:{phenolist:1}},false,true);
+
+~/Git/Infill$ perl Genes_by_Phenotypes.pl HMSPNSgenes
+~/Git/Infill$ perl Genes_by_Phenotypes.pl FruitFLYgenes
+=== CHECKS
+> db.HMSPNSgenes.find({"phenolist.rgID":/\S/}).count()
+13788
+> db.FruitFLYgenes.find({"phenolist.rgID":/\S/}).count()
+> db.Datasets.find({ScrID:"J1_SyM_2"},{rgID:1,probeID:1}).count() (some mappings dropped)
+
+9. GO Ontologies
+================
+Collection GO_Analysis:
+~/Git/Infill$ perl GO_Analysis.pl HMSPNSgenes
+~/Git/Infill$ perl GO_Analysis.pl FruitFLYgenes
+
+10. CMPO Ontologies
+===================
+perl ParseOBO2json.pl
+perl Phenotypes2Ontology.pl
+
+10. Statistics
+==============
+== Ensemble release number:
+edit Sym:Output:stats
+edit Sym:Genes::genebrowse
+
+edit /opt/data/Statistics.json
+								(db.HMSPNSgenes.find({phenolist:{$size:2},"phenolist.goodmatch":{$ne:0}}).count())
+{
+"_id" : { "$oid" : "519f4a470f5a24f332000000" },
+"mapping" : 90714, // db.Reagents.find({prefix:"DHARM",g_mapfreq:{$ne:0}}).count() + db.Reagents.find({prefix:{$ne:"DHARM"},"seq1":/\w/i,g_mapfreq:{$ne:0}}).count()
+"goodmapstat" :
+	[ { "goodmatches" : 1, "gcount" : 5626 }, // db.HMSPNSgenes.find({phenolist:{$size:1},"phenolist.goodmatch":{$ne:0}}).count()
+	{ "goodmatches" : 2, "gcount" : 1990 }, // 
+	{ "goodmatches" : 3, "gcount" : 405 },
+	{ "goodmatches" : 4, "gcount" : 117 },
+	{ "goodmatches" : 5, "GCOUNT" : 27 },
+	{ "goodmatches" : 6, "gcount" : 8 } ],
+"uniquemaps" : , 		// db.Reagents.find({g_mapfreq:1}).count()
+"genes_u_phenotyped" : 9933, // db.HMSPNSgenes.find({"phenolist.goodmatch":1,"phenolist.probeID":/\w/i}).count()
+"release" : "75", 
+"mapstat" : 
+	[ { "count" : 8834, "matches" : 1 }, 
+	{ "count" : 3698, "matches" : 2 }, // db.HMSPNSgenes.find({phenolist:{$size:2}}).count()
+	{ "count" : 1148, "matches" : 3 }, 
+	{ "count" : 404, "matches" : 4 }, 
+	{ "count" : 112, "matches" : 5 }, 
+	{ "count" : 36, "matches" : 6 }, 
+	{ "count" : 3, "matches" : 7 }, 
+	{ "count" : 2, "matches" : 8 }, 
+	{ "count" : 1, "matches" : 9 } 
+	], 
+"total" : 79582, 	// db.Reagents.find({}).count()
+"goodmaxreags2gene" : 6, 
+"all_genes_phenotyped" : 14238,  // db.HMSPNSgenes.find({"phenolist.probeID":/\w/i},{phenolist:1,ensGID:1}).count();
+"maxreags2gene" : 9, 
+"studies" : 9, 
+"verified" : 61571 // db.Reagents.find({prefix:"DHARM","seq_array.tagin.sbjct":/\w/i}).count() + db.Reagents.find({prefix:{$ne:"DHARM"},"seq1":/\w/i}).count()
+}
+$ cd /opt/data
+$ more Statistics.json | sed ':a; /$/N; s/\n//; ta' > Statistics-p.json
+$ ../mongodb-2.4.8/bin/mongoimport --dbpath /opt/data/ -d sym -c Statistics --file ../data/Statistics-p.json
+
+11. Indexes:
+============
+(check db.system.indexes.find() & add if needed)
+db.HMSPNSgenes.ensureIndex({symbol:1});
+db.HMSPNSgenes.ensureIndex({synonyms:1});
+db.HMSPNSgenes.ensureIndex({ensGID:1});
+db.FruitFLYgenes.ensureIndex({symbol:1});
+db.FruitFLYgenes.ensureIndex({synonyms:1});
+db.FruitFLYgenes.ensureIndex({ensGID:1});
+db.Reagents.ensureIndex({"tagin.symbol":1});
+db.Reagents.ensureIndex({"tagin.ensGID":1});
+db.Reagents.ensureIndex({"rgID":1});
+db.Reagents.ensureIndex({"probeID":1});
+db.Datasets.ensureIndex({"probeID":1,"replica":1});
+db.Datasets.ensureIndex({"rgID":1});
+
+
+12. DB import to HX master:
+===========================
+
+/opt/data$ ../mongodb-2.4.8/bin/mongodump --dbpath /opt/data/ -d sym -o Symdump
+../mongodb-2.4.8/bin/mongo --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 sym
+> use sym
+switched to db sym
+> db.dropDatabase();
+
+../mongodb-2.4.8/bin/mongorestore --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 --drop -db sym /opt/data/Symdump/sym/
+
+(indexes is better to check/create separately on the master)
+
+13. Checks on slaves and GridFS:
+================================
+symrs01:SECONDARY> rs.slaveOk()
+etc.
+
+my $m = MongoDB::Connection->new(host => "mongodb://localhost:27017", find_master => 1);
+
+14. Data to Download:
+=====================
+mongoexport  -d sym -c Reagents -f probeID,rgID,seq1,seq2,prefix --csv -o export-Reagents.csv
+mongoexport  -d sym -c HMSPNSgenes -f phenolist,ensGID --csv -o export-HMSPNSgenes.csv
+mongoexport  -d sym -c FruitFLYgenes -f phenolist,ensGID --csv -o export-FruitFLYgenes.csv
+mongoexport  -d sym -c HMSPNSgenes -q "{'phenolist.phenodata.ScrID':/\S/},{ensGID:1,phenolist:1}" -f ensGID,phenolist -o export-HMSPNSgenes.json
+mongoexport  -d sym -c FruitFLYgenes -q "{'phenolist.phenodata.ScrID':/\S/},{ensGID:1,phenolist:1}" -f ensGID,phenolist -o export-FruitFLYgenes.json
+
+export files to /ebi/ftp/pub/databases/microarray/cellph
+
+15. Copy & Sync:
+================
+rsync -rptgoDv --exclude=".bash_history" ./live/ pg-001:/nfs/public/rw/homes/fg_sym/live/
+rsync -rptgoDv --exclude=".bash_history" ./live/ oy-001:/nfs/public/rw/homes/fg_sym/live/

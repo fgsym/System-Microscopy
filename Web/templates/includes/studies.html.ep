@@ -1,0 +1,77 @@
+<h2>Studies found</h2>
+<style>
+.ahighlight { background-color: #BDF0C7; }
+</style>
+<div style="width:965px">
+<table cellspacing="0" cellpadding="5" class="display dataTable">
+  <thead id="strip" height=25>
+	<tr class="header"  width="100%" id="strip" height=25 style="background:#fcfcfc;" >
+	  <th align="left">
+	    <div style="width:60px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle;">Study ID</span></div>
+	  </th>
+	  <th>
+	    <div style="width:140px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Title</span></div>
+	  </th>
+	  <th class="{sorter: 'text'}">
+	    <div style="width:430px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Publication Title</span></div>
+	  </th>
+	  <th>
+	    <div style="width:120px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Screens</span></div>
+	  </th>
+	  <th>
+	    <div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Download</span></div>
+	  </th>
+	</tr>
+  </thead>
+  <tbody id="highlight-plugin">
+% my $n=0;
+% while ( my $obj = $crs->next ) {
+% $n++;
+  <tr class="gradeC">
+    <td align=center><a href="<%= $relpath %>/study/<%= $obj->{StdID} %>"><%= $obj->{StdID} %></a></td>
+    <td><%= $obj->{StdTitle} %></td>
+    <td><span><%= $obj->{StdPubTitle} %></span></td>
+    <td>
+      <div>
+%	foreach ( @{ $obj->{ScreenData} } ) {
+	  <div valign=middle><%= $_->{ScrID} %> (<%= $_->{ScrType} %>):</div>
+%	}
+      </div>
+    </td>
+    <td style="padding:3px;">
+	<div style="float:left">
+%	foreach ( @{ $obj->{ScreenData} } ) {
+	  <div><u><a href="<%= $relpath %>/getfile/zip:<%= $_->{ScrID} %>">ZIP</a></u></div>
+%	}
+	</div>
+	<div style="float:right" valign=middle><u><a href="<%= $relpath %>/getfile/idf:<%= $obj->{StdID} %>">Description file</a></u></div>
+    </td>
+  </tr>
+% }
+  </tbody>
+</table>
+</div>
+<div style="height:110px">
+<p>
+&nbsp;
+</div>
+% 	my $nav = $n > 50 ? 0 : 1;
+<script type="text/javascript">
+    $(document).ready(function() {
+	var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+	var aTable = $('.dataTable').dataTable( {
+	    "bRetrieve": true,
+	    "bProcessing": true,
+	    "sDom":  nav,
+// 	    "sPaginationType": "full_numbers",
+	    "aaSorting": [[1,'asc']],
+	    "aoColumnDefs": [
+	      { "bSortable": false, "aTargets": [ 3 ] },
+	      { "bSortable": false, "aTargets": [ 4 ] }
+	    ],
+	    "iDisplayLength": 50,
+	    "aLengthMenu": [[50, 100, -1],[50, 100, 500]]
+	} );
+ 	new FixedHeader( aTable );
+    } );
+</script>

@@ -1,0 +1,29 @@
+<form action="<%= $relpath %>/search/phintersect"  method="post" name="filter">
+% my @cookies = $self->signed_cookie('genome');
+% my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+% my $genome = $self->param('genome') ? $self->param('genome') : $cookie;
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome); 
+% my @phIDs = ($choice && scalar @{$choice} > 0) ? @{$choice} : ();
+% my $countgenes = $cgenes ? scalar @{$cgenes} : 0;
+% my $button = ((scalar @phIDs) > 1 && $self->param('phc')) ? "block" : "none";
+% foreach my $ph (@phIDs) {
+	<input type="hidden" value="<%= $ph %>" name="phset">
+% }
+<div style="height:40px; margin: -20px 0 5px 0;" align=right>
+	<input type="hidden" value="<%= $genome %>" name="genome">
+	<input type="hidden" value="<%= $terms %>" name="terms">
+      <div style="display:<%=$button %>; float:right; height:30px; width: 400px; margin-top:30px;">
+% if ($countgenes > 0) {
+	    <input type="submit" value="Retrieve" class="locsubmit" name="showph" id="submit">
+% }
+      </div>
+      <div style="color:#3966a2; height:30px; float:right; width: 400px; ">&nbsp;
+	  % if ((scalar @phIDs) > 1) {
+	      Number of common genes for chosen phenotypes: <b><%= $countgenes %></b><br>
+	 <div style="font-size:11px;float:left; color:#777">Click on the phenotype term to remove it from the list above</div>
+	  % }
+      </div>
+
+</div>
+</form>

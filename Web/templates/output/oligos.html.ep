@@ -1,0 +1,16 @@
+% layout 'default';
+% title 'Phenotypes';
+<div><h2>Phenotypes set observed as the same, but due to different genes knock-down by the different <%= $oln %> siRNAs</h2></div>
+% while (my $obj = $crs->next) {
+<div style="display:block">
+<ul style="color:darkgreen;font-weight:bold;">
+%	foreach ( @{$obj->{"phenotypes"}} ) {
+%          my %hash = %{$_};
+	   <li type="square"><%= ucfirst($hash{phNAME}) %><br>
+%        }
+</ul>
+All genes with the same set of phenotypes (number of genes / number of reagents):
+<a href="<%= $relpath %>/search/pheno/<%= $expr %>:<%= $obj->{phenoprint} %>:true"><%= $obj->{"ucountgenes"} %> / <%= $obj->{"countreagent"} %></a>
+</div>
+% }
+</div>

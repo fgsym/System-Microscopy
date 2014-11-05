@@ -1,0 +1,31 @@
+% my %scr_data = %{$scr_data};
+% my $n=1;
+<fieldset>
+<legend>Not unique targeting:</legend>
+<p>List of reagents also targeting this gene, but <i>not uniquely</i> <span style="font-size:12px; color:#000;font-weight:normal;">(<a onMouseOver="javascript:showDiv('nouniq-explain')" onMouseOut="javascript:hideDiv('nouniq-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+	<div
+	style="position:absolute;display:none;margin-left:330px;margin-top:-5px;z-index:20; background-color:#fdfdfd;padding:3px;width:300px;text-align:left"
+			 id="nouniq-explain" class="tooltip">
+		These reagents mapped to their target gene as well as other genes; therefore the phenotypes observed for these reagents cannot be assigned uniquely to their predicted target gene
+	</div></span>
+	<table cellspacing="1" cellpadding="4" style="margin:5px 0 0 0">
+		<tr>
+		  <td><b>Screen ID</b></td>
+		  <td><b>Study Title</b></td>
+		  <td><b>Screen type</b></td>
+		  <td><b>Reagent</b></td>
+		</tr>
+	% 	foreach my $id (sort @{$uids}) {
+	%		my ($r,$s) = split(/\#/,$id);
+	% 		my $StdID = substr($s,0,-2);
+	%		my $color = ($n%2 == 1) ? "#f5faff" : "#ffffff";
+	<tr style="background-color:<%= $color %>">
+	<td width="100"><a href="<%= $relpath %>/study/<%= $StdID %>" title="$scr_data{$s}"><small><%= $s %></small></a> </td>
+	%	my ($StdTitle,$ScrType) = split(/__/,$scr_data{$s});
+	<td width="350"><small><%= $StdTitle %></small></td>
+	<td width="100"><small><%= $ScrType %></small></td>
+	<td width="100"><a href="<%= $relpath %>/reagent/<%= $r %>:<%= $genome %>:<%= $ensgid %>"><small><%= $r %></small></a> </td>
+	</tr>
+	%		$n++;
+	% 	}
+	</table>

@@ -1,0 +1,51 @@
+% layout 'default';
+% title 'Cellular Phenotype Database :: Download';
+<h2>Download</h2>
+<style>
+p {text-align:left; width:865px}
+</style>
+<p>There are several ways to download results from the Cellular Phenotypes database.
+<p>The results of a <a href="<%= $relpath %>/tutorial#phenotype_seach">phenotype search</a> and of
+<a href="<%= $relpath %>/tutorial#browse_phenotypes">phenotype browsing</a> can be downloaded using the functionality «export search results» located on the top right hand side of a search results page.
+
+<a href=ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/cellph/>Here</a> (FTP) the raw export from our repository are available for download:
+<ul>
+<li> The genes to phenotypes raw mappings can be downloaded from our FTP site (link). This data is available in <a href=ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/cellph/export-HMSPNSgenes.json>JSON format</a> and <a href=ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/cellph/export-HMSPNSgenes.csv>CSV format</a>, containing the following information:
+«phenotypes array» ensGID (Ensembl Gene ID);<br>
+The «phenotypes array» has the following structure:
+<pre>
+        "<span style="color:#3E5196">phenolist</span>" : <span style="color:green">[</span>
+                <span style="color:#B50D65">{</span>
+                        "<span style="color:#3E5196">phenodata</span>" : <span style="color:green">[</span>
+                                <span style="color:#B50D65">{</span>
+                                        "<span style="color:#3E5196">bestgenes</span>" : number of the genes with loss-of-function phenotype(s) observed, see phenotypes object below,
+                                        "<span style="color:#3E5196">ScrID</span>" : Study's screen ID,
+                                        "<span style="color:#3E5196">howgood</span>" : 1 (means that no less than the half of replicas have shown this phenotype(s)),
+                                        "<span style="color:#3E5196">phcluster</span>" : cluster here is the sorted list of phenotype's IDs observed simultaneously,
+                                        "<span style="color:#3E5196">phenotypes</span>" : <span style="color:green">[</span>
+                                                <span style="color:#B50D65">{</span>
+                                                        "<span style="color:#3E5196">ScrID</span>" : Study's screen ID,
+                                                        "<span style="color:#3E5196">phWEIGHT</span>" : the phenotype's evidence,
+                                                        "<span style="color:#3E5196">phNAME</span>" : Phenotype given name,
+                                                        "<span style="color:#3E5196">phID</span>" : Phenotype ID (within a given Study)
+                                                <span style="color:#B50D65">}</span>
+                                        <span style="color:green">]</span>
+                                <span style="color:#B50D65">}</span>,
+                                ...
+                        <span style="color:green">]</span>,
+                        "<span style="color:#3E5196">rgID</span>" : Cellular Phenotype DB reagent's ID,
+                        "<span style="color:#3E5196">probeID</span>" : Supplier reagent's ID,
+                        "<span style="color:#3E5196">goodmatch</span>" : 1 for unique mapping of this reagent to the gene, 0 for non-unique mapping
+                <span style="color:#B50D65">}</span>
+        <span style="color:green">]</span>
+</pre>
+
+<li> Reagents information can be downloaded in <a href=ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/cellph/export-Reagents.csv>CSV format</a>.
+This files contains the following information: reagent's supplier ID as probeID, our internal ID for reagent as rgID, seq_1, seq_2, supplier prefix.
+</ul>
+
+<p>We are currently working on providing data export for any gene set of interest to the user.
+<div style="height:300px">
+<p>
+&nbsp;
+</div>

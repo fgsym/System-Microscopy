@@ -1,0 +1,157 @@
+<h3>Phenotypes search result</h3>
+% my ($attrs, $fullattrs, $phenotypes, $allphenos, $namephenos) = Sym::Controller::Vars->attributes($crs, $attr);
+% my %scr_data = %{$scr_data};
+% my %attrs = %{$attrs};
+% my %fullattrs= %{$fullattrs};
+% my %allphenos = %{$allphenos};
+% my %namephenos = %{$namephenos};
+% my %phenotypes = %{$phenotypes};
+% my $current = $self->param("page") ? $self->param("page") : 1;
+% my $np = ($allgenes - $allgenes % 50)/50 + 1;
+		<map name="map">
+%		my @phAll; my $k=0;
+%		foreach my $n (sort keys %{$allphenos}) {
+%			my ($name, $ScrID)	= split(/\|/,$n);
+%			push (@phAll,$allphenos{$n});
+%			my ($c1,$c2,$c3,$c4) = (100+$k*26,15+$k*26,1+$k*26,80+$k*26);
+			<area shape="poly" coords="<%= $c1 %>,7,<%= $c2 %>,95,<%= $c3 %>,85,<%= $c4 %>,7" alt="<%= $name %>" title="<%= ucfirst($name) %>" href="#" />
+%			$k++;
+%		}
+		</map>
+% my $phenoprint = join("-",@phAll);
+<style>
+.ahighlight { background-color: #BDF0C7; }
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#highlight-plugin').removeHighlight().ahighlight('<%= $attr %>');
+  });
+</script>
+<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>" height="0" width="0" border="0" id="preload">
+<h4><%= $allgenes %> genes found for «<%= $attr %>»</h4><br>
+% my $skip = $self->param('skip') ? $self->param('skip') : 0;
+<form><INPUT type="hidden" name="attr" value="<%= $attr %>"></form>
+% if ($allgenes > 0) {
+% 	my $width = 25*(scalar (keys %allphenos)) + 390;
+Legend: <font color="#3F5946" size=2>•</font> — unique mapping, <font color="#3F5946" size=2>×</font> — not unique mapping.
+<table cellspacing="0" cellpadding="0" id="highlight-plugin" class="tablesorter"><thead height="95" style="height:95px;">
+	<tr width="100%" height="95">
+		<th class="{sorter: 'text'}" height="95" bgcolor="#e5e5e5" style="border-right:1px solid #ccc"><div style="width:120px;">Gene</div></th>
+		<th width="120" class="noth" height="95"><div style="width:120px;">SyM Reagent ID</div></th>
+		<th class="noth" height="95">
+		<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left"></th></tr>
+	</thead>
+	<tbody onLoad="javascript:void($('#highlight-plugin').removeHighlight().ahighlight('<%= $attr %>'));">
+	<tr><td colspan=2 style="padding-right:10px;font-weight:bold;background-color:#DDFFDD" align="right">Study:</td><td colspan="2" style="margin:0; padding:0; height:100%;">
+		<table cellspacing="0" cellpadding="0"><tr>
+%	foreach my $p (sort (keys %namephenos)) {
+%		my ($ScrID,$phID) = split(/\|/, $namephenos{$p});
+		<td width="25" style="border-right:1px solid #ccc;background-color:#DDFFDD" align="center"><a
+					href="<%= $relpath %>/study/<%= $scr_data{$ScrID} %>" alt="$ScrID"><%= $scr_data{$ScrID} %></a></td>
+%	}
+		<td></td></tr></table>
+	</td></tr>
+%	my $n = $skip;
+%	foreach my $ge (sort keys %attrs) {
+%		$n++;
+%		my ($symbol, $ensgid) = split(/\|/, $ge);
+% 		my $color = ($n%2 == 1) ? "#f1f1f1" : "#fff";
+%		my %phenos = %{$phenotypes{$ensgid}};
+		<tr style="background-color:<%= $color %>;"><td valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" id="hint" class="sorts" style="padding-top:3px;background-color:<%= $color %>;">
+			<div style="width:25px;float:left;text-align:right;padding: 0 4px 0 4px;"><%= $n %>.</div>
+			<a href="<%= $relpath %>/search/result?stype=gn&gene=<%= $ensgid %>" style="padding: 3px 0 0 0;"><%= $symbol %></a>
+		<div style="position:absolute;display:none;margin-left:80px;margin-top:-15px;z-index:10; border:1px solid #006666; background-color:#fdfdfd;padding:3px;width:600px;" id="go_<%= $ensgid %>">
+%		my %sets;
+%		map { $sets{ substr($attrs{$ge}{$_},0,-2) } .= $_.", " } (sort keys %{$attrs{$ge}} );
+%		my %fullsets;
+%		map { $fullsets { substr($fullattrs{$ge}{$_},0,-2) } .= $_.", " } (sort keys %{$fullattrs{$ge}} );
+% 		foreach my $trs (keys %fullsets) {
+<dl style="margin:0 0 0 0; padding: 0 0 0 0;"><dt><span style="color:#3F5946;white-space:normal;"><%= $trs %></span>:</dt>
+	<dd style="padding: 0 0 0 20px;margin:0;"><span style="width:550px;white-space:normal;"><%= substr($fullsets{$trs},0,-2) %></span></dd></dl>
+% 		}
+		</div></td>
+		<td colspan="2" style="margin:0; padding:0; height:100%;">
+			<table cellspacing="0" cellpadding="0" class="nosort" height="100%">
+%			my $top = $color;
+%			foreach my $re (sort keys %phenos) {
+%				my ($expID, $rgID, $howgood, $goodmatch) = split(/\|/,$re);
+% 				my $r = 250-int($howgood*100);
+%				my $g = 250-int($howgood*50);
+% 				my $b = 150+int($howgood*100);
+%				my @phs = @{ $phenos{$re} };
+%				$goodmatch = $goodmatch ? "•" : "×";
+				<tr><td width="114" style="background-color:<%= $color %>;border-right:1px solid #ccc;padding:3px;border-top:1px solid <%= $top %>;white-space:nowrap;">
+				  <font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;<a
+				href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $ensgid %>:false"><%= $rgID %></a></td>
+%					my $width = 25;
+%					foreach my $name (sort keys %namephenos) {
+%						my $have = $color;
+%						my ($e, $p) = split (/\|/,$namephenos{$name});
+%						map { $have = "$r,$g,$b" if ( $expID."|".$_->{phID} eq "$e|$p" && $expID."|".$_->{phID} eq $e."|".$_->{phID} ) } @phs;
+						<td width="<%= $width %>" style="background-color:<%= $color %>; border-right:1px solid #ccc; border-top:1px solid <%= $top %>" align="center">
+						<div style="text-align:center;background-color:rgb(<%= $have %>);height:15px;width:15px;"><a title="<%= $name %>"><!-- <%= $e %>.<%= $p %> -->&nbsp;</a></div>
+						</td>
+%					}
+%				$top = "#ccc";
+				<td style="width:98px;background-color:#e5e5e5;border:">&nbsp;</td></tr>
+%			}
+			</table>
+		</td></tr>
+%	}
+</tbody>
+</table>
+% }
+% my $around = 3;
+% my $rgap; my $lgap;
+<br>
+% my $l = 50;				# change if genes number per page (50) is changed!
+% my $cur = $skip/$l + 1;
+% if ($np > 1) {
+%   for my $p (1..$np) {
+%	if ($p == (($skip/$l) + 1) ) {
+		<span style="padding-left:5px;"><%= $p %></span>
+%	} else {
+%		my $qskip = ($p-1)*$l;
+%		if ( $p < $around && $p < $cur - $around + 1) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>"><%= $p %></a></span>
+%		}
+%		if ( $p == $around && $p < $cur - $around + 1) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>">next</a></span>
+%		}
+%		if ( $p >= $around && $p <= $cur - $around) {
+%			$lgap .= "...";
+%			if ($lgap eq "...") {
+				<span style="padding-left:5px;"><%= $lgap %></span>
+%			}
+%		}
+
+
+%		if ( $p > $around && $p == $cur - $around ) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>">prev</a></span>
+%		}
+%		if ( $p > $cur - $around && $p < $cur + $around && $p < $np - $around + 1) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>"><%= $p %></a></span>
+%		}
+%		if ( $p == $cur + $around && $p <= $np - $around ) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>">next</a></span>
+%		}
+
+
+%		if ( $p <= $np - $around && $p >=  $cur + $around) {
+%			$rgap .= "...";
+%			if ($rgap eq "...") {
+				<span style="padding-left:5px;"><%= $rgap %></span>
+%			}
+%		}
+
+
+%		if ( $p == $np - $around && $p > $cur + $around) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>">prev</a></span>
+%		}
+
+%		if ( $p > $np - $around) {
+			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?stype=go&goon=<%= $attr %>&skip=<%= $qskip %>"><%= $p %></a></span>
+%		}
+%	}
+%   }
+% }

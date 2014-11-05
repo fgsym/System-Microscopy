@@ -1,0 +1,302 @@
+1. Populate gene collection with new Ensembl release
+====================================================
+	I. install/update Ensembl API: see http://www.ensembl.org/info/docs/api/api_git.html
+	
+	II. in ~/Git/Infill/LoadGenes_n.pl, ~/Git/Infill/LoadGenes_Drosophila.pl
+	1) change $version to appropriate Ensembl release
+	2) launch the scripts
+		perl ~/Git/Infill/LoadGenes_n.pl
+		57528 genes loaded (~9h15m)
+	NB: LoadGenes_APItest.pl — to test methods in Ensembl API if something has changed
+
+
+2. New Ensembl release Reagents compliance (mapping):
+=====================================================
+
+	1) get new release:
+	===================
+	Homo Sapience: /opt/FASTA$ wget 	Homo_sapiens.GRCh37.73.cdna.all.fa.gz .
+	Fruit Fly:		/opt/FASTA$ wget ftp://ftp.ensembl.org/pub/release-73/fasta/drosophila_melanogaster/cdna/Drosophila_melanogaster.BDGP5.73.cdna.all.fa.gz .
+
+	2) extract from DB and align currently loaded Reagents:
+	=======================================================
+	perl ~/Git/Infill/Reagents_2_FASTA.pl (comment/uncomment what's needed there)
+	
+	cd ~/BINs/GENOMES
+	see README-updates.txt
+		U—>T:
+		more oligos.fa | sed 's/U/T/g' > oligosT.fa
+
+		/home/jes/BINs/bowtie-0.12.7/bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.73.cdna.all -f /home/jes/Git/infill-load-data/CompoundReagents_2013-10-7.fa /home/jes/Git/infill-load-data/Dharmacon_remap_to_release_73.map
+# reads processed: 1751
+# reads with at least one reported alignment: 1751 (100.00%)
+# reads that failed to align: 0 (0.00%)
+Reported 9355 alignments to 1 output stream(s)
+
+		/home/jes/BINs/bowtie-0.12.7/bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.73.cdna.all -f /home/jes/Git/infill-load-data/Reagents_2013-10-7_T.fa /home/jes/Git/infill-load-data/Align-best-existing-reagents-73.map
+
+# reads processed: 60260
+# reads with at least one reported alignment: 57002 (94.59%)
+# reads that failed to align: 3258 (5.41%)
+Reported 318583 alignments to 1 output stream(s)
+
+	3) align newly got reagents:
+	============================
+	NEW reagents (align statistics is the same as in README-updates.txt):
+	/home/jes/Git/infill-load-data/JCB-metazoan-actinome/Align-new-dharmacon.map
+	/home/jes/Git/infill-load-data/Phagokinetic/libraries/Dharmacon-map_without_kinase.map
+
+	4) Fruit Fly index and align:
+	=============================
+	see README-updates.txt
+	statistics is the same
+
+	update Reagents collection with aligner=>"bowtie", aligner=>"bowtie2"
+
+3. Reagents update and load into DB
+===================================
+
+	1) before loading Reagents aligned with bowtie2 check that db.Reagents.find({aligner:"bowtie"}).count() = 79582: current number of Reagents
+	2) Infill/DharmProbesLoad-to-release.pl — edit $bowtie_dh filename to load the mapping of the current release
+	3) the same for Infill/ProbesLoad-to-release.pl ($bowtie)
+	4) 
+CLEANING:	
+	db.Reagents.update({aligner:"bowtie","prefix":{$ne : "DHARM"}},{$unset:{tagin:1,genes:1,t_mapfreq:1,g_mapfreq:1}},false,true);
+LOAD:	
+	$ perl ~/Git/Infill/ProbesLoad-to-release.pl
+		2013-10-9 14:9:48: 57528 genes read from HMSPNSgenes
+		57002 reagents (with 3259 not targeting) updated to Reagents collection
+CHECKS:
+	> db.Reagents.find({aligner:"bowtie",g_mapfreq:{$gt:0},"prefix":{$ne : "DHARM"}}).count()
+		56954
+	> db.Reagents.find({aligner:"bowtie",g_mapfreq:0,"prefix":{$ne : "DHARM"}}).count()
+		3307
+	> db.Reagents.update({aligner:"bowtie","prefix":{$ne : "DHARM"}},{$set:{release:77,remap:new Date("Oct 10, 2013")}},false,true);
+			— Remapping update date print into Reagents collection;
+
+	5)	
+PREPARE:
+		perl DharmaconIDs_from_release.pl
+		— backup all pID from seq_array for DharmProbesLoad-to-release.pl 
+CHECKS:
+		> 
+		> db.Reagents.find({aligner:"bowtie","seq_array.tagin.sbjct":/\S/,"prefix": "DHARM"}).count();
+		
+		441
+		— Reagents with mapping sequences
+		> db.Reagents.find({aligner:"bowtie","seq_array.pID":{$not:/D/},"prefix": "DHARM"}).count();
+			— Dharmacon reagents without specified probes in compound
+CLEANING (don't change the step sequence here!):
+		1.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{tagin:1}},false,true);
+			— remove old mapping data from Dharmacon reagents
+			(NB: "tagin" field is still exist in the Dharmacon reagents without sequences!! (without "seq_array.tagin.*" data) )
+		2.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{seq_array:1}},false,true);
+			— pIDs in seq_array to be restored from DharmaconIDs_from_release.pl.tab 
+		3.
+		> db.Reagents.update({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"},{$unset:{genes:1}},false,true);
+LOAD:
+		perl DharmProbesLoad-to-release.pl
+		
+
+4. New Reagents load
+====================
+
+PREPARE:
+	JCB-metazoan-actinome
+	---------------------
+	1) prepare reagents from Library:
+
+I.		1. ~/Git/Infill$ perl reformats/JCB-metazoan-actinome_DHARM_2fasta.pl 
+		2. ~/Git/infill-load-data/JCB-metazoan-actinome$ more DHARM.fa | sed 's/U/T/g' > DHARM_T.fa
+		3. /home/jes/BINs/bowtie-0.12.7/bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.73.cdna.all -f /home/jes/Git/infill-load-data/JCB-metazoan-actinome/libraries/DHARM_T.fa /home/jes/Git/infill-load-data/JCB-metazoan-actinome/Align-new-dharmacon.map
+# reads processed: 2388
+# reads with at least one reported alignment: 2356 (98.66%)
+# reads that failed to align: 32 (1.34%)
+Reported 13299 alignments to 1 output stream(s)
+		
+		AND 
+II.	1. ~/Git/Infill$ perl reformats/NewDharmReformats.pl
+		2. U->T
+		3. ~/Git/infill-load-data/JCB-metazoan-actinome$ /home/jes/BINs/bowtie-0.12.7/bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.73.cdna.all -f /home/jes/Git/infill-load-data/JCB-metazoan-actinome/libraries/Dharmacon_T.fa /home/jes/Git/infill-load-data/JCB-metazoan-actinome/Align-new-dharmacon_additional2check.map
+# reads processed: 2281
+# reads with at least one reported alignment: 2248 (98.55%)
+# reads that failed to align: 33 (1.45%)
+
+		AND
+III.
+		BOWTIE2
+=== BUILD INDEX:
+in ~/BINs/GENOMES/DrosophilaMelanogaster/
+/home/jes/BINs/bowtie2-2.1.0/bowtie2-build -f /opt/FASTA/Drosophila_melanogaster.BDGP5.73.cdna.all.fa Drosophila_melanogaster-73
+
+=== ALIGH:
+/home/jes/BINs/bowtie2-2.1.0/bowtie2 -x Drosophila_melanogaster-73 -f /home/jes/Git/infill-load-data/JCB-metazoan-actinome/library/Drosophila_library.fa -S Drosophila-bowtie2-7-10-2013.map
+then it has to be cleaned up to 
+more  Drosophila-bowtie2.map | grep DRSC > /home/jes/Git-backup-10-2013/infill-load-data/JCB-metazoan-actinome/Drosophila-bowtie2-cleanup.map
+
+	Phagokinetic
+	------------
+	2) prepare reagents from Library:
+		1. ~/Git/Infill$ perl reformats/LibraryFiles_processing.pl ($seq =~s/U/T/gsm)
+		2.	/home/jes/BINs/bowtie-0.12.7/bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.73.cdna.all -f /home/jes/Git/infill-load-data/Phagokinetic/libraries/Dharmacon.fa /home/jes/Git/infill-load-data/Phagokinetic/libraries/Dharmacon-map_without_kinase.map
+# reads processed: 1444
+# reads with at least one reported alignment: 1437 (99.52%)
+# reads that failed to align: 7 (0.48%)
+
+LOAD:
+1.	~/Git/Infill$ perl DharmaconUpload.pl
+2013-10-22 17:39:34: 22350 maps gathered into hash: 874 pool reagents found
+2013-10-22 17:39:34: 18955 Dharmacon reagents in DB so far
+2013-10-22 17:39:34: 366 reagents to insert and 504 reagents to update
+2013-10-22 17:39:41: 57528 genes read from HMSPNSgenes
+2013-10-22 17:39:41: 18955 start ID for reagents to insert 
+2013-10-22 17:58:23: 504 reagents updated and 366 inserted
+
+2. ~/Git/Infill$ perl ReagentsLoad-bowtie2.pl
+15243 reagents loaded
+
+CHECKS:
+db.Reagents.find({aligner:"bowtie","seq_array.tagin.sbjct":/\w/i,"prefix": "DHARM"}).count();
+db.Reagents.find({aligner:"bowtie","prefix": "DHARM"}).count();  = 18955+366 = 19321
+
+> db.Reagents.find({aligner:"bowtie2"}).count()
+13997
+
+
+5. Studies Load
+===============
+! First load new Specie into the Species collection if there is a new Specie!
+~/Git/Infill$ perl StudiesLoader.pl 
+	collection: Studies
+
+6. Datasets Load
+================
+~/Git/Infill$ perl DatasetsLoader.pl
+	collection: Datasets
+
+7. Processed Data Load
+======================
+~/Git/Infill$ perl AnalysisData.pl
+	collection: ProcessedData
+	see # IF UPDATE WITH NEW DATA SET line
+	
+8. Phenotypes to Genes 
+======================
+CLEAN need if phenotypic data were renewed:
+> db.HMSPNSgenes.update({},{$unset:{phenolist:1}},false,true);
+> db.FruitFLYgenes.update({},{$unset:{phenolist:1}},false,true);
+
+~/Git/Infill$ perl Genes_by_Phenotypes.pl HMSPNSgenes
+2013-11-28 14:15:27 : 14837 genes with assigned phenotypes read from Processed Data
+~/Git/Infill$ perl Genes_by_Phenotypes.pl FruitFLYgenes
+
+9. GO Ontologies
+================
+~/Git/Infill$ perl GO_Analysis.pl HMSPNSgenes
+~/Git/Infill$ perl GO_Analysis.pl FruitFLYgenes
+
+10. Statistics
+==============
+db.Statistics.drop()
+edit /opt/data/Statistics.json
+								(db.HMSPNSgenes.find({phenolist:{$size:2},"phenolist.goodmatch":{$ne:0}}).count())
+{
+"_id" : { "$oid" : "519f4a470f5a24f332000000" },
+"mapping" : 90714, // db.Reagents.find({prefix:"DHARM",g_mapfreq:{$ne:0}}).count() + db.Reagents.find({prefix:{$ne:"DHARM"},"seq1":/\w/i,g_mapfreq:{$ne:0}}).count()
+"goodmapstat" :
+	[ { "goodmatches" : 1, "gcount" : 5626 }, // db.HMSPNSgenes.find({phenolist:{$size:1},"phenolist.goodmatch":{$ne:0}}).count()
+	{ "goodmatches" : 2, "gcount" : 1990 }, // 
+	{ "goodmatches" : 3, "gcount" : 405 },
+	{ "goodmatches" : 4, "gcount" : 117 },
+	{ "goodmatches" : 5, "GCOUNT" : 27 },
+	{ "goodmatches" : 6, "gcount" : 8 } ],
+"uniquemaps" : , 		// db.Reagents.find({g_mapfreq:1}).count()
+"genes_u_phenotyped" : 9933, // db.HMSPNSgenes.find({"phenolist.goodmatch":1,"phenolist.probeID":/\w/i}).count()
+"release" : "73", 
+"mapstat" : 
+	[ { "count" : 8834, "matches" : 1 }, 
+	{ "count" : 3698, "matches" : 2 }, // db.HMSPNSgenes.find({phenolist:{$size:2}}).count()
+	{ "count" : 1148, "matches" : 3 }, 
+	{ "count" : 404, "matches" : 4 }, 
+	{ "count" : 112, "matches" : 5 }, 
+	{ "count" : 36, "matches" : 6 }, 
+	{ "count" : 3, "matches" : 7 }, 
+	{ "count" : 2, "matches" : 8 }, 
+	{ "count" : 1, "matches" : 9 } 
+	], 
+"total" : 79582, 	// db.Reagents.find({}).count()
+"goodmaxreags2gene" : 6, 
+"all_genes_phenotyped" : 14238,  // db.HMSPNSgenes.find({"phenolist.probeID":/\w/i},{phenolist:1,ensGID:1}).count();
+"maxreags2gene" : 9, 
+"studies" : 9, 
+"verified" : 61571 // db.Reagents.find({prefix:"DHARM","seq_array.tagin.sbjct":/\w/i}).count() + db.Reagents.find({prefix:{$ne:"DHARM"},"seq1":/\w/i}).count()
+}
+$ cd /opt/data
+$ more Statistics.json | sed ':a; /$/N; s/\n//; ta' > Statistics-p.json
+$ ../mongodb-2.4.8/bin/mongoimport --dbpath /opt/data/ -d sym -c Statistics --file ../data/Statistics-p.json
+
+11. Indexes:
+============
+db.HMSPNSgenes.ensureIndex({symbol:1});
+db.HMSPNSgenes.ensureIndex({synonyms:1});
+db.HMSPNSgenes.ensureIndex({ensGID:1});
+db.FruitFLYgenes.ensureIndex({symbol:1});
+db.FruitFLYgenes.ensureIndex({synonyms:1});
+db.FruitFLYgenes.ensureIndex({ensGID:1});
+db.Reagents.ensureIndex({"tagin.symbol":1});
+db.Reagents.ensureIndex({"tagin.ensGID":1});
+db.Reagents.ensureIndex({"rgID":1});
+db.Reagents.ensureIndex({"probeID":1});
+db.ProcessedData.ensureIndex({"cases":1});
+db.ProcessedData.ensureIndex({"cases.genes.ensGID":1});
+db.Datasets.ensureIndex({"probeID":1,"replica":1});
+db.Datasets.ensureIndex({"rgID":1});
+db.Datasets.ensureIndex({"transcripts.GO.GOdesc":1});
+
+
+12. DB import to HX master:
+===========================
+
+/opt/data$ ../mongodb-2.4.8/bin/mongodump --dbpath /opt/data/ -d sym -o Symdump
+../mongodb-2.4.8/bin/mongo --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 sym
+> use sym
+switched to db sym
+> db.dropDatabase();
+
+db.Statistics.drop();
+db.GO_Analysis.drop();
+db.Datasets.drop();
+db.FruitFLYgenes.drop();
+db.HMSPNSgenes.drop();
+db.Messages.drop();
+db.Phenotypes.drop();
+db.ProcessedData.drop();
+db.Reagents.drop();
+db.Species.drop();
+db.Statistics.drop();
+db.Studies.drop();
+db.Suppliers.drop();
+db.fs.chunks.drop();
+db.fs.files.drop();
+db.log.drop();
+db.myoutput.drop();
+db.phenolist.drop();
+db.res.drop();
+db.system.indexes.drop();
+db.system.users.drop();
+
+
+../mongodb-2.4.8/bin/mongorestore --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 -db sym /nfs/ma/home/sym/_dev-live/Symdump/sym/
+../mongodb-2.4.8/bin/mongorestore --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 -db sym /opt/data/Symdump/sym/
+
+
+Or import by collections like:
+../mongodb-2.4.8/bin/mongoimport --username usym --password i5b4SvmN --host mongodb-hxvm-sym-001.ebi.ac.uk --port 27017 -d sym --file export-T_ontology.json -c T_Ontology
+
+
+(indexes is better to create separately on the master)
+
+
+my $m = MongoDB::Connection->new(host => "mongodb://localhost:27017", find_master => 1);

@@ -1,0 +1,158 @@
+% my $tab = 0;
+%  if ($self->param('gene') || $self->param('reag') || $self->param('goon') || $self->param('study') || $self->param('stds') || $self->param('phn') || $self->param('ohn')) {
+%	$tab = 4 if ( ($self->param('stds') =~/\S/ || $self->param('stds') =~/\s/) && !$self->param('study') && $self->param('stds') !~/author/);
+%	$tab = 2 if ($self->param('goon') =~/\S/);
+%	$tab = 1 if ($self->param('reag') =~/\S/ && $self->param('reag') !~/Supplier/);
+%	$tab = 3 if ($self->param('phn') =~/\S/ || $self->param('ohn') =~/\S/ );
+%  }
+% $tab = 0 if $self->param('gene');
+% $tab = 0 unless ($self->param('submit')); 
+<script>
+auPaths = {
+   gpath: "<%= $relpath %>/autocomplete/genefilter",
+   atpath: "<%= $relpath %>/autocomplete/attribute",
+   phpath:"<%= $relpath %>/autocomplete/phenofilter",
+   ontpath: "<%= $relpath %>/autocomplete/ontofilter"
+};
+</script>	
+<script src="<%= $relpath %>/src/autoinputs.js"></script>
+	<div style="white-space:nowrap; font-size:11px; float:left; width:170px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+	    <div class="rownav" id="submit"><a href="<%= $relpath %>/oterms/">Ontology terms browsing</a></div>
+	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+	</div>
+
+	<div style="margin:0; padding:0; height:80px; width:680px;float:right;" id="sform">
+	    <div class=boxed style="background-color:#f2f7ff;">
+	      <div style="height:82px; width:600px; padding: 0 0 0 20px;">
+<div id="searchf" style="margin: 0 0 25px 0; ">
+<form action="<%= $relpath %>/search/result" method="post" name="fsearch">
+<style>
+.4sc {	height:300px; width:145px; padding:1px;}
+.4gnm {	width:110px; padding:1px;}
+.ibox {	width:320px; max-heigth:24px !important; heigth:24px !important;margin: 0 0 2px 0}
+.isbox {width:252px; max-heigth:22px !important; heigth:22px !important;margin: 0 0 2px 0}
+.pa {margin: 0; padding: 0 0 1px 16px; }
+.act { height:22px}
+.s_plus {background: url('<%= $relpath %>/src/jquery-treeview/images/plus.gif') 1px 3px no-repeat; }
+.s_minus {background: url('<%= $relpath %>/src/jquery-treeview/images/minus.gif') 1px 3px no-repeat; }
+.s_hitarea { height: 22px; width: 16px; margin-left: -16px; float:left; cursor: pointer; }
+</style>
+<div style="width:550px; display:none; padding:2px; margin:2px 0 2px 0;" id="tabform" class="ui-widget">
+<div id="fload" style="width:550px; display:none;"><img src="<%= $relpath %>/imgs/loading.gif" style="margin:0 10px 0 20px" align="right"></div>
+	<div id="tabs" style="width:450px;float:left;display:inline;color:#000;">
+		<ul>
+	<li style="width:60px;"><a href="#gn" style="width:60px;text-decoration:none;font-family:arial">Gene</a></li>
+	<li style="width:85px;"><a href="#re" style="width:85px;text-decoration:none;font-family:arial" onClick="makeQuery('r');makeField('re')">Reagent ID</a></li>
+	<li style="width:110px;"><a href="#go" style="width:110px;text-decoration:none;font-family:arial">Gene attribute</a></li>
+	<li style="width:90px;"><a href="#phs" style="text-decoration:none;font-family:arial">Phenotype</a></li>
+	<li style="width:60px;"><a href="#std" style="width:60px;text-decoration:none;font-family:arial" onClick="makeQuery('s');makeField('std')">Study</a></li>
+		</ul>
+		<div style="position:absolute; margin: -27px 0 0 485px;float:right">
+			<SELECT name="genome" id="gnm" style="width:130px" onSelect="reload()">
+% my %genomes = ("HMSPNSgenes"=>"Homo sapiens","FruitFLYgenes"=>"Fruit Fly");
+% my $slct;
+% my $ch_gnm = $self->param('ch_gnm');
+% my @cookies = $self->signed_cookie('genome');
+% my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+% my $genome = $self->param('genome') ? $self->param('genome') : $cookie;
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome); 
+%	if ( $self->param('reag') =~/DRSC/ || (reverse @{$self->req->url->path->parts})[0] =~/FruitFLYgenes/ ) {
+%		$genome = "FruitFLYgenes";
+%	}
+%	if ( (reverse @{$self->req->url->path->parts})[0] =~/HMSPNSgenes/ ) {
+%		$genome = "HMSPNSgenes";
+%	}
+% if (!$cookie || $cookie ne $genome || $self->param('genome') ne $genome) {
+% 	$self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+% }
+% foreach my $i (keys %genomes) {
+%	$slct = (($genome && $genome eq $i) || ($ch_gnm && $ch_gnm eq "$i") || ($genome eq "" && $i eq "HMSPNSgenes")) ? "selected" : ""; 
+	<option value="<%= $i %>" <%= $slct %> style="font-style:bold"><%= $genomes{$i} %></option>				
+% }
+			</SELECT>
+% my @scr_obj = @{Sym::Model::MongoQ->get_all_screens($genome)};
+			<input type="hidden" name="ch_gnm" value="<%= $genome %>">
+		</div>
+		<div id="phs" style="padding: 10px 1px 1px 6px; width:460px;">
+			<div style="float:left;width:170px;padding:0" id="stlist">
+				<div style="float:left">
+					<SELECT name="study" id="sc" style="width:145px;">
+						<option value="">Ontology terms</option>
+						<option value="0">Any study terms</option>
+			%	foreach my $obj (@scr_obj) {
+						<option value="<%= $obj->{StdID} %>"><%= $obj->{StdTitle} %> </option>
+			%	}
+					</SELECT></div><div style="float:right; padding: 0 0 0 0px;">
+				  (<a style="font-weight:bold;cursor:pointer;color:#21416d;text-decoration:none"
+				onMouseOver="javascript:showDiv('ph-explain')" onMouseOut="javascript:hideDiv('ph-explain')">?</a>)
+					</div>
+				<div id="ph-explain" class="tooltip" style="top:60px; margin:10px 0 0 0">
+				Search by «Ontology term» provides results for ontology terms through the studies having common genes knocked down.<br>					
+				Search by «Any study term» provides results for phenotype terms through the studies having common genes knocked down.<br>
+				Search by study acronim provides results for phenotype terms observed <u>together</u> for a given reagent/gene
+				</div>
+				<div style="display:inline; position:absolute;color:darkgreen" id=genes></div>
+			</div>
+			<div style="float:right;width:280px;">
+			  <div style="display:none" id="phinput">
+				  <input type="text" id="ph" name="phn" class="isbox">
+			  </div>
+			  <div id="ontinput">
+				  <input type="text" id="ont" name="ohn" class="isbox">
+			  </div>
+			</div>
+		</div>
+		<div id="gn" style="padding: 10px 1px 1px 6px; height:30px;">
+			<input type="hidden" name="gene" id="g" class="searchf ibox">
+			<div id="ex">e.g. <a href="<%= $relpath %>/gene/HMSPNSgenes:ENSG00000105146">AURKC</a> or <a href="<%= $relpath %>/gene/HMSPNSgenes:ENSG00000105146" >ENSG00000105146</a></div>
+		</div>
+		<div id="re" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="reag" id="r" class="searchf ibox" OnClick="makeQuery('r')">
+			<div id="ex">e.g. <a href="<%= $relpath %>/reagent/AMBN10029218:HMSPNSgenes:ENSG00000115128" class="demo">124936</a></div>
+		</div>
+		<div id="go" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="goon" id="o" class="searchf ibox"> 
+			<div style="display:inline;position:absolute;line-height:14px;padding:5px 0 0 10px">CMPO off: 
+% my $chkd = ($self->param('aterms') && $self->param('aterms') eq "on") ? "checked" : "";			
+			<INPUT type="checkbox" name="aterms" id="oface" class="face" <%= $chkd %>><label for="oface"></label></div>
+			<div id="ex">e.g. kinesin complex</div>
+		</div>
+		<div id="std" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="stds" id="s" class="searchf ibox" OnClick="makeQuery('s')">
+			<div id="ex">e.g. plasma membrane</div>
+		</div>
+	</div>
+	<div style="width:80px;float:right;display:inline; margin-top:0px;padding: 42px 0 0 0; border:" id="cform">
+<!--	organism: <span style="margin:0 8px 0 8px;"><select name="specie" id="sp"><option value="hmspns">Homo sapiens</option></select></span>-->
+	<span style="margin:0 8px 0 20px; width:150px;"><input type="submit" value="Search" class="mainsubmit" name="submit" style="font-size:13px;font-weight:bold;"></span>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('#fload').css('display', 'none');
+		$('#tabform').css('display', 'block');		
+		$( "#tabs" ).tabs({
+			collapsible: false,
+			active:<%= $tab %>
+		});
+	    $("input:checkbox.face").each(function () {
+				$(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } )
+		});
+	});
+</script>
+</form>
+</div>
+<script>makeField("re");</script>
+	      </div>
+	    </div>
+	</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#oface").change(function () {
+		  $(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } )
+		});
+	});
+</script>

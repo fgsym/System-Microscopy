@@ -1,0 +1,70 @@
+# Data structure
+# Field ACRONIM | Field NAME | Field TYPE (key/value/multikey/multivalue) | Field key ACRONIM ("" or @arr[0]) | predefined (0 or 1)
+
+# Study
+StdID	Study Identifier		key	0	1
+StdSpc	Study Species			key	0	0
+StdTitle	Study Title		value	StdID	0
+StdDescr	Study Description	value	StdID	0
+StdURL	Study External URL		value	StdID	0
+StdComments	Study Results Summary	value	StdID	0
+StdScrns	Study Screens Number	key	StdID	0
+
+# Study Publication
+StdPubMedID	Study PubMed ID		key
+StdPubTitle	Study Publication Title	value
+StdAuthors	Study Authors List
+StdIss	Study Issue
+StdPaperURL	Study Paper URL
+
+# Study Contacts
+StdPrsLastN	Study Person Last Name
+StdPrsFirstN	Study Person First Name
+StdPrsEmail	Study Person Email
+StdPrsAddress	Study Person Address
+
+# Study Screens
+ScrData	Screen Data 1
+
+ScrTechType	Screen Technology Type
+ScrType	Screen Type
+ScrTrgOrganism	Screen Target organism
+
+# Screen materials
+ScrCL	Screen Cell Line
+
+# Screen library
+ScrLibF Screen library File
+ScrLibID Screen library ID
+ScrLibV	Screen library version
+ScrLibT	Screen library Type
+ScrLibM	Screen library Manufacturer
+
+# Screen Protocols
+ScrProtocolN	Screen Protocol name
+ScrProtocolDescr	Screen Protocol description
+ScrScAbbrev	Screen score abbreviations
+
+# Screen Phenotypes
+ScrPhName	Screen Phenotype name
+ScrPhDescr	Screen Phenotype description
+ScrPhScType	Screen Phenotype score type
+ScrPhScParams	Screen Phenotype score parameter
+ScrPhScRules	Screen Phenotype scoring rules
+
+ScrScMethod	Screen scoring method
+
+ScrImgType	Screen raw image data Type
+ScrImgFormat	Screen raw image data Format
+ScrImgFolder	Screen raw image data folder
+ScrImgPrfx	Screen raw image data folder prefix
+ScrImgOrg	Screen raw image data folder organization
+ScrImgExtURL	Screen images external site prefix
+ScrImgIDs	Screen images external site IDs
+
+ScrFile	Screen processed data file name
+ScrMD5	Screen processed data file md5sum
+ScrColmnN	Screen processed data column name
+ScrColmnT	Screen processed data column type
+ScrColmnU	Screen processed data column unit
+ScrColmnD	Screen processed data column description

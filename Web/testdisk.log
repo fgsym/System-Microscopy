@@ -1,0 +1,24 @@
+
+
+Fri Oct 17 13:29:21 2014
+Command line: TestDisk
+
+TestDisk 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.13.0-24-generic (#46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014) x86_64
+Compiler: GCC 4.8
+Compilation date: 2013-10-29T01:29:29
+ext2fs lib: 1.42.9, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       625142448 sectors
+/dev/sda: user_max   625142448 sectors
+/dev/sda: native_max 625142448 sectors
+/dev/sda: dco        625142448 sectors
+Warning: can't get size for Disk /dev/sdb - 0 B - 1 sectors, sector size=512 - ASMT 2105
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 1 sectors, sector size=512
+Hard disk list
+Disk /dev/sda - 320 GB / 298 GiB - CHS 38913 255 63, sector size=512 - WDC WD3200AAKS-75L9A0, S/N:WD-WCAV29243259, FW:02.03E02
+
+
+TestDisk exited normally.

@@ -1,0 +1,113 @@
+% layout 'default';
+% title 'How to submit study results to Cellular Phenotype Database';
+ <script type="text/javascript">
+ function hideLoadingDiv(d,s) {
+  document.getElementById(d).style.display = "none";
+  document.getElementById(s).style.display = "block";
+ }
+  </script>
+<style>
+p {text-align:left; width:865px}
+</style>
+<h2>Submitting data to the Cellular Phenotype database</h2>
+<p>
+The Cellular Phenotype database accepts data from high-throughput phenotypic studies. Such studies allow screening living cells under a wide range of experimental conditions and give access to a whole panel of cellular responses to a specific treatment. Substances like small molecules and peptides, or techniques like RNA interference (RNAi), can be applied to look at the effects, or phenotypes, that such substances induce in cells, with the aim of elucidating novel gene function as well screening compounds for desirable therapeutic effects.
+
+<p><h4>Submitting data associated with RNAi studies</h4>
+<p>All phenotypic data currently stored in the database were derived from RNAi treatment of cultured human cells and phenotypes were recorded by high-throughput live cell imaging.
+
+<p>For each RNAi based study that you wish to submit, we kindly ask you to provide the following 3 files:
+
+<ol style="width:700px">
+
+ <li>The <b>study description file</b>, which you can create using this <a href="<%= $relpath %>/getfile/template:RNAi">spreadsheet template</a>. Instructions to help you filling in this spreadsheet can be found in the spreadsheet itself.
+<br><br>
+With this spreadsheet we want to capture some generic information about the study, including title, description, and publication details (if applicable), and specific information about each screen included in the study (i.e. primary screen, validation screen, etc.). For each screen in the study, we request details such as target organism, materials used (e.g. cell line), names and descriptions of the experimental and analytical protocols used, as well as names and descriptions of the phenotypes observed.
+<br><br>
+If you need additional fields to describe your data, feel free to add them to the spreadsheet, but provide the relevant annotation needed to understand the content of the new field(s).
+
+ <li><p>The <b>library annotation file</b>, including, at the absolute minimum, siRNA reagent IDs, sequences and position in the experimental layout (e.g. plate and position in the plate). <b>This file should be saved in TAB DELIMITED FORMAT.  </b>
+<br><br>
+siRNA sequences are fundamental, as they are used to map siRNAs to the reference genome when a new release becomes available. We are therefore unable to accept datasets for which the siRNA sequences are not available; and
+
+ <li><p>The <b>processed data file</b> (one for each screen in the study). <b>This file should be saved in TAB DELIMITED FORMAT.</b>
+This file should contain the screen results in the form of a table where each row corresponds to a plate position, and therefore to a siRNA ID. Additional columns must contain the phenotype(s) assigned to each position/siRNA ID and the score(s) (i.e. Z-score, p-value, etc.) that has been used to assign a phenotype to that a position/siRNA ID. In special cases when raw image data are also to be submitted, for each position in the processed data file, we require an additional column with the full image path for the image(s) associated with the selected position/siRNA ID. This column can be split into several columns (one per channel), if needed.
+</ol>
+<script language="JavaScript">
+<!--
+function ar(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="jes"+ar; return ar};
+function cr(){var ar="@"; ar=ar+"ebi.ac."; ar=ar+"uk"; ar="ugis"+ar; return ar};
+function subj()   {return "?Subject= * Express query from Cellular Phenotype Database site&cc:ugis@ebi.ac.uk"};
+function lnka(){this.location="mailto:"+ar()+","+cr()+subj(); return false};
+function word(){return "Contact us"};
+//-->
+</script>
+<p>Some examples of datasets already loaded in the Cellular Phenotype database are available below. If you need help with your submission or want more examples, contact us at 
+<a href="mailto:[Contact us]" onclick="return lnka()">this email</a>.
+
+<div style="display:table; width:850px;">
+ <div style="display:table-cell; width:400px; padding:5px;"><b>Study title:</b> Phenotypic profiling of the human genome by time-lapse microscopy reveals cell division genes</div>
+ <div style="display:table-cell; width:400px; padding:5px;"><b>Study title:</b> EMBL-secretion screen</div>
+</div>
+<div style="display:table; width:850px;">
+ <div style="display:table-cell; width:400px; padding:5px;">
+<b>Study description:</b> A systematic analysis of genes and proteins that are required for chromosome segregation and cell division in human cells was carried out. All 22,000 human genes were inactivated one by one in cultured human cells using RNAi. The cellular phenotypes were recorded by high-throughput live cell imaging. Automated analyses of the resulting images revealed that some 600 out of the 22,000 human genes play a role in mitosis.</div>
+ <div style="display:table-cell; width:400px; padding:5px;"><b>Study description:</b> An RNAi-based high content screening microscopy platform was used to screen a genome-wide library of over 51,000 small interfering RNAs (siRNAs) targeting approximately 22,000 human genes for interference with ER-to-plasma membrane transport of the well-characterized secretory cargo membrane protein tsO45G.</div>
+</div>
+<a name="examples"></a>
+<div style="display:table; width:850px;">
+ <div style="display:table-cell; width:400px; padding:5px;"><b>Screens:</b> Primary screen and validation screen</div>
+ <div  style="display:table-cell; width:400px; padding:5px;"><b>Screens:</b> Primary screen</div>
+</div>
+<div style="display:table; width:850px;">
+ <div style="display:table-cell; width:400px; padding:5px;"><a href="<%= $relpath %>/getfile/idf:Description:M1_SyM">Download study description</a><br>
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/20360735">View publication</a><br>
+<a href="<%= $relpath %>/study/M1_SyM">View database entry</a><br>
+ </div>
+ <div  style="display:table-cell; width:400px; padding:5px;">
+<a href="<%= $relpath %>/getfile/idf:Description:E1_SyM">Download study description</a><br>
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/22660414">View publication</a><br>
+<a href="<%= $relpath %>/study/E1_SyM">View database entry</a><br>
+ </div>
+</div>
+<br>
+<h4>Submitting data associated with other study types</h4>
+
+<p>The Cellular Phenotype database is built using a flexible, open source document‐oriented NoSQL database management system, MongoDB, and allows for the
+loading of data in different formats.
+
+<p>If the data that you wish to submit to us cannot be adequately represented with the format proposed above, please get in touch with us at
+<a href="mailto:[Contact us]" onclick="return lnka()">phenotype@ebi.ac.uk</a>.
+
+
+<div style="width:870px;padding-top:10px;">
+  <div style="margin:15px;width:420px;display:table-cell;height:200px;">
+ <div style="margin:5px;padding:5px;font-size:11px" class="boxed_sh">
+   <span class="highlight">A generic view of our approach to data processing:<br><br>
+   <a onClick="javascript:showDiv('view')" style="cursor:pointer;color:darkblue">
+     <img src="<%= $relpath %>/imgs/Various_DataStorage_HowTo_sm.png">
+   <center>click to see the bigger image</center></a>
+ </div>
+  </div>
+  <div style="margin:15px;width:420px;display:table-cell;height:200px;">
+ <div style="margin:5px;padding:5px;font-size:11px" class="boxed_sh">
+   <span class="highlight">Schema of the study collected:<br><br>
+   <a onClick="javascript:showDiv('schema')" style="cursor:pointer;color:darkblue">
+     <img src="<%= $relpath %>/imgs/SyM_Datastore_Model_sm.png">
+   <center>click to see the bigger image</center></a>
+ </div>
+  </div>
+</div>
+  <div style="width:860px;display:none; position:relative; top:-250px; left:0px;z-index:500;margin:5px;padding:5px;" id="view" class="boxed_sh">
+    <div style="display:inline;float:right; margin-top:-2px;"><a id = "ogif" onClick = "switchElSwitchImg('view', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a></div>
+   <center><span class="highlight">A generic view of our approach to data processing:
+        <div style="text-align:center;padding:40px 0 0 0;height:370px;" id="loading_h"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+ <div style="display:none;" id="howto" ><img src="<%= $relpath %>/imgs/Various_DataStorage_HowTo.png" style="margin-left:5px;" onload="hideLoadingDiv('loading_h','howto');"></div>
+  </div>
+
+  <div style="width:860px;display:none; position:relative; top:-250px; left:0px;z-index:500;margin:5px;padding:5px;" id="schema" class="boxed_sh">
+    <div style="display:inline;float:right; margin-top:-2px;"><a id = "ogif" onClick = "switchElSwitchImg('schema', 'ogif');" style="cursor: pointer; border:0px; width:11px; margin:5px;" ><font color="#3F4659" size=4>×</font></a></div>
+   <center><span class="highlight">Schema of the study collected:</center>
+        <div style="text-align:center;padding:40px 0 0 0;height:370px;" id="loading_m"><img src="<%= $relpath %>/imgs/loading.gif" alt="Loading..." align="middle"/></div>
+ <div style="display:none;" id="model" ><img src="<%= $relpath %>/imgs/SyM_Datastore_Model.png" style="margin-left:5px;" onload="hideLoadingDiv('loading_m','model');"></div>
+  </div>

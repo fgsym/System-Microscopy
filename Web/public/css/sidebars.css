@@ -1,0 +1,244 @@
+
+table td.contentsarea{
+	border-left: 1px solid #dedede;
+}
+
+/* START CLICK LEFT MENU */
+
+
+.sidemenufixed {
+	position: fixed; 
+	top: 65px;
+}
+
+
+
+/* LEVEL 1 */
+
+.sidemenu li {
+	padding-left: 11px;
+	background: url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_link.gif) no-repeat top left;
+	color: #006666;
+}
+
+.sidemenu li:last-child, .sidemenu li.lastchild{
+	padding-left: 11px;
+	background: url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_link_lastchild.gif) no-repeat top left;
+}
+
+.sidemenu li.clickme  {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_plus.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li.clickme:last-child, .sidemenu li.clickmelastchild  {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_plus_lastchild.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li.clickmeopen {
+	background:    url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_minus.gif) no-repeat top left;
+}
+
+.sidemenu li.clickmeopen:last-child, .sidemenu li.clickmeopenlastchild{
+	background:    url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_minus_lastchild.gif) no-repeat top left;
+}
+
+.sidemenu li.opensub {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_minus.gif) no-repeat top left;
+	display: block;
+	margin: 0;
+}
+
+.sidemenu li:last-child.opensub, .sidemenu li.lastchildopensub {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level1_minus_lastchild.gif) no-repeat top left;
+	display: block;
+	margin: 0;
+}
+
+/* LEVEL 2 */
+
+
+.sidemenu li ul li {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_link.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li:last-child, .sidemenu li ul li.level2lastchild, .sidemenu li ul li ul li.level2lastchild {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_link_lastchild.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li.clickme {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_plus.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li.clickme:last-child, .sidemenu li ul li.clickmelevel2lastchild, .sidemenu li ul li ul li.clickmelevel2lastchild{
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_plus_lastchild.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li.clickmeopen {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_minus.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li.clickmeopen:last-child, .sidemenu li ul li.clickmeopenlevel2lastchild, .sidemenu li ul li ul li.clickmeopenlevel2lastchild  {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_minus_lastchild.gif) no-repeat top left;
+	cursor: pointer;
+}
+
+.sidemenu li ul li.opensub {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_minus.gif) no-repeat top left;
+	display: block;
+	margin: 0;
+}
+
+.sidemenu li ul  li:last-child.opensub, .sidemenu li ul  li.level2lastchildopensub {
+	background:  url(http://www.ebi.ac.uk/inc/images/leftmenu/level2_minus_lastchild.gif) no-repeat top left;
+	display: block;
+	margin: 0;
+}
+
+
+/* LEVEL 3  etc inherits from level 2....*/
+.sidemenu li ul  li{
+	overflow: hidden;
+	width: 140px; /* reduced due to IE */
+}
+
+.sidemenu li ul  li  li a{
+	overflow: hidden;
+	width: 160px;
+}
+
+.sidemenu {
+	list-style: none;
+	margin: 0;
+	padding-left: 2px;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 12px;
+}
+
+.sidemenu li ul {
+	list-style: none;
+	display: none; 
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 12px;
+}
+
+.sidemenu a:link, .sidemenu a:visited {
+	color: #006666;
+	text-decoration: none;
+}
+
+.sidemenu li {
+	padding-top: 5px;
+	padding-right: 1px;
+}
+
+.sidemenu a:hover, .sidemenu a:active {
+	color: #e33e3e;
+	text-decoration: underline;
+}
+
+
+
+
+.sidemenu li.leftmenudivider {
+	padding: 0;
+	border: none 0; 
+	width: 100%;
+	height: 1px;
+	background: #ffffff url(http://www.ebi.ac.uk/inc/images/line.jpg) repeat scroll center;
+ 	text-align: left;
+	margin: 10px 0px 10px 0px; /* top right bottom left*/
+	font-size: 1px;
+}
+
+
+
+.sidemenu li.plainlist {
+	padding: 0;
+	color:#1f1f1f;
+	font-weight: bold;
+	background: #ffffff;
+	border: none 0; 
+	width: 100%;
+	height: 1px;
+ 	text-align: left;
+	margin: 10px 0px 20px 0px; /* top right bottom left*/
+}
+
+.sidemenu li.leftmenudividersubheading {
+	padding: 0;
+	color:#1f1f1f;
+	font-weight: bold;
+	background: #ffffff;
+	border: none 0; 
+	width: 100%;
+	height: 1px;
+ 	text-align: left;
+	margin: 10px 0px 20px 10px; /* top right bottom left*/
+}
+
+
+
+/* allows menu to be open when javascript disabled */
+/*.sidemenu li.clickmeopen, .sidemenu li.clickmeopen ul, .sidemenu li.clickmeopen ul li{*/
+.sidemenu li.clickmeopen, .sidemenu li.clickmeopen ul, .sidemenu li.clickmeopen ul li{
+	display: block;
+}
+
+.sidemenu li.clickmeopen ul li ul {
+	display: none; 
+}
+
+
+ .sidemenu li.clickmeopen ul{
+ 	margin: 0;
+ }
+ 
+.freestyle{
+	padding: 0;
+	color:#1f1f1f;
+	font-weight: bold;
+	background: #ffffff;
+	border: none 0; 
+	width: 100%;
+	height: 1px;
+ 	text-align: left;
+	margin: 10px 0px 20px -10px; /* top right bottom left*/
+}
+
+.smalltext{			
+    font-size:10px;		
+	text-decoration: none;
+	color: #999999;
+}
+
+.smalltext a:link, .smalltext a:visited{			
+	text-decoration: none;
+	color: #000000;
+}
+
+.smalltext a:active, .smalltext a:hover{
+	text-decoration: underline;
+	color: #408c8c;
+}
+
+
+div.leftmenu{
+	width: 160px;
+	visibility: visible; 
+	display: block;
+}
+
+
+/* END CLICK LEFT MENU */

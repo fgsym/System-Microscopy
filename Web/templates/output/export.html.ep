@@ -1,0 +1,7 @@
+% layout 'default';
+% title 'Export Reagent Data :: Cellular Phenotype Database';
+<h3>Data Export</h3>
+<div style="height:550px;">
+Export is available from the search results after using <a href="<%= $relpath %>/phenotypes">Phenotypes browsing</a> and from any search result page with aggregated
+data on genes/reagents to phenotypes tables.
+</div>

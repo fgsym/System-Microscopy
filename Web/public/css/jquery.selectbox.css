@@ -1,0 +1,137 @@
+@CHARSET "UTF-8";
+.sbHolder{
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	height: 22px;
+	position: relative;
+	width: 150px;
+	
+	 border-color: #506d91;
+     box-shadow: 0px 1px 1px #adadad;
+-moz-box-shadow: 0px 1px 1px #adadad;
+-khtml-box-shadow: 0px 1px 1px #adadad;
+-webkit-box-shadow: 0px 1px 1px #adadad;
+     background-color: #B2CFF7;
+     background-image: -moz-linear-gradient(top, #BCD4F3, #B2CFF7);
+     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #BCD4F3),color-stop(1, #B2CFF7));
+     background-image: -webkit-linear-gradient(#BCD4F3, #B2CFF7);
+     background-image: linear-gradient(top, #BCD4F3, #B2CFF7);
+     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#BCD4F3', EndColorStr='#B2CFF7');
+/*     line-height:20px; */
+     color: #fff;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	
+}
+.sbHolder:focus .sbSelector{
+	
+}
+.sbSelector{
+	display: block;
+	height: 22px;
+	left: 0;
+	line-height: 23px;
+	outline: none;
+	overflow: hidden;
+	position: absolute;
+	text-indent: 10px;
+	top: 0;
+	width: 140px;
+}
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover{
+	color: #004166;
+	outline: none;
+	text-decoration: none;
+}
+.sbToggle{
+	background: url(imgs/ui-icons_3d80b3_256x240.png) -58px 7px no-repeat;
+	display: block;
+	height: 22px;
+	outline: none;
+	position: absolute;
+	right: 0;
+	top: -3px;
+	width: 25px;
+}
+.sbToggle:hover{
+	background: url(imgs/ui-icons_72a7cf_256x240.png) -58px 7px no-repeat;
+}
+.sbToggleOpen{
+	background: url(imgs/ui-icons_2694e8_256x240.png) 7px 7px no-repeat;
+}
+.sbToggleOpen:hover{
+	background: url(imgs/ui-icons_2694e8_256x240.png) 7px 7px no-repeat;
+}
+.sbHolderDisabled{
+	background-color: #3C3C3C;
+	border: solid 1px #515151;
+}
+.sbHolderDisabled .sbHolder{
+	
+}
+.sbHolderDisabled .sbToggle{
+	
+}
+.sbOptions{
+	background-color: #F5FAFF;
+	border-top: 1px solid #888;
+	border-bottom: 1px solid #b6b6b6;
+	border-left: 1px solid #b6b6b6;
+	border-right: 1px solid #b6b6b6;
+	
+	 box-shadow: 0 2px 4px #4D5461;
+	-webkit-box-shadow: 0 2px 4px #4D5461;
+	-moz-box-shadow: 0 2px 4px #4D5461;
+	-khtml-box-shadow: 0 2px 4px #4D5461;
+	
+	list-style: none;
+	left: 1px;
+	margin: 2px 0 0 0;
+	padding: 0;
+	position: absolute;
+	top: 22px;
+	width: 146px;
+	z-index: 1000;
+	overflow-y: auto;
+}
+.sbOptions li{
+	padding: 0;
+}
+.sbOptions a{
+	border-bottom: dotted 1px #515151;
+	display: block;
+	outline: none;
+	padding: 3px 2px 3px 2px;
+}
+.sbOptions a:link, .sbOptions a:visited{
+	color: #000;
+	text-decoration: none;
+}
+.sbOptions a:hover,
+.sbOptions a:focus,
+.sbOptions a.sbFocus{
+	color: #000;
+	background:#A2C8FD;
+}
+.sbOptions li.last a{
+	border-bottom: none;
+}
+.sbOptions .sbDisabled{
+	border-bottom: dotted 1px #515151;
+	color: #999;
+	display: block;
+	padding: 3px 2px 3px 2px;
+}
+.sbOptions .sbGroup{
+	border-bottom: dotted 1px #515151;
+	color: #004166;
+	display: block;
+	font-weight: bold;
+	padding: 3px 2px 3px 2px;
+}
+.sbOptions .sbSub{
+	padding-left: 17px;
+}

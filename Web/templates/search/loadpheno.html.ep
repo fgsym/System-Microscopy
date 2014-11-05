@@ -1,0 +1,21 @@
+% my %phlists; my $d=0;
+%  my @cookies = $self->signed_cookie('genome');
+%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+%  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+%  my $coo;
+%  ($genome,$coo) = split(/\-\-/,$genome);
+% my $terms = ($self->param('terms') eq "p") ? "p" : "o";
+%	if ($self->param("face") eq "true") {
+%   		foreach my $obj (@{$crs} ) {
+%			$d++;
+%			$phlists { $obj->{slicecount}.".".$d } = $obj;
+%		}
+%		foreach (sort {$a <=> $b} keys %phlists) {
+%			my $obj = $phlists { $_ };
+%      		my ($withgenes, $nogenes) = Sym::Controller::Service->gene_to_phenoprint($obj, $face);
+		<%= include 'output/phenoshow', obj => $obj, withgenes => $withgenes, nogenes => $nogenes, phIDs=>$phIDs, genome=>$genome, terms=>$terms %>
+	<hr size=1 style="color:#ccc;padding: 10px 0 10px 0" width="80%" align="left">
+%   		}
+% 	} else {
+		<%= include 'output/phenoAshow', crs => $crs, phIDs=>$phIDs, ScrID=>$ScrID, genome=>$genome, terms=>$terms %>
+%	}

@@ -1,0 +1,4 @@
+% layout 'regpage';
+% title 'Registration Page';
+<h2>Registration Page</h2>
+<%= $nick %><%= $msg %><BR>

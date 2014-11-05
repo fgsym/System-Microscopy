@@ -1,0 +1,164 @@
+% # $crs here is objects' array reference !!!
+% my ($phenos,$allgenes,$allreags,$allphenos) = Sym::Controller::Phenotypes->phenoparams($crs,$phIDs,$terms);
+% my $oterms = ($terms eq "p") ? "p" : "o";
+% my %phenos = %{$phenos};
+% my %allgenes = %{$allgenes};
+% my %allreags = %{$allreags};
+% my $nav = scalar (keys %allgenes) + scalar (keys %allreags) > 50 ? 0 : 1;
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+	var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+	var oTable = $('.dataTable').dataTable( {
+	    "bRetrieve": true,
+	    "bProcessing": true,
+	    "bDestroy": true,
+	    "sDom":  nav,
+// 	    "sPaginationType": "full_numbers",
+	    "aoColumnDefs": [
+	      { "bSortable": false, "aTargets": [ 0 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 1 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 2 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 3 ] },
+	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 4 ] },
+	      { "bSortable": false, "aTargets": [ 5 ] }
+	    ],
+	    "aaSorting": [[1,'asc']],
+	    "iDisplayLength": 50,
+	    "aLengthMenu": [[50, 100, -1],[50, 100, 500]]
+	} );
+	new FixedHeader( oTable );
+    } );
+</script>
+	<div style="margin-top:10px; height:23px; width:300px;">
+	  <div style="background:url('<%= $relpath %>/imgs/evidence.gif'); background-repeat: repeat-y; width:75px; border:1px solid #aaa; color:#fff; text-align:center;float:left; height:14px;margin-top:2px;opacity:0.6;filter:alpha(opacity=60);">&nbsp;1 .. 0.5&nbsp;</div> <div style="padding:3px 0 0 0;display:inline;float:right;">&nbsp;&nbsp;— phenotype evidence (reproducibility) </div>
+	</div><br>
+% my %allphenos = %{$allphenos};
+% my @uphenos;
+% push (@uphenos, keys %allphenos);
+% my $width = 25*($#uphenos) + 675;
+% my %gseen;
+% map { my ($g,$r) = split(/\#/,$_); $gseen{$g}++ } keys %allgenes;
+% my %scr_data = %{Sym::Controller::Studies->studies};
+		<map name="map">
+%		my @phAll; my $k=0;
+%		foreach my $key (sort keys %allphenos) {
+%			my ($name, $ScrID) = split(/\__/,$key);
+%			my ($phID, $Scr) = split(/\__/,$allphenos{$key});
+%			my ($StdTitle, $StdType) = split(/__/,$scr_data{$Scr});
+%			push (@phAll,$allphenos{$key}); 
+%			my ($c1,$c2,$c3,$c4) = (100+$k*26,15+$k*26,1+$k*26,80+$k*26);
+			<area shape="poly" coords="<%= $c1 %>,7,<%= $c2 %>,95,<%= $c3 %>,85,<%= $c4 %>,7" alt="<%= $name %>" title="<%= ucfirst($name) %> : <%= $StdTitle %> : <%= $StdType %>" href="#" />
+%			$k++;
+%		}
+% ###
+%		my $phenoprint = join("-",@phAll);
+%		my @phIDs_ScrIDs;
+%		map {push @phIDs_ScrIDs, $_."__".$ScrID} sort {$a <=> $b} @{$phIDs};
+%		my $phenochosen = join("-", @phIDs_ScrIDs);
+		</map>
+<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="0" width="0" border="0" id="preload">
+<br>
+<div class="highlight" style="display:table-cell;width:580px;">Gene / Reagent count: <b><span class="exon" style="font-size:13px;"><%= scalar (keys %gseen) %> / <%= scalar (keys %allgenes) + scalar (keys %allreags) %></span></b>
+</div>
+  <div style="width:250px; display:table-cell">
+<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b>export search results</b></a>
+  </div>
+<div style="margin: 0 0 0 40px;width:<%= $width %>px">
+<table cellspacing="0" cellpadding="0" class="display dataTable">
+  <thead height="95" style="margin:0px;">
+    <tr width="100%" height="95">
+      <th style="background:#fcfcfc;width:30px"></th>
+      <th align=left  height="95" style="width:115px;">
+	<div style="width:110px;"><span style="display:table-cell; vertical-align:middle; height:95px">Gene symbol</span></div>
+      </th>
+      <th align=left style="width:130px;">
+	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:95px">Internal ReagentID</span></div>
+      </th>
+	<th align=left style="width:90px;"><div style="display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div></th>
+      <th>
+	<div><span style="display:table-cell; vertical-align:middle">Scoring</span>
+	<div style="font-size:12px; color:#000;font-weight:normal;display:table-cell">&nbsp;&nbsp;(<a
+onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideDiv('scoring-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+	<div class="tooltip" id="scoring-explain">
+	The scoring method is specific to each individual screen. Please refer to the screen specific documentation for more details about the data analysis methods used to score phenotypes
+	</div></div>
+	    </div>
+      </th>
+<!-- 		<th valign="top" id="hcell" colspan="<%= scalar @uphenos + 2 %>" height="95"> -->
+      <th valign="top" height="95" style="background:#fcfcfc;">
+	<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0;" align="left">
+      </th>
+      </tr>
+  </thead>
+  <tbody>
+%	my $n=0;
+%       foreach ( (sort keys %allgenes), keys %allreags ) {
+%		$n++;
+%        	my %hash = $_ !~/^\#/ ? %{ $allgenes{$_} } : %{ $allreags{$_} };
+%		my $color = ($n%2 == 1) ? "#fdfdfd" : "#f1f1f1";
+    <tr class="gradeC" id="cell">
+	<td><div style="width:35px;float:left;text-align:right;padding-right:4px;"><%= $n %>.</div></td>
+	<td style="width:115px;">
+%		if ( $hash{symbol} ) {
+			<a href="<%= $relpath %>/gene/<%= $genome %>:<%= $hash{ensGID} %>"><%= $hash{symbol} %></a>
+%		} else {
+		—
+% 		}
+	</td>
+	<td><a href="<%= $relpath %>/reagent/<%= $hash{rgID} %>:<%= $genome %>:<%= $hash{ensGID} %>"><%= $hash{rgID} %></a></td>
+	<td><%= $hash{probeID} %></td>
+%	my $tipcolor = $hash{howgood} <= 1 ? $hash{howgood} : $hash{howgood}/10;
+% 	my $r = 250-int($tipcolor*100);
+%	my $g = 250-int($tipcolor*50);
+% 	my $b = 150+int($tipcolor*100);
+
+%	my $flt = $hash{howgood};
+
+	<td style="width:110px"><div style="display:none"><%= ($flt != 0) ? 100/$flt : $flt %></div><div><div style="background-color:rgb(<%= $r %>,<%= $g %>,<%= $b %>);width:109px;height:24px;margin:0px;text-align:center;line-height:22px;">
+	    <a href="<%= $relpath %>/replica/<%= $hash{rgID} %>:<%= $ScrID %>:<%= $hash{ensGID} %>:<%= $hash{symbol} %>">show</a></div></div>
+
+	</td>
+	<td style="margin:0;padding:0;">
+% 		my %show;
+%		foreach my $name (sort keys %allphenos) {
+%			my @this = $hash{symbol} ? split(/\*/,$phenos{ $hash{rgID}."|".$hash{symbol} }) : split(/\*/,$phenos{ $hash{probeID} });
+% 			my %seen;
+%			my @uthis; map { $seen{$_}++ } @this; push (@uthis, keys %seen);
+%			$show{ $allphenos{$name} } = "";
+%			foreach my $u (@uthis) {
+%#				$show{ $allphenos{$name} } = "rgb($r,$g,$b);" if ($allphenos{$name} eq $_ && $_ ne "");
+%				foreach (@{$hash{phweights}}) {
+%					my ($phID,$ScrID)= split(/__/,$allphenos{$name});
+%					if (${$_}{phID} == $phID) {
+%						my $weight = ${$_}{phWEIGHT};
+% 						my $r = 0;
+%						my $g = int(100*(1.5-$weight)/$weight);
+% 						my $b = int($weight*$weight*250*(2-$weight));
+%						$weight = int($weight*100)/100;
+%						$show{ $allphenos{$name} } = "$r,$g,$b"."__".$weight if ($allphenos{$name} eq $u && $u ne "");
+%					}
+%				}
+%			}
+%		}
+<div style="width:11px;display:table-cell;border-right:1px solid #ddd; ">&nbsp;</div>
+%		foreach my $name (sort keys %allphenos) {
+%			my $bg = $show{ $allphenos{$name} } ? "#fff" : "";
+%			my ($rgb,$weight) = split(/__/,$show{ $allphenos{$name} }) if $show{ $allphenos{$name} };
+%			my $have = $rgb ? "rgb(".$rgb.")" : $color;
+%			my ($phname,$ScrID) = split(/__/,$name);
+<div style="width:25px; display:table-cell;border-right:1px solid #ddd;height:18px;padding:4px 0 2px 0" align="center">
+	<div style="padding:2px 6px 0 0;font-size:75%; background-color:<%= $have %>;height:15px;width:15px;opacity:0.6;filter:alpha(opacity=60);" id=white>
+	  <a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $hash{rgID} %>:<%= $ScrID %>:<%= $hash{ensGID} %>:<%= $hash{symbol} %>">&nbsp;<%= $weight %></a>
+	</div>
+</div>
+%		}
+<div style="width:15px;display:table-cell;background:#fcfcfc; width:120px;outline:#fcfcfc solid 2px; border-left:1px solid #ddd; margin:0px; padding:0px">&nbsp;</div>
+	</td>
+<!--	<td style="width:110px;border:1px solid #fcfcfc;background-color: #fcfcfc">&nbsp;</td>-->
+	</tr>
+% }
+  </tbody>
+</table>
+</div>
+
+

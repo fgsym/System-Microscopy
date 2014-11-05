@@ -1,0 +1,3 @@
+% layout 'fail';
+% title 'DB Error';
+<%= flash 'errordb' %>

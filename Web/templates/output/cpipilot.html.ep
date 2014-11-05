@@ -1,0 +1,8 @@
+% layout 'default';
+% title 'CPIpilot\'s phenotype list';
+<h3>CPIpilot phenotype list</h3>
+   <ol>
+    % foreach (@$phenotypes) {
+    <li>id=<%= ${$_}{id}.' : '.${$_}{description} %></li>
+    % }
+    </ol>

@@ -1,0 +1,352 @@
+% my $tab = 1;
+%  if ($self->param('gene') || $self->param('reag') || $self->param('goon') || $self->param('study') || $self->param('stds') =~/\S/ || $self->param('stds') =~/\s/) {
+% 		$tab = 4 if ( ($self->param('stds') =~/\S/ || $self->param('stds') =~/\s/) && !$self->param('study') && $self->param('gene') !~/name/ );
+%	   $tab = 2 if ($self->param('goon') =~/\S/ && $self->param('goon') !~/attribute/);
+%	   $tab = 1 if ($self->param('reag') =~/\S/ && $self->param('reag') !~/Supplier/);
+%	   $tab = 3 if ($self->param('phn') =~/\S/ && $self->param('phn') !~/phenotype o/);
+%  } 
+% $tab = 0 if $self->param('gene');
+% $tab = 0 unless ($self->param('submit')); 
+	<div style="white-space:nowrap; font-size:11px; float:left; width:150px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
+	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
+	    <div class="rownav" id="submit"><a href="<%= $relpath %>/submit/">Submit your study</a></div>
+	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
+	</div>
+
+	<div style="margin:0; padding:0; height:80px; width:690px;float:right;" id="sform">
+	    <div class=boxed style="background-color:#f2f7ff;">
+	      <div style="height:82px; width:600px; padding: 0 0 0 20px;">
+<div id="searchf" style="margin: 0 0 25px 0; ">
+<form action="<%= $relpath %>/search/result" method="post" name="fsearch">
+<style>
+.4sc {	height:300px; width:145px; padding:1px;}
+.4gnm {	width:110px; padding:1px;}
+.ibox {	width:320px; max-heigth:19px !important; heigth:22px !important;line-height: 16px; margin: 0 0 2px 0}
+.isbox {width:250px; max-heigth:19px !important; heigth:22px !important;line-height: 16px;}
+.wrapthis {white-space: normal; width:160px}
+.padd {margin: -2px 0 0 5px;}
+.pa {margin: -3px 0 0 -2px;}
+.ule {padding: 0 0 0 10px; background-color:#ccc}
+</style>
+<script type="text/javascript">
+function makeField(f) {
+  if (!navigator.userAgent.match(/Konque/)) {
+	if (f == "re") {
+		document.getElementById('r').style.fontSize='small';
+		document.getElementById('r').style.color = '#aaa';
+		document.getElementById('r').value = 'reagent\'s Supplier ID';
+	}
+	if (f == "std") {
+	document.getElementById('s').style.fontSize='small';
+	document.getElementById('s').style.color = '#aaa';
+	document.getElementById('s').value = 'keywords or authors or Accession ID';
+	}
+  }
+}
+function makeQuery(f) {
+	document.getElementById('r').value='';
+	document.getElementById('s').value='';
+}
+</script>
+<div style="width:550px; display:none; padding:2px; margin:2px 0 2px 0;" id="tabform" class="ui-widget">
+<div id="fload" style="width:550px; display:none;"><img src="<%= $relpath %>/imgs/loading.gif" style="margin:0 10px 0 20px" align="right"></div>
+	<div id="tabs" style="width:450px;float:left;display:inline;color:#000;">
+		<ul>
+	<li style="width:60px;"><a href="#gn" style="width:60px;text-decoration:none;font-family:arial">Gene</a></li>
+	<li style="width:85px;"><a href="#re" style="width:85px;text-decoration:none;font-family:arial" onClick="makeQuery('r');makeField('re')">Reagent ID</a></li>
+	<li style="width:110px;"><a href="#go" style="width:110px;text-decoration:none;font-family:arial">Gene attribute</a></li>
+	<li style="width:90px;"><a href="#phs" style="text-decoration:none;font-family:arial">Phenotype</a></li>
+	<li style="width:60px;"><a href="#std" style="width:60px;text-decoration:none;font-family:arial" onClick="makeQuery('s');makeField('std')">Study</a></li>
+		</ul>
+		<div style="position:absolute; margin: -27px 0 0 485px;float:right">
+			<SELECT name="genome" id="gnm" style="width:110px">
+% my %genomes = ("HMSPNSgenes"=>"Homo sapiens","FruitFLYgenes"=>"Fruit Fly");
+% my $slct;
+% my ($ch_gnm, $genome) = $self->param(['ch_gnm', 'genome']);
+% $genome = $genome ? $genome : $self->cookie('genome');
+% $self->cookie('genome'=>$genome) if (!$self->cookie('genome') || $self->cookie('genome') ne $genome);
+% foreach my $i (keys %genomes) {
+%	$slct = ($genome eq $i || $ch_gnm eq "$i" || ($genome eq "" && $i eq "HMSPNSgenes")) ? "selected" : ""; 
+	<option value="<%= $i %>" <%= $slct %> style="font-style:bold"><%= $genomes{$i} %></option>				
+% }
+			</SELECT>
+% my @scr_obj = @{Sym::Model::MongoQ->get_all_screens($genome)};
+			<input type="hidden" name="ch_gnm" value="<%= $genome %>">
+		</div>
+		<div id="phs" style="padding: 10px 1px 1px 6px; width:460px;">
+			<div style="float:left;width:170px;padding:0" id="stlist">
+				<div style="float:left">
+					<SELECT name="study" id="sc" style="width:145px;">
+						<option value="">Ontology terms</option>
+						<option value="0">Any study terms</option>
+			%	foreach my $obj (@scr_obj) {
+						<option value="<%= $obj->{StdID} %>"><%= $obj->{StdTitle} %> </option>
+			%	}
+					</SELECT></div><div style="float:right; padding: 0 0 0 0px;">
+				  (<a style="font-weight:bold;cursor:pointer;color:darkgreen;text-decoration:none"
+				onMouseOver="javascript:showDiv('ph-explain')" onMouseOut="javascript:hideDiv('ph-explain')">?</a>)
+					</div>
+				<div id="ph-explain" class="tooltip" style="top:60px; margin:10px 0 0 0">
+				Search by «Any study» provides results for phenotypes through the studies having common genes knocked down.<br>
+				Search by study ID provides results for phenotypes observed <u>together</u> for a given reagent/gene
+				</div>
+				<div style="display:inline; position:absolute;color:darkgreen" id=genes></div>
+			</div>
+			<div style="float:right;width:280px;">
+			  <div style="display:none" id="phinput">
+				  <input type="text" name="phn" id="ph" class="isbox">
+			  </div>
+			  <div id="ontinput">
+				  <input type="text" id="ont" class="isbox" name="ont">					
+			  </div>
+			</div>
+		</div>
+		<div id="gn" style="padding: 10px 1px 1px 6px; height:30px;">
+			<input type="hidden" name="gene" id="g" class="searchf ibox">
+			<div id="ex">e.g. <a href="<%= $relpath %>/gene/HMSPNSgenes:ENSG00000105146">AURKC</a> or <a href="<%= $relpath %>/gene/HMSPNSgenes:ENSG00000105146" >ENSG00000105146</a></div>
+		</div>
+		<div id="re" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="reag" id="r" class="searchf ibox" OnClick="makeQuery('r')">
+			<div id="ex">e.g. <a href="<%= $relpath %>/reagent/AMBN10029218:HMSPNSgenes:ENSG00000115128" class="demo">124936</a></div>
+		</div>
+		<div id="go" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="goon" id="o" class="searchf ibox">
+			<div id="ex">e.g. kinesin complex</div>
+		</div>
+		<div id="std" style="padding: 10px 1px 1px 6px">
+			<input type="text" name="stds" id="s" class="searchf ibox">
+			<div id="ex">e.g. plasma membrane</div>
+		</div>
+	</div>
+	<div style="width:80px;float:right;display:inline; margin-top:0px;padding: 42px 0 0 0; border:" id="cform">
+<!--	organism: <span style="margin:0 8px 0 8px;"><select name="specie" id="sp"><option value="hmspns">Homo sapiens</option></select></span>-->
+	<span style="margin:0 8px 0 20px; width:150px;"><input type="submit" value="Search" class="mainsubmit" name="submit"></span>
+	</div>
+</div>
+<script type="text/javascript">
+$(function () {
+	$( "#gnm" ).select2({ dropdownCssClass:"4gnm"  }); 
+	$( "#sc" ).select2({ dropdownCssClass:"4sc" }); 
+
+	$("select[name=genome]").change(function () {
+		$.ajax({
+			url: '<%= $relpath %>/form',
+			beforeSend: function() { $('#fload').show(); },
+			data: 'genome=' + $("#gnm").val(),
+			complete: function() { $('#fload').hide(); },
+			success: function(result) {
+				$('#navtop').html(result);			
+				$('#tabform').show();
+				$('#fload').hide();
+			}	
+		});	
+	});
+	$("#sc").change(function () {
+		if ($("#sc").val() != "") {
+//	        $("input[name=phn]").prop('disabled', false);
+			$('#phinput').show();
+			$('#ontinput').hide();	        
+		} else {
+			$('#ontinput').show();
+			$('#phinput').hide();
+		}
+	});
+    $( "#g" ).select2({
+		minimumInputLength: 1,	
+		placeholder: "gene name or Ensembl ID",
+		multiple:true,
+		maximumSelectionSize: 1, 
+		ajax: {
+			url: "<%= $relpath %>/autocomplete/genefilter",
+            dataType: 'json',
+            data: function (term, page) { return { string: term };	},
+            results: function (data) 	{ return {results: data};	}
+		},
+		formatResult: function(data, container, query) {
+			if ( data.title != undefined) {
+				var text = data.name;
+				var term = query.term;
+				var markup=[];
+				var marked = false;
+				var match=text.toUpperCase().indexOf(term.toUpperCase()), tl=term.length;
+				if (match<0) {
+					markup.push(text);
+					return;
+				}
+				markup.push(text.substring(0, match));
+				markup.push("<span id=inpn>gene "+ data.title +": </span>");				
+				markup.push("<span class='select2-match'>");
+				markup.push(text.substring(match, match + tl));
+				markup.push("</span>");
+				markup.push("<span id=inpi>" + data.id + "</span>");				
+				markup.push(text.substring(match + tl, text.length));
+				return markup.join("");	
+			}	
+		},
+		formatSelection: function(data) {return data.name;},
+		createSearchChoice: function (term, data) {
+				return {id: term, name: term};
+		}
+    });
+    $( "#o" ).select2({
+		minimumInputLength: 1,
+		placeholder: "attribute keywords",
+		multiple:true,
+		maximumSelectionSize: 1, 
+		ajax: {
+			url: "<%= $relpath %>/autocomplete/attribute",
+            dataType: 'json',
+            data: function (term, page) { return { string: term };	},
+            results: function (data) 	{ return {results: data};	}
+		},
+		formatResult: function(data, container, query) {
+			if ( data.name != "") {
+				var text = data.name;
+				var term = query.term;
+				var markup=[];
+				var marked = false;
+				var match=text.toUpperCase().indexOf(term.toUpperCase()), tl=term.length;
+				if (match<0) {
+					markup.push(text);
+					return;
+				}
+				markup.push(text.substring(0, match));
+				markup.push("<span class='select2-match'>");
+				markup.push(text.substring(match, match + tl));
+				markup.push("</span>");
+				markup.push(text.substring(match + tl, text.length));
+				return markup.join("");					
+			}	
+		},
+		formatSelection: function(data) {return data.name;},
+		createSearchChoice: function (term, data) {
+				return {id: term, name: term};
+		}
+    });
+    $( "#ph" ).select2({
+		minimumInputLength: 1,
+		placeholder: "phenotype original terms keywords",
+		multiple:true,
+		maximumSelectionSize: 4, 
+		ajax: {
+			url: "<%= $relpath %>/autocomplete/phenofilter",
+            dataType: 'json',
+            data: function (term) 	{ return { string: term, StdID: $("#sc").val() };	},
+            results: function (data) 		{ return {results: data};				}
+		},
+		formatResult: function(data, container, query) {
+			if ( data.name != undefined) {
+				var text = data.name;
+				var term = query.term;
+				var markup=[];
+				var marked = false;
+				var match=text.toUpperCase().indexOf(term.toUpperCase()), tl=term.length;
+				if (match<0) {
+					markup.push(text);
+					return;
+				}
+				markup.push(text.substring(0, match));
+				markup.push("<span class='select2-match wrapthis'>");
+				markup.push(text.substring(match, match + tl));
+				markup.push("</span><div id=inpi>" + data.screen + "</div>");
+				markup.push(text.substring(match + tl, text.length));
+				return markup.join("");	
+			}	
+		},
+		formatSelection: function(data) {return data.name + ",";},
+		createSearchChoice: function (term, data) {
+				return {id: term, name: term};
+		}		
+    });
+	$("#ont").each(function (i, select) {
+		var i;		
+		var select2 =  $( "#ont" ).select2({
+			minimumInputLength: 1,
+			placeholder: "phenotype ontology keywords",
+			multiple:true,
+			maximumSelectionSize: 1, 
+			ajax: {
+				url: "<%= $relpath %>/autocomplete/ontofilter",
+				dataType: 'json',
+				data: function (term, page) { return { string: term };	},
+				results: function (data) 	{ return {results: data};	}
+			},
+			dropdownCssClass: "treeview",
+			containerCssClass: "stree",	
+			formatResult: function(data) {
+				var k= i++;				
+				if ( data.id != "" ) {
+					var div =  data.div;
+					var li = data.li;
+					var li_t, div_t; 
+					if (li == "e") li_t = "expandable pa";
+					if (li == "o") li_t = "open collapsable pa";
+					if (div == "e") div_t = "hitarea expandable-hitarea act";
+					if (div == "o") div_t = "hitarea open-hitarea collapsable-hitarea act";
+					if (li == "")  li_t = "padd";
+					return "<div class='" + li_t +"'><div class='" + div_t +"'></div>" + data.name + "</div>";
+				}
+				else if (data.id == "") {
+					//~ $("li.select2-result").remove();
+					var tag =  data.div;
+					var ul_t;
+					if (tag == "BUL") {
+						//~ $("li.select2-result").filter(function() { 
+							 //~ return $.trim($(this).html()).length ==0; 
+						//~ }).replaceWith( "<li class=ul" + k + ">" );	
+						$("li.select2-result:empty").replaceWith( "<li class=ul"+k+">" );				
+						//~ $( "li.ul" ).nextAll(':lt(4)').addClass("ule");
+						$( "li.ul"+k).nextAll(':lt(3)').css("background-color","#ddd");						
+					}	
+					//~ if (tag == "EUL") {}
+					// $("li:empty").remove();										
+					return;
+				}	
+			},	
+			escapeMarkup: function (m) { return m; },
+			formatSelection: function(data) {return data.name;},
+			createSearchChoice: function (term, data) {
+					return {id: term, name: term};
+			}	
+		}).data('select2');
+		select2.onSelect = (function(fn) {
+			return function(data, options) {
+				var target;	
+				if (options != null) {
+					target = $(options.target);
+				}
+				if (target && target.hasClass('act')) {
+					alert('click!');
+				} else {
+					return fn.apply(this, arguments);
+				}
+			}
+		})(select2.onSelect);
+	});
+});     
+    function OntoFormatResult(data) {
+        if (data.name != undefined && data.value != "-" && data.li != "bul" && data.li != "eul" ) {
+			var div =  data.div;
+			var li = data.li;        
+            return "<div class=" + li +"><div class=" + div +"></div>" + data.name + "</div>";
+        }
+        if (data.li != "bul" && data.li != "eul") {
+			return null;
+		}
+    };  
+	$(function(){
+		$('#fload').css('display', 'none');
+		$('#tabform').css('display', 'block');		
+		$( "#tabs" ).tabs({
+			collapsible: false,
+			active:<%= $tab %>
+		});
+	});
+</script>
+</form>
+</div>
+<script>makeField("re");</script>
+	      </div>
+	    </div>
+	</div>
