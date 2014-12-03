@@ -34,8 +34,8 @@ This page lists all the reagents/genes that have been associated as common to th
 	<%= include 'includes/phintersect_legend' %>
 % }
 % my $n;
-% my @cookies = $self->signed_cookie('genome');
-% my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+% my @cookies = $self->cookie('genome');
+% my $cookie = $cookies[0] ? $cookies[0] : "";
 % my $genome = $self->param('genome') ? $self->param('genome') : $cookie;
 %  my $coo;
 %  ($genome,$coo) = split(/\-\-/,$genome);

@@ -22,7 +22,7 @@ my @ar_all; # all existing in DB compound reagents
 my %reags; # hash for reagents for extID => seq2
 my %ar_reags; # hash for reagents for extID => seq_array
 my $n;
-
+#
 # BELOW uncomment the action for $fa or for $cfa !!
 #
 #	TODO: downoad reagents by prefixes (and genome): db.runCommand({ distinct:"Reagents",key:"prefix"})

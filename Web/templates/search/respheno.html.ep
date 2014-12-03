@@ -1,5 +1,5 @@
-%  my @cookies = $self->signed_cookie('genome');
-%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+%  my @cookies = $self->cookie('genome');
+%  my $cookie = $cookies[0];
 %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
 %  my $coo;
 %  ($genome,$coo) = split(/\-\-/,$genome);

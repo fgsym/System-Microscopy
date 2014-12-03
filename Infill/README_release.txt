@@ -44,7 +44,7 @@
 5. Map with bowtie2
 ===================
   (in /opt/FASTA/Drosophila)
-  bowtie2 -x Drosophila_melanogaster-77 -f /home/jes/Git/infill-load-data/Droso_2014-10-27.fa -S Drosophila-bowtie2-77.map
+  bowtie2 -x -a Drosophila_melanogaster-77 -f /home/jes/Git/infill-load-data/Droso_2014-10-27.fa -S Drosophila-bowtie2-77.map
   13997 reads; of these:
   13997 (100.00%) were unpaired; of these:
     0 (0.00%) aligned 0 times

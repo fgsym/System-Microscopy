@@ -13,8 +13,8 @@ sub genefilter {
   my $q = $self->param('string');
   # map {warn $self->param($_)} $self->param();
   # my $crs = $genes->query({"symbol" => qr/^$q/},{"symbol" => 1});
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];  
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];  
   $GLV{G} = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes";  
   my $coo;
   ($GLV{G},$coo) = split(/\-\-/,$GLV{G});   
@@ -118,8 +118,8 @@ sub attribute {
   my $self = shift;
   my $attr = $self->param('goon');
   my $q = $self->param('string');
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];  
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];  
   $GLV{G} = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes";   
   my $coo;
   ($GLV{G},$coo) = split(/\-\-/,$GLV{G});  
@@ -148,8 +148,8 @@ sub ontofilter {
   my $self = shift;
   my $qp = $self->param('string');
   my $ostr = $self->param('ont');
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];  
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];  
   $GLV{G} = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes";  
   my $coo;
   ($GLV{G},$coo) = split(/\-\-/,$GLV{G}); 

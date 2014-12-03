@@ -143,14 +143,14 @@ sub transcript {
     
       foreach my $ex (@exs) { 
         my ($s,$e,$d,$rs,$re) = split(/\|/,$ex); # EXON: start, end, strand, relative start, relative end 
-#        warn "($s,$e,$d,$rs,$re)";
+        # warn "($s,$e,$d,$rs,$re)  # EXON: start, end, strand, relative start, relative end";
+        # warn "<<<<< $st : $et";
         $strand = $d;
         my $s1 = sprintf("%.0f",$scale*(($s - $kstart)));
         my $e1 = sprintf("%.0f",$scale*(($e - $kstart)));
         $img->filledRectangle(($is+$s1),($y+1),($is+$e1),($y+10),$trgreen);      
         if ($tags{$tr}) {
-#          warn $tags{$tr};
-          # warn "($st >= $rs && $st < $re) || ($et <= $re && $et > $rs)";
+          # warn "$tr ::: $tags{$tr} :::($st >= $rs && $st < $re) || ($et <= $re && $et > $rs)";
           my ($stn, $etn); # absolute reagent location on exon
           if (($st >= $rs && $st < $re) || ($et <= $re && $et > $rs) )   {
               # non-scaled absolute REAGENT's coordinates 

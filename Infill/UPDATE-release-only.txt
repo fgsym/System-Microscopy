@@ -9,9 +9,11 @@ Update gene collections and remap reagents to the Ensembl release (no new data t
 	II. in Infill/LoadGenes_n.pl, Infill/LoadGenes_Drosophila.pl :
 	1) change $version to appropriate Ensembl release
 	2) launch the scripts
-		perl Infill/LoadGenes_n.pl
-		perl Infill/LoadGenes_Drosophila.pl
-	NB: LoadGenes_APItest.pl — to test methods in Ensembl API if something has changed
+		perl Infill/LoadGenes_n.pl				77: 60279 genes loaded 
+		perl Infill/LoadGenes_Drosophila.pl			77: 15682 genes loaded
+
+	NB: LoadGenes_APItest.pl — to test methods in Ensembl API if something has changed 
+	    if getting errors go and update http://www.ensembl.org/info/docs/api/api_installation.html
 
 2. New Ensembl release Reagents compliance (mapping):
 =====================================================
@@ -19,8 +21,8 @@ Update gene collections and remap reagents to the Ensembl release (no new data t
 	1) get new release:
 	===================
 	(choose appropriate files	)
-	Homo Sapience: /opt/FASTA$ wget 	Homo_sapiens.GRCh37.75.cdna.all.fa.gz .
-	Fruit Fly:		/opt/FASTA$ wget ftp://ftp.ensembl.org/pub/release-75/fasta/drosophila_melanogaster/cdna/Drosophila_melanogaster.BDGP5.75.cdna.all.fa.gz .
+	Homo Sapience: /opt/FASTA$ wget 	Homo_sapiens.GRCh37.77.cdna.all.fa.gz .
+	Fruit Fly:		/opt/FASTA$ wget ftp://ftp.ensembl.org/pub/release-77/fasta/drosophila_melanogaster/cdna/Drosophila_melanogaster.BDGP5.77.cdna.all.fa.gz .
 
 	2) extract from DB and align currently loaded Reagents:
 	=======================================================
@@ -30,15 +32,15 @@ Update gene collections and remap reagents to the Ensembl release (no new data t
 		U—>T:
 		$ more oligos.fa | sed 's/U/T/g' > oligosT.fa
 
-bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.75.cdna.all -f /home/jes/Git/infill-load-data/CompoundReagents_2014-5-20.fa /home/jes/Git/infill-load-data/Dharmacon_remap_to_release_75.map
+bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.77.cdna.all -f /home/jes/Git/infill-load-data/CompoundReagents_2014-5-20.fa /home/jes/Git/infill-load-data/Dharmacon_remap_to_release_77.map
 
-bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.75.cdna.all -f /home/jes/Git/infill-load-data/Reagents_2014-5-20_T.fa /home/jes/Git/infill-load-data/Align-best-existing-reagents-75.map
+bowtie -p 4 -f -v 0 -a --chunkmbs 512 --best ~/BINs/GENOMES/HomoSapiens/Homo_sapiens.GRCh37.77.cdna.all -f /home/jes/Git/infill-load-data/Reagents_2014-5-20_T.fa /home/jes/Git/infill-load-data/Align-best-existing-reagents-77.map
 
 
 	3) Fruit Fly index and align:
 	=============================
-bowtie2-build -f /opt/FASTA/Drosophila_melanogaster.BDGP5.75.cdna.all.fa Drosophila_melanogaster-75	statistics is the same
-bowtie2 -x Drosophila_melanogaster-75 -f /home/jes/Git/infill-load-data/Droso_2014-5-20.fa -S Drosophila-bowtie2-75.map
+bowtie2-build -f /opt/FASTA/Drosophila_melanogaster.BDGP5.77.cdna.all.fa Drosophila_melanogaster-77	statistics is the same
+bowtie2 -x -a Drosophila_melanogaster-77 -f /home/jes/Git/infill-load-data/Droso_2014-5-20.fa -S Drosophila-bowtie2-77.map
 
 3. Reagents update and load into DB
 ===================================
@@ -74,7 +76,7 @@ bowtie2 -x Drosophila_melanogaster-75 -f /home/jes/Git/infill-load-data/Droso_20
 	$ perl Infill/DharmProbesLoad-to-release.pl
 	$ perl Infill/ReagentsLoad-bowtie2.pl
 	Remapping update date print into Reagents collection;	
-	> db.Reagents.update({},{$set:{release:75,remap:new Date("May 22, 2014")}},false,true);
+	> db.Reagents.update({},{$set:{release:77,remap:new Date("May 22, 2014")}},false,true);
 === CHECKS:
 	5)
 	for non-DHARM reagents
@@ -155,7 +157,7 @@ edit /opt/data/Statistics.json
 	{ "goodmatches" : 6, "gcount" : 8 } ],
 "uniquemaps" : , 		// db.Reagents.find({g_mapfreq:1}).count()
 "genes_u_phenotyped" : 9933, // db.HMSPNSgenes.find({"phenolist.goodmatch":1,"phenolist.probeID":/\w/i}).count()
-"release" : "75", 
+"release" : "77", 
 "mapstat" : 
 	[ { "count" : 8834, "matches" : 1 }, 
 	{ "count" : 3698, "matches" : 2 }, // db.HMSPNSgenes.find({phenolist:{$size:2}}).count()

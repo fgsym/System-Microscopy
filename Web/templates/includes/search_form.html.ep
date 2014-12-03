@@ -14,10 +14,12 @@ auPaths = {
    phpath:"<%= $relpath %>/autocomplete/phenofilter",
    ontpath: "<%= $relpath %>/autocomplete/ontofilter"
 };
+// document.cookie="genome=";
+document.cookie="genome=" + document.getElementById("gnm").value;
 </script>	
 <script src="<%= $relpath %>/src/autoinputs.js"></script>
 	<div style="white-space:nowrap; font-size:11px; float:left; width:170px; background-color:#f2f7ff; height:82px;padding:3px 0 2px 7px;" class="boxed">
-	    <div class="rownav" id="main"><a href="<%= $relpath %>/">Home</a></div>
+	    <div class="rownav" id="main"><a href="<%= $relpath %>">Home</a></div>
 	    <div class="rownav" id="phenotypes"><a href="<%= $relpath %>/phenotypes/">Phenotypes browsing</a></div>
 	    <div class="rownav" id="submit"><a href="<%= $relpath %>/oterms/">Ontology terms browsing</a></div>
 	    <div class="rownav" id="about"><a href="<%= $relpath %>/about/">About the Project</a></div>
@@ -50,12 +52,12 @@ auPaths = {
 	<li style="width:60px;"><a href="#std" style="width:60px;text-decoration:none;font-family:arial" onClick="makeQuery('s');makeField('std')">Study</a></li>
 		</ul>
 		<div style="position:absolute; margin: -27px 0 0 485px;float:right">
-			<SELECT name="genome" id="gnm" style="width:130px" onSelect="reload()">
+			<SELECT name="genome" id="gnm" style="width:130px" onChange="loadUrl('<%= $relpath %>'); return false;">
 % my %genomes = ("HMSPNSgenes"=>"Homo sapiens","FruitFLYgenes"=>"Fruit Fly");
 % my $slct;
 % my $ch_gnm = $self->param('ch_gnm');
-% my @cookies = $self->signed_cookie('genome');
-% my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+% my @cookies = $self->cookie('genome');
+% my $cookie = $cookies[0] ? $cookies[0] : "";
 % my $genome = $self->param('genome') ? $self->param('genome') : $cookie;
 %  my $coo;
 %  ($genome,$coo) = split(/\-\-/,$genome); 
@@ -66,7 +68,7 @@ auPaths = {
 %		$genome = "HMSPNSgenes";
 %	}
 % if (!$cookie || $cookie ne $genome || $self->param('genome') ne $genome) {
-% 	$self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+% #	$self->cookie(genome=>$genome, {path=>'$relpath'});
 % }
 % foreach my $i (keys %genomes) {
 %	$slct = (($genome && $genome eq $i) || ($ch_gnm && $ch_gnm eq "$i") || ($genome eq "" && $i eq "HMSPNSgenes")) ? "selected" : ""; 
@@ -155,4 +157,10 @@ auPaths = {
 		  $(this).is(':checked') ? $(this).button( { icons: { primary:  'ui-icon-check'} } ) : $(this).button( {icons: { primary:  'ui-icon-empty'} } )
 		});
 	});
+	function loadUrl(newLocation) {
+//		document.cookie="genome=";		
+		document.cookie="genome=" + document.getElementById("gnm").value + ";path=<%= $relpath %>";
+		window.location = newLocation;
+//		location.href=document.getElementById("gnm").value;
+	}	
 </script>

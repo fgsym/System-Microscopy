@@ -9,8 +9,8 @@ use vars qw($relpath);
 # url from     : /search/result/
 sub result {
   my $self = shift;
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];
   my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
   my $coo;
   ($genome,$coo) = split(/\-\-/,$genome);
@@ -25,7 +25,7 @@ sub result {
   my %e_vars = (hcrs =>"",scr_data=>\%scr_data);
   my $stds_q = $self->param('stds');
   $stds_q = $stds_q !~/\S/ ? $stds_q eq "-" : $stds_q;
-  $self->signed_cookie(genome => $genome, {path=>'$relpath/'});
+  $self->cookie(genome => $genome, {path=>'$relpath'}) unless $self->cookie('genome');
   # map {warn $_." : ".$self->param($_)} $self->param();
   if ($self->param('gene') ne "" && $self->param('gene') !~/name/) {  
     my $gene = $self->param('gene');
@@ -167,6 +167,7 @@ sub phenogrep {
   foreach (@ephID) {
      my ($phID,$ScrID) = split(/__/,$_); 
      push @{$ph_by_ScrID { $ScrID } }, $phID;
+     # warn "($phID,$ScrID)";
   }  
   my @cgenes;
   # warn @ephID;
@@ -180,8 +181,8 @@ sub phenogrep {
 sub grabpheno {
   my $self = shift; 
   my ($cgenes,$ephID) = $self->phenogrep();
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];
   my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
   my $terms = $self->param('terms');
   my $coo;
@@ -196,8 +197,8 @@ sub phenofilter {
 # collections	: Experiments, PhenoAnalysis, AllPhenoAnalysis
   my $self = shift;
   my ($cgenes,$ephID) = $self->phenogrep();
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];
   my $genome = $cookie;
   my $coo;
   ($genome,$coo) = split(/\-\-/,$genome);   
@@ -213,9 +214,9 @@ sub phenofilter {
 sub phintersect {
   my ($self,$ephIDs,$goodmatch,$select,$trm,$genome) = @_;
   my @ephID = $ephIDs ? @{$ephIDs} : $self->param('phset');
-  # my @cookies = $self->signed_cookie('genome');
-  # my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
-  # $genome = $genome ? $genome : $self->param('genome') ? $self->param('genome') : "HMSPNSgenes";
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0];
+  $genome = $genome ? $genome : $self->param('genome') ? $self->param('genome') : "HMSPNSgenes";
   # warn "($ephIDs,$goodmatch,$select,$trm,$genome)";  
   my %ph_by_ScrID;
   my %screens;
@@ -227,6 +228,7 @@ sub phintersect {
   }
   my @all; # all objects from queries by screen
      my @cgenes =  @{Sym::Controller::Genes->genesdistPRC(\%ph_by_ScrID,$select)};
+     warn "$genome, $select";
      foreach my $ScrID (keys %ph_by_ScrID ) {
         # my @arcrs = @{ Sym::Model::MongoQ->get_genes_by_phenotypes_set_and_ScrID(\@{$ph_by_ScrID { $ScrID } },$ScrID) };
         # push(@all,@arcrs);
@@ -314,7 +316,7 @@ sub reagent {
   my $self = shift;
   my ($id,$genome,$ensgid) = split (/\:/,@{$self->req->url->path->parts}[1]);
   my $crs = Sym::Model::MongoQ->get_reagent_by_rgID($id);
-  $self->signed_cookie(genome=>$genome, {path=>'$relpath/'});  
+  $self->cookie(genome=>$genome, {path=>'$relpath'}) unless $self->cookie('genome');  
   $self->render(crs => $crs, genome => $genome, tmpl => 0);
 }
 # url from     : /gene (from layouts/default.html.ep)
@@ -323,7 +325,7 @@ sub reagent {
 sub gene {
   my $self = shift;
   my ($genome,$gene) = split (/\:/,@{$self->req->url->path->parts}[1]);
-  $self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+  $self->cookie(genome=>$genome, {path=>'$relpath'}) unless $self->cookie('genome');
 
   my $crs = Sym::Model::MongoQ->get_reagent_by_gene_ensGID($gene);  
   my $hcrs = Sym::Model::MongoQ->get_gene($gene,$genome);

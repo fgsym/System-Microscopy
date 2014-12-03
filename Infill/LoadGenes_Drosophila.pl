@@ -4,7 +4,7 @@ use lib "../BioPerl/ensembl/modules/";
 use lib "../BioPerl/bioperl-live/";
 use Bio::EnsEMBL::Registry;
 use Bio::SeqIO;
-my $version = 73;
+my $version = 77;
     my $reg = 'Bio::EnsEMBL::Registry';
       $reg->no_version_check(1);
     $reg-> load_registry_from_db(

@@ -8,8 +8,8 @@
 .dlink {color: #3377aa; height:17px; width:400px}
 </style>
 <div id="showi" style="margin: -30px 0 0 0; padding: 0; width:800px;">
-% my @cookies = $self->signed_cookie('genome');
-% my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+% my @cookies = $self->cookie('genome');
+% my $cookie = $cookies[0] ? $cookies[0] : "";
 % my $genome = $self->param('genome') ? $self->param('genome') : $cookie;
 %  my $coo;
 %  ($genome,$coo) = split(/\-\-/,$genome);

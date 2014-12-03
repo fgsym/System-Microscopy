@@ -107,7 +107,7 @@ sub phenoparams {
 # collections	: PhenoAnalysis, AllPhenoAnalysis
 sub phenotypes_by_rgID {
   my ($self,$id) = @_;
-  warn $id;
+  # warn $id;
   my $mcrs = Sym::Model::MongoQ->get_phenotypes_by_rgID($id);
   my %darray;
   my %uphenos;  # phenotypes for uniquely mapping rgID

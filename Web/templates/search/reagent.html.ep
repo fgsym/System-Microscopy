@@ -17,15 +17,13 @@
 %	my ($id,$genome,$ensgid) = split (/\:/,@{$self->req->url->path->parts}[1]);
 %   my ($onegene, $uphenos, $nphenos, $zphenos, $freqs) = Sym::Controller::Phenotypes->phenotypes_by_rgID($obj->{rgID});
 %	my $ge = $ensgid ? $ensgid : $onegene;
-%  my @cookies = $self->signed_cookie('genome');
-%  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0];
-%  $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
-%  my $coo;
-%  ($genome,$coo) = split(/\-\-/,$genome);
+%  my @cookies = $self->cookie('genome');
+%  my $cookie = $cookies[0];
+%  $genome = $genome ? $genome : $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
 %	# IF REAGENT FROM ANOTHER GENOME !!
 %	if ($self->param('reag') =~/DRSC/ || (reverse @{$self->req->url->path->parts})[0] =~/FruitFLYgenes/ ) {
 %		$genome = "FruitFLYgenes";
-%		$self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+%		$self->cookie(genome=>$genome, {path=>'$relpath'});
 %	}
 %  	my ($transcripts,$tnmb,$alltrns,$allgenes,$gsym,$goterm) = Sym::Controller::Genes->gene_data($ge,$obj->{tagin},$genome);
    <div style="float:left; width:400px;">

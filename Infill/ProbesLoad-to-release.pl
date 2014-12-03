@@ -95,8 +95,8 @@ foreach my $rgID (sort keys %reags) {
 			$n++;
 			print "$n reagents updated: ".showtime()."\n" if ($n%10000 == 0);	  
 	} else {
-		# sleep(1);
-		$re->update( { rgID => $rgID }, {'$pushAll' =>
+		# sleep(1)
+;		$re->update( { rgID => $rgID }, {'$pushAll' =>
 			{ genes => [] }
 			}) or warn "$!";
 		$re->update( { rgID => $rgID }, {'$pushAll' =>			

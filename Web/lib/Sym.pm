@@ -47,17 +47,22 @@ sub startup {
 
       }  
   my %vars;
-  my $relpath = "";
+  my $relpath = "/fg/sym";
   my $req = Mojo::Message::Request->new;
   
     $self->hook(before_dispatch => sub {
       my $self = shift;
       # my @params = @{$self->req->url->query->params};
-      my @uparts = @{$self->req->url->path->parts};
+      push @{$self->req->url->base->path->parts}, splice @{$self->req->url->path->parts}, 0, 2;
+      my @uparts = @{$self->req->url->path->parts}, 0, 2;
+ 
+      # my @uparts = @{$self->req->url->path->parts};
       my $navbar = "";
       if (scalar @uparts >0) {
         $navbar = ucfirst($uparts[0])." > "  unless $uparts[0] =~ /(src|css|ebisearch)/;
       };
+
+
       my $q = $self->param('genename') ? $self->param('genename') : $self->param('gene');
       $q = $q ? $q : $uparts[1] ? $uparts[1] : "";
       %vars = (current => $q, navbar => $navbar);

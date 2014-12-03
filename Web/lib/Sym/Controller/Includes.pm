@@ -12,7 +12,7 @@ sub ph_renew {
 sub search_form {
   my $self = shift;
   my $genome = $self->param('genome');
-  $self->signed_cookie(genome=>$genome, {path=>'$relpath/'});
+#  $self->cookie(genome=>$genome, {path=>'$relpath'});
   $self->render();
 }
 1;

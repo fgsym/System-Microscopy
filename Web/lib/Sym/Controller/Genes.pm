@@ -76,7 +76,7 @@ sub genesdistPRC {
         my $here = 0;
         my $gm = 0;
         foreach my $ScrID (keys %ph_by_ScrID ) {
-          $here++ if ($obj->{phcluster} =~/$phenoprint/ && $obj->{ScrID} eq $ScrID);
+          $here++ if ($obj->{ScrID} eq $ScrID);
         }
         $gm++ if (${$l}{goodmatch} == 1 && $here);
         if ($here+$gm >=2 ) {
@@ -84,7 +84,7 @@ sub genesdistPRC {
         }  
       }
 		}
-		$agenes{$ScrID."__".$phenoprint} = \@agenes; # group by chosen phenotypes and screen
+		$agenes{$ScrID."__".$phenoprint} = \@agenes; # group by chosen phenotypes and screen : $phenoprint != phcluster
 	}
 	my @cgenes; # common genes from the given screens
 	my %seen;
@@ -151,7 +151,7 @@ sub attributes {
 	my %phenotypes;
 	my %allphenos;
 	my %namephenos;
-  warn $terms;
+  # warn $terms;
   my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()};  
 	while (my $obj = $crs->next) {
 		my %goterm;

@@ -20,8 +20,8 @@ sub stats {
 # phenotypes hash by $title."|".$ScrID."|".$type key and inner $phname."__".$phID key (to sort by phenotypes name)
 sub phenotypes {
   my ($self,$genome, $class) = @_;
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0] ? $cookies[0] : "";
   $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes";
   ($genome,$cookie) = split(/\-\-/,$genome);
   my %phenohash = %{ Sym::Controller::Phenotypes->get_all_phenotypes($genome) }; #  $phenohash{"${$_}{phID}__$ScrID"} = ${$_}{"phNAME"}."|".$ScrID."|".$ScrType."|".$StdTitle
@@ -41,8 +41,8 @@ sub phenotypes {
 # collections : Studies, ProcessedData
 sub oterms {
   my ($self,$genome, $class) = @_;
-  my @cookies = $self->signed_cookie('genome');
-  my $cookie = $cookies[1] ? $cookies[1] : $cookies[0] ? $cookies[0] : "";
+  my @cookies = $self->cookie('genome');
+  my $cookie = $cookies[0] ? $cookies[0] : "";
   $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : $genome ? $genome : "HMSPNSgenes";
   my $coo;
   ($genome,$coo) = split(/\-\-/,$genome);
