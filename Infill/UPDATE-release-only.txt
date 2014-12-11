@@ -122,8 +122,10 @@ if needed
 ~/Git/Infill$ perl Genes_by_Phenotypes.pl FruitFLYgenes
 === CHECKS
 > db.HMSPNSgenes.find({"phenolist.rgID":/\S/}).count()
-13788
+13788 (75) 
+13362 (75)
 > db.FruitFLYgenes.find({"phenolist.rgID":/\S/}).count()
+520
 > db.Datasets.find({ScrID:"J1_SyM_2"},{rgID:1,probeID:1}).count() (some mappings dropped)
 
 9. GO Ontologies
@@ -144,9 +146,12 @@ edit Sym:Output:stats
 edit Sym:Genes::genebrowse
 
 edit /opt/data/Statistics.json
-								(db.HMSPNSgenes.find({phenolist:{$size:2},"phenolist.goodmatch":{$ne:0}}).count())
+foreach genome:
+
+(db.HMSPNSgenes.find({phenolist:{$size:2},"phenolist.goodmatch":{$ne:0}}).count())
 {
 "_id" : { "$oid" : "519f4a470f5a24f332000000" },
+"release" : 77,
 "mapping" : 90714, // db.Reagents.find({prefix:"DHARM",g_mapfreq:{$ne:0}}).count() + db.Reagents.find({prefix:{$ne:"DHARM"},"seq1":/\w/i,g_mapfreq:{$ne:0}}).count()
 "goodmapstat" :
 	[ { "goodmatches" : 1, "gcount" : 5626 }, // db.HMSPNSgenes.find({phenolist:{$size:1},"phenolist.goodmatch":{$ne:0}}).count()
@@ -179,6 +184,9 @@ edit /opt/data/Statistics.json
 $ cd /opt/data
 $ more Statistics.json | sed ':a; /$/N; s/\n//; ta' > Statistics-p.json
 $ ../mongodb-2.4.8/bin/mongoimport --dbpath /opt/data/ -d sym -c Statistics --file ../data/Statistics-p.json
+
+in Sym.pm:
+$GLV{release} = 77;
 
 11. Indexes:
 ============

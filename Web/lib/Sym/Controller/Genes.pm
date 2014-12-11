@@ -1,16 +1,17 @@
 package Sym::Controller::Genes;
 use strict;
-use base 'Mojolicious::Controller'; 
+use base 'Mojolicious::Controller';
+use vars qw(%GLV);
+*GLV = \%Sym::GLV;
 sub genebrowse {
   my ($self) = @_;
-  my $r="75";  
   my $st_maps = (reverse @{$self->req->url->path->parts})[0];
   my $type = (reverse @{$self->req->url->path->parts})[1];
   my ($genome,$count) = split(/\:/,$st_maps);
   my $obj;
   my @genes;
   if ($st_maps && $st_maps =~/genebrowse/) {
-    $obj = Sym::Model::MongoQ->get_stats($r);
+    $obj = Sym::Model::MongoQ->get_stats($GLV{release});
   } else {
     @genes = @{Sym::Model::MongoQ->get_genes_by_countedreags($type,$genome,$count)};
   }

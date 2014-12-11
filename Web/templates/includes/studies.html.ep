@@ -44,7 +44,7 @@
 	  <div><u><a href="<%= $relpath %>/getfile/zip:<%= $_->{ScrID} %>">ZIP</a></u></div>
 %	}
 	</div>
-	<div style="float:right" valign=middle><u><a href="<%= $relpath %>/getfile/idf:<%= $obj->{StdID} %>">Description file</a></u></div>
+	<div style="float:right" valign=middle><u><a href="<%= $relpath %>/getfile/idf:Description:<%= $obj->{StdID} %>">Description file</a></u></div>
     </td>
   </tr>
 % }

@@ -14,6 +14,7 @@ use vars qw(%GLV $relpath);
 sub startup {
   my $self = shift;
   my $config = $self->plugin('JSONConfig');
+  $GLV{release} = 77;
   $GLV{CONFIG} = $config;
 # connect to Mongo DB:   
       $self->attr(db => sub { 
@@ -27,7 +28,7 @@ sub startup {
       };
       if ($@ =~ "response") {
             $GLV{DB} = "";
-            warn "wtf"
+            warn "wth"
       } else {
         $GLV{DB} = $self->db;
         $GLV{Std} = $self->db->get_collection( 'Studies' );
@@ -44,7 +45,6 @@ sub startup {
         $GLV{Oterms} = $self->db->get_collection( 'T_Ontology' );
         $GLV{Grid} = $self->db->get_gridfs;
         $GLV{Files} = $self->db->get_gridfs->files;
-
       }  
   my %vars;
   my $relpath = "/fg/sym";
@@ -54,7 +54,7 @@ sub startup {
       my $self = shift;
       # my @params = @{$self->req->url->query->params};
       push @{$self->req->url->base->path->parts}, splice @{$self->req->url->path->parts}, 0, 2;
-      my @uparts = @{$self->req->url->path->parts}, 0, 2;
+      my @uparts = @{$self->req->url->path->parts},0,2;
  
       # my @uparts = @{$self->req->url->path->parts};
       my $navbar = "";

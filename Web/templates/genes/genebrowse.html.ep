@@ -2,7 +2,6 @@
 % title 'Cellular Phenotype Database: Genes by mapping frequency';
 <h3>Genes by Mapping Reagents frequency</h3>
 <div style="display:table;margin-left:40px;width:580px;">
-
 % if ($obj =~/ARRAY/) {
 %	my @genes = @{$obj};
 %	my $nav = scalar (@genes) > 50 ? 0 : 1;
