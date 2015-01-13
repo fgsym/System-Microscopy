@@ -1,6 +1,7 @@
 {
-"db_host" : "localhost:27017",
-"db_name" : "sym",
+"dbhost" : "localhost:27017",
+"dbname" : "sym",
+"release" : 77,
 "navigator" : {
     "/"        	: ["1", "output#main" , "Main Page"],
     "/glossary"	: ["2", "output#glossary", "Glossary"],
@@ -31,8 +32,7 @@
 "boldfont" : "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
 "hypnotoad" : {
     "listen"  : ["http://*:3000"],
-    "workers" : 5,
-    "keep_alive_timeout" : 1000,
+    "workers" : 2,
     "max_requests" : 20
   }
 }

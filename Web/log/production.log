@@ -1473,3 +1473,59 @@ Global symbol "$relpath" requires explicit package name at template exception.ht
 11: %		my @phAll; my $k=0;
 12: %		foreach my $n (sort keys %allphenos) {
 
+[Mon Jan 12 14:27:50 2015] [info] Listening at "http://*:3000".
+[Mon Jan 12 14:27:50 2015] [info] Manager 16666 started.
+[Mon Jan 12 14:27:50 2015] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Jan 12 14:28:05 2015] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at (eval 645) line 4.
+1: %  my @cookies = $self->cookie('genome');
+2: %  my $cookie = $cookies[0];
+3: %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+4: %  my $coo;
+5: %  ($genome,$coo) = split(/\-\-/,$genome);
+6: %  my $phids = (reverse @{$self->req->url->path->parts})[0];
+7: %  if ($phids =~/\:/ || $phids =~/__/) {
+8: % 	layout 'default';
+9: % 	title 'Phenotype search result page :: Cellular Phenotype Database';
+
+[Mon Jan 12 14:37:51 2015] [info] Listening at "http://*:3000".
+[Mon Jan 12 14:37:51 2015] [info] Manager 17442 started.
+[Mon Jan 12 14:37:51 2015] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Jan 12 14:37:58 2015] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at (eval 663) line 4.
+1: %  my @cookies = $self->cookie('genome');
+2: %  my $cookie = $cookies[0];
+3: %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+4: %  my $coo;
+5: %  ($genome,$coo) = split(/\-\-/,$genome);
+6: %  my $phids = (reverse @{$self->req->url->path->parts})[0];
+7: %  if ($phids =~/\:/ || $phids =~/__/) {
+8: % 	layout 'default';
+9: % 	title 'Phenotype search result page :: Cellular Phenotype Database';
+
+[Mon Jan 12 14:43:40 2015] [info] Listening at "http://*:3000".
+[Mon Jan 12 14:43:40 2015] [info] Manager 17533 started.
+[Mon Jan 12 14:43:40 2015] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Jan 12 14:43:47 2015] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at (eval 663) line 4.
+1: %  my @cookies = $self->cookie('genome');
+2: %  my $cookie = $cookies[0];
+3: %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+4: %  my $coo;
+5: %  ($genome,$coo) = split(/\-\-/,$genome);
+6: %  my $phids = (reverse @{$self->req->url->path->parts})[0];
+7: %  if ($phids =~/\:/ || $phids =~/__/) {
+8: % 	layout 'default';
+9: % 	title 'Phenotype search result page :: Cellular Phenotype Database';
+
+[Mon Jan 12 14:49:18 2015] [info] Listening at "http://*:3000".
+[Mon Jan 12 14:49:18 2015] [info] Manager 17664 started.
+[Mon Jan 12 14:49:18 2015] [info] Creating process id file "/home/jes/Git/Web/script/hypnotoad.pid".
+[Mon Jan 12 14:49:23 2015] [error] Can't use string ("Sym::Controller::Search") as a HASH ref while "strict refs" in use at (eval 663) line 4.
+1: %  my @cookies = $self->cookie('genome');
+2: %  my $cookie = $cookies[0];
+3: %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
+4: %  my $coo;
+5: %  ($genome,$coo) = split(/\-\-/,$genome);
+6: %  my $phids = (reverse @{$self->req->url->path->parts})[0];
+7: %  if ($phids =~/\:/ || $phids =~/__/) {
+8: % 	layout 'default';
+9: % 	title 'Phenotype search result page :: Cellular Phenotype Database';
+

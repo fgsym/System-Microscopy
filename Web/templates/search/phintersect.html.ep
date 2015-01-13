@@ -3,6 +3,7 @@
 % 	layout 'default';
 % 	title 'Phenotype with common genes search result page :: Cellular Phenotype Database';
 % }
+% #warn $self->param('phn')."||".$self->param('ohn');
 % my %scr_data = %{$scr_data};
 % my %phenotypes = %{$phenotypes};
 % my %allphenos = %{$allphenos};

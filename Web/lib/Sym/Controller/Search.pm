@@ -130,7 +130,7 @@ sub respheno {
     my %scr_data = %{Sym::Controller::Studies->studies};
     my %e_vars = (hcrs =>"",scr_data=>\%scr_data);
     my @phIDs =  split(/\-/,$phenoprint);
-  #  warn keys %ph_by_ScrID;
+    # warn keys %ph_by_ScrID;
     $self->render(crs => $allcrs, ph_by_ScrID=> \%ph_by_ScrID, ScrID => $ScrID, StdTitle => $StdTitle, phenoprint=>$phenoprint, genome=>$genome, face=>$face,terms=>$terms,
                   ScMethod=>$ScMethod, q => $phstr, stype => "phs", allgenes => "", phIDs => \@phIDs, %e_vars);    
   } else { 
@@ -214,8 +214,9 @@ sub phenofilter {
 sub phintersect {
   my ($self,$ephIDs,$goodmatch,$select,$trm,$genome) = @_;
   my @ephID = $ephIDs ? @{$ephIDs} : $self->param('phset');
-  my @cookies = $self->cookie('genome');
-  my $cookie = $cookies[0];
+  # warn $ephIDs;
+  # my @cookies = $self->cookie('genome');
+  # my $cookie = $cookies[0];
   $genome = $genome ? $genome : $self->param('genome') ? $self->param('genome') : "HMSPNSgenes";
   # warn "($ephIDs,$goodmatch,$select,$trm,$genome)";  
   my %ph_by_ScrID;
@@ -228,7 +229,7 @@ sub phintersect {
   }
   my @all; # all objects from queries by screen
      my @cgenes =  @{Sym::Controller::Genes->genesdistPRC(\%ph_by_ScrID,$select)};
-     warn "$genome, $select";
+     # warn "$genome, $select";
      foreach my $ScrID (keys %ph_by_ScrID ) {
         # my @arcrs = @{ Sym::Model::MongoQ->get_genes_by_phenotypes_set_and_ScrID(\@{$ph_by_ScrID { $ScrID } },$ScrID) };
         # push(@all,@arcrs);
@@ -287,7 +288,8 @@ sub phintersect {
               # }  
             # }
         # }   
-  } 
+  }
+  # warn keys %phenotypes;
   if ($ephIDs) {
     return (\%phenotypes, \%allphenos, \%allgenes, \%onts);
   } else {

@@ -107,7 +107,7 @@ sub generate_list {
       $name = $self->ontname($phID, $sID, \%onts) if ($terms eq "o");
       foreach my $s (keys %pheno_in_screen) {
           my $ph = substr($pheno_in_screen{$s},0,-1); # ${$_}{phID}
-          grep { $phIDs{ lc($name)."__".$phID."__".$s } = $phID."__".$s if ($_ eq $phID && $sID eq $s) } split(/\-/,$ph);
+          grep { $phIDs{ $name."__".$phID."__".$s } = $phID."__".$s if ($_ eq $phID && $sID eq $s) } split(/\-/,$ph);
       }
     } 
     my $width =26*(scalar keys %phIDs)+100;
@@ -120,6 +120,7 @@ sub generate_list {
     my $font = $GLV{CONFIG}->{boldfont};
     my $n = 0;
     foreach my $p (sort keys %phIDs) {
+      warn $p;
       my ($name,$ph,$s);
         ($name,$ph,$s) = split(/__/,$p);
         $name = (length($name) > 20) ? ucfirst(substr($name,0,20))."…" : ucfirst($name);

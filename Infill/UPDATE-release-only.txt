@@ -185,8 +185,8 @@ $ cd /opt/data
 $ more Statistics.json | sed ':a; /$/N; s/\n//; ta' > Statistics-p.json
 $ ../mongodb-2.4.8/bin/mongoimport --dbpath /opt/data/ -d sym -c Statistics --file ../data/Statistics-p.json
 
-in Sym.pm:
-$GLV{release} = 77;
+in sym.json:
+"release" : 77,
 
 11. Indexes:
 ============
@@ -227,12 +227,16 @@ my $m = MongoDB::Connection->new(host => "mongodb://localhost:27017", find_maste
 
 14. Data to Download:
 =====================
-mongoexport  -d sym -c Reagents -f probeID,rgID,seq1,seq2,prefix --csv -o export-Reagents.csv
+mongoexport  -d sym -c Reagents -f probeID,rgID,seq1,seq2,prefix --csv -o export-Reagents.csv	
+77: exported 93578 records
 mongoexport  -d sym -c HMSPNSgenes -f phenolist,ensGID --csv -o export-HMSPNSgenes.csv
+77: exported 60279 records
 mongoexport  -d sym -c FruitFLYgenes -f phenolist,ensGID --csv -o export-FruitFLYgenes.csv
+77: exported 15682 records
 mongoexport  -d sym -c HMSPNSgenes -q "{'phenolist.phenodata.ScrID':/\S/},{ensGID:1,phenolist:1}" -f ensGID,phenolist -o export-HMSPNSgenes.json
+77: exported 13362 records
 mongoexport  -d sym -c FruitFLYgenes -q "{'phenolist.phenodata.ScrID':/\S/},{ensGID:1,phenolist:1}" -f ensGID,phenolist -o export-FruitFLYgenes.json
-
+77: exported 520 records
 export files to /ebi/ftp/pub/databases/microarray/cellph
 
 15. Copy & Sync:

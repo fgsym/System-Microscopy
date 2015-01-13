@@ -13,16 +13,15 @@ use vars qw(%GLV $relpath);
 
 sub startup {
   my $self = shift;
-  my $config = $self->plugin('JSONConfig');
-  $GLV{release} = 77;
+  my $config = $self->plugin('JSONConfig');  
+  $GLV{release} = $config->{release}; 
   $GLV{CONFIG} = $config;
+  $self->res->headers->cache_control('max-age=1, no-cache');  
 # connect to Mongo DB:   
       $self->attr(db => sub { 
-        MongoDB::Connection
-            ->new(host => $config->{db_host}, query_timeout => -1, find_master => 1)
-            ->get_database($config->{db_name});
+        MongoDB::Connection->new(host => $config->{dbhost}, query_timeout => -1, find_master => 1)
+            ->get_database($config->{dbname});
       });
-      $self->secrets(['NobodyButYou']);
       eval { 
         $self->helper('db' => sub { shift->app->db }) || warn $!;     
       };
@@ -49,7 +48,6 @@ sub startup {
   my %vars;
   my $relpath = "/fg/sym";
   my $req = Mojo::Message::Request->new;
-  
     $self->hook(before_dispatch => sub {
       my $self = shift;
       # my @params = @{$self->req->url->query->params};
@@ -61,8 +59,6 @@ sub startup {
       if (scalar @uparts >0) {
         $navbar = ucfirst($uparts[0])." > "  unless $uparts[0] =~ /(src|css|ebisearch)/;
       };
-
-
       my $q = $self->param('genename') ? $self->param('genename') : $self->param('gene');
       $q = $q ? $q : $uparts[1] ? $uparts[1] : "";
       %vars = (current => $q, navbar => $navbar);

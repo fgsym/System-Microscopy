@@ -141,18 +141,19 @@ sub transcript {
       my ($strand,$st1,$et1); # scaled absolute REAGENT's coordinates 
       $img->rectangle($is,$y,$is+$rlength+1,($y+10),$blue); # gene borders 
     
-      foreach my $ex (@exs) { 
+      foreach my $ex (sort @exs) { 
         my ($s,$e,$d,$rs,$re) = split(/\|/,$ex); # EXON: start, end, strand, relative start, relative end 
-        # warn "($s,$e,$d,$rs,$re)  # EXON: start, end, strand, relative start, relative end";
-        # warn "<<<<< $st : $et";
+        warn "($d,$rs,$re)  # EXON: strand, relative start, relative end" if ($tr eq "ENST00000620134");
+        #warn "<<<<< $st : $et" if ($tr eq "ENST00000399953" && $re < 1900);
         $strand = $d;
         my $s1 = sprintf("%.0f",$scale*(($s - $kstart)));
         my $e1 = sprintf("%.0f",$scale*(($e - $kstart)));
         $img->filledRectangle(($is+$s1),($y+1),($is+$e1),($y+10),$trgreen);      
         if ($tags{$tr}) {
-          # warn "$tr ::: $tags{$tr} :::($st >= $rs && $st < $re) || ($et <= $re && $et > $rs)";
+          # warn "$tr ::: $tags{$tr} :::($st >= $rs && $st < $re) || ($et <= $re && $et > $rs)\n"  if ($tr eq "ENST00000620134");
           my ($stn, $etn); # absolute reagent location on exon
           if (($st >= $rs && $st < $re) || ($et <= $re && $et > $rs) )   {
+          # warn "$tr ::: $tags{$tr} :::($st >= $rs && $st < $re) || ($et <= $re && $et > $rs) \n"  if ($tr eq "ENST00000620134");
               # non-scaled absolute REAGENT's coordinates 
               if ($strandT == 1) {
                 $stn = $s + ($st - $rs);

@@ -6,7 +6,7 @@ use strict;
 use warnings;
 warn $0;
 my $log = "$0.log";
-my $bowtie = "/home/jes/Git/infill-load-data/Align-best-existing-reagents-77.map";
+my $bowtie = "/home/jes/Git/infill-load-data/77_release_maps/Align-best-existing-reagents-77.map";
 
 print "start: ".showtime()."\n";
     my $conn = MongoDB::Connection->new("socket" => "/tmp/mongodb-27017.sock",query_timeout => -1) or warn $!;
@@ -63,6 +63,7 @@ foreach my $rgID (sort keys %reags) {
 			my ($ensGID, $symbol, @synonyms);
 			if ($tr2genes{ $tr }) {
 				($ensGID, $symbol, @synonyms) = @{$tr2genes{ $tr } };
+				# warn "($strand, $loc, $coord, $subj, $q, $frq)" if $ensGID eq "ENSG00000103148";				
 						my %tdt = (
 							"ensTID" => $tr,
 							"ensGID" => $ensGID,
@@ -81,6 +82,7 @@ foreach my $rgID (sort keys %reags) {
 				 print LOG $loc." for $rgID not found in HMSPNSgenes collection (haplotypes genes etc)\n"; # some transcripts are in haplotypes genes
 				 $haplos{$rgID}++;
 			}
+			# warn scalar @trnsc if $ensGID eq "ENSG00000103148";			
 		}
 			# sleep(1);
 			$re->update( { rgID => $rgID }, {'$pushAll' =>

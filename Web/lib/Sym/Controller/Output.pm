@@ -1,6 +1,8 @@
 package Sym::Controller::Output;
 use strict;
 use base 'Mojolicious::Controller';
+use vars qw(%GLV);
+*GLV = \%Sym::GLV;
 # Render template "/output/main.html.ep"
 # url from     : /
 #                Sym::Model::MongoQ->get_all_screens
@@ -11,7 +13,7 @@ sub main {
 }
 sub stats {
   my $self = shift;
-  my $r="75";
+  my $r=$GLV{release};
   my $obj = Sym::Model::MongoQ->get_stats($r);
   $self->render(obj => $obj);
 }

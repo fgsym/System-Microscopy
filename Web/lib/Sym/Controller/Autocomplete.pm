@@ -125,7 +125,7 @@ sub attribute {
   ($GLV{G},$coo) = split(/\-\-/,$GLV{G});  
   my @json;
   # my $crs = $genes->query({"symbol" => qr/^$q/},{"symbol" => 1});
-  my $crs = Sym::Model::MongoQ->get_gene_by_attribute($q,$GLV{G},0,100);
+  my $crs = Sym::Model::MongoQ->get_gene_by_attribute($q,$GLV{G},0,50);
   my @symbols; 
   my %goterm;
   while (my $obj = $crs->next) {
