@@ -19,7 +19,7 @@ sub startup {
   $self->res->headers->cache_control('max-age=1, no-cache');  
 # connect to Mongo DB:   
       $self->attr(db => sub { 
-        MongoDB::Connection->new(host => $config->{dbhost}, query_timeout => -1, find_master => 1)
+        MongoDB::Connection->new(host => $config->{dbhost}, query_timeout => 10000, find_master => 1)
             ->get_database($config->{dbname});
       });
       eval { 
@@ -50,11 +50,8 @@ sub startup {
   my $req = Mojo::Message::Request->new;
     $self->hook(before_dispatch => sub {
       my $self = shift;
-      # my @params = @{$self->req->url->query->params};
       push @{$self->req->url->base->path->parts}, splice @{$self->req->url->path->parts}, 0, 2;
       my @uparts = @{$self->req->url->path->parts},0,2;
- 
-      # my @uparts = @{$self->req->url->path->parts};
       my $navbar = "";
       if (scalar @uparts >0) {
         $navbar = ucfirst($uparts[0])." > "  unless $uparts[0] =~ /(src|css|ebisearch)/;

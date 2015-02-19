@@ -1,5 +1,6 @@
 % my $phids = (reverse @{$self->req->url->path->parts})[0];
-% unless ($phids =~/__/ || $self->param('phn') || $self->param('ohn')) {	# if come from phenotypes filter page output/phenotypes >> search/phenofilter or from search/ontofilter
+% unless ($phids =~/__/ || $self->param('phn') || $self->param('ohn')) {	
+% # if come from phenotypes filter page output/phenotypes >> search/phenofilter or from search/ontofilter
 % 	layout 'default';
 % 	title 'Phenotype with common genes search result page :: Cellular Phenotype Database';
 % }
@@ -8,6 +9,8 @@
 % my %phenotypes = %{$phenotypes};
 % my %allphenos = %{$allphenos};
 % my %allgenes = %{$allgenes};
+% my $psize = scalar (keys %allphenos);
+
 		<map name="map">
 %		my @phAll; my $k=0;
 %		foreach my $n (sort keys %allphenos) {
@@ -19,17 +22,21 @@
 %			$k++;
 %		}
 		</map>
+% my $gcnt = scalar (keys %allgenes);		
+% my $nav = $gcnt > 50 ? 0 : 1;		
 % my $phenoprint = join("-",@phAll);
 % my $phenochosen = join("-",@{$phchosen});
-% my %onts = %{$onts};
-% my $ontnm = (scalar keys %onts > 0) ? 1 : 0;
-% my $oterms = (scalar keys %onts > 0) ? "o" : "p";
-% my $swterms = (scalar keys %onts > 0) ? "p" : "o";
+% my %ph2onts = %{$ph2onts};
+% my $ontnm = (scalar keys %ph2onts > 0) ? 1 : 0;
+% my $oterms = (scalar keys %ph2onts > 0) ? "o" : "p";
+% my $swterms = (scalar keys %ph2onts > 0) ? "p" : "o";
 % my $otitle = ($oterms eq "p") ? "original study terms" : "assigned ontology terms";
 % my $oswitch = ($oterms eq "p") ? "assigned ontology terms" : "original study terms";
-
+% my $set = ($rowcut == 1) ? "ex" : "ln";
 <h2>Phenotypes — <i><%= $otitle %></i> — with common genes</h2>
-<div align=right style="width:700px;font-weight:bold;margin:-10px 0 8px 0; font-size:14px; color:#555">: switch to <a href="<%= $relpath %>/search/pheno/<%= $phenochosen %>;set;false;<%= $swterms %>"><%= $oswitch %></a></div>
+<div align=right style="width:700px;font-weight:bold;margin:-10px 0 8px 0; font-size:14px; color:#555">
+	: switch to <a href="<%= $relpath %>/search/pheno/<%= $phenochosen %>;<%= $set %>;false;<%= $swterms %>"><%= $oswitch %></a>
+</div>
 This page lists all the reagents/genes that have been associated as common to the selected phenotypes from different studies.
 % unless (scalar (keys %allgenes) == 0) {
 	<%= include 'includes/phintersect_legend' %>
@@ -43,57 +50,135 @@ This page lists all the reagents/genes that have been associated as common to th
 % my $gencoll = $genome ? $genome : "HMSPNSgenes";
 
 <img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="0" width="0" border="0" id="preload">
-<div class="highlight" style="display:table-cell;width:580px;"><b><span class="exon" style="font-size:13px;"><%= scalar (keys %allgenes) %></span> genes found</b>:
+<div class="highlight" style="display:table-cell;width:580px;">
+	<b><span class="exon" style="font-size:13px;"><%= scalar (keys %allgenes) %></span> genes found</b>:<br>
+%	if ($rowcut == 1) {
+		<span style="color:#111">and they share more than shown phenotypes through different reagents knockdowns <br>
+		— to see all phenotypes click on <a href="<%= $relpath %>/search/pheno/<%= $phenochosen %>;ln;false;<%= $oterms %>"><u>this link</u></a> but beware of heavy loading on your browser side
+		</span> 
+%	}
 </div>
-  <div style="width:250px; display:table-cell">
-% unless (scalar (keys %allgenes) == 0) {
-<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b>export search results</b></a>
+  <div style="width:250px; display:table-cell; padding:0">
+% unless ($gcnt == 0) {
+<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b><u>export search results</u></b></a>
 % }
   </div>
 % if (scalar (keys %allgenes) > 0) {
-% 	my $width = 25*(scalar (keys %allphenos)) + 390;
-<div class="boxed" style="display:table;margin-left:40px;">
-<table cellspacing="0" cellpadding="0" id="highlight-plugin" class="tablesorter"><thead height="95" style="height:95px;">
-	<tr width="100%" height="95">
-		<th height="95" style="background:#fcfcfc"><div style="width:120px;">Gene</div></th>
-		<th width="120" height="95" style="background:#fcfcfc"><div style="width:120px;">Internal ID</div></th>
-		<th height="95">
-		<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left"></th></tr>
+% 	my $width = 26*(scalar (keys %allphenos)) + 405;
+<style>
+div#gtd.stdcell {display:table-cell;width:25px;border-right:1px solid #ddd;padding:0;}
+div.nbr{width:25px;float:left;text-align:right;padding: 5px 4px 0 4px;}
+div#gtabl {}
+div#gtr {display:table-row;margin:0;padding:0;height:23px;}
+div#gtd {display:table-cell;}
+td.genewrap {border-bottom:1px solid #ddd;height:19px;}
+div.replica {padding:4px 5px 0 0; font-size:75%; height:16px;width:18px;color:#fff;opacity:0.6;filter:alpha(opacity=60);}
+div.repwrap {border-right:1px solid #ddd; margin:1px; width:25px;height:22px;vertical-align: middle;margin:1px;}
+div.rgwrap {white-space:nowrap; width:120px;vertical-align: middle;}
+div.thsprow {width:100px;background:#f7f7f7;height:16px;margin:0;padding:3px 0}
+div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
+</style>
+%	my $rcnt = 0;
+%	foreach my $ge ( sort keys %allgenes ) {
+%		my ($symbol, $ensgid) = split(/\|/, $ge);
+%		$rcnt += scalar (keys %{$phenotypes{$ensgid}});
+%	}
+% my $phcnt = scalar @phAll;
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() { 	
+		var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+		var vscr = <%= $rcnt %>;
+		vscr = (vscr > 10) ? '500px' : (vscr+1)*25+'px';
+		var hscr = (<%= $phcnt %> > 17) ? '825px' : 'false';
+		var oTable = $('.dataTable').dataTable( {
+	        "scrollY":  vscr,
+	        "scrollCollapse": true,
+	    	"ScrollX": hscr,
+	    	"sScrollX": hscr,
+		    "bRetrieve": true,
+		    "bProcessing": true,
+		    "bDestroy": true,
+		    "sDom":  nav,
+		    "aoColumnDefs": [
+		      { "bSortable": false, aTargets: [ 0 ] },	    
+		      { "asSorting": [ "desc", "asc" ], aTargets: [ 1 ] },
+		      { "bSortable": false, aTargets: [ 2 ] }
+		    ],
+		    "aaSorting": [[1,'asc']],
+		    "iDisplayLength": 50,
+		    "aLengthMenu": [[50, 100, 500],[10, 100, 500]]
+		} );
+	// new FixedHeader( oTable );
+    } );  
+</script>
+<div id="phload" style="height:50px; width:300px; display:block; padding:30px 0 0 400px; position:absolute" align="center">
+<script>showSpin('phload');</script>	
+</div>
+<div style="display:none;" id="phtabl">
+<div style="margin:0 0 0 30px;width:<%= $width %>px; max-width:835px;padding:0">
+<table cellspacing=0 cellpadding=0 class="display dataTable">
+	<thead>
+	<tr>
+		<th style="background:#f7f7f7;width:30px;height:120px">
+			<div style="width:40px;height:97px;">&nbsp;</div>
+			<div style="width:40px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;">&nbsp;</div>
+		</th>
+		<th align=left style="width:125px;height:120px">
+	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:97px;padding:0;margin:0"><br style="margin:5px">Gene symbol</span></div>
+	<div style="width:125px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;padding:0;margin:0">&nbsp;</div>
+      	</th>
+		<th style="background:#f7f7f7;border-bottom:1px solid #B3C6E9;width:<%= $width %>px;">
+			<div id=gtr>		
+				<div id=gtd style="vertical-align:middle;height:97px;"><br style="margin:5px">Internal<br>Reagent ID</div>
+				<div id=gtd>
+					<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left">
+				</div>
+			</div>
+			<div id=gtr style="background:#DDFFDD;">	
+				<div id=gtd style="height:20px;width:120px;float:left;border-top:1px solid #ddd;background-color:#DDFFDD;" align="right">
+					<span style="width:120px;padding:5px 12px 0 0;float:right;text-align:right;margin:0">Screen:</span>
+				</div>	
+				<div id=gtd style="border-top:1px solid #ddd;">
+					<div id="gtr" style="background-color:#DDFFDD;">
+	%	foreach my $p (sort (keys %allphenos)) {
+	%		my ($phID, $ScrID) = split(/__/, $allphenos{$p});
+	%		my $StdID = substr($ScrID,0,-2);
+	%		my $code = substr($StdID,0,-4);
+	%		my $StdTitle = $scr_data{$ScrID};
+						<div class=stdcell id=gtd align=center><a href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>"><%= $code %></a></div>		
+	%	}
+						<div id="gtd" class=thsprow style="border-top:1px solid #ddd;"><span style="display:table-cell;padding-top:5px;">&nbsp;</span></div>	
+					</div>
+				</div>
+			</div>	
+		</th>
+	</tr>	
 	</thead>
 	<tbody>
-	<tr><td colspan=2 style="padding-right:10px;font-weight:bold;background-color:#DDFFDD; border-top:1px solid #ccc" align="right">Screen:</td><td colspan="2" style="margin:0; padding:0; height:100%;">
-		<table cellspacing="0" cellpadding="0"><tr>
-%	foreach my $p (sort (keys %allphenos)) {
-%		my ($phID, $ScrID) = split(/__/, $allphenos{$p});
-%		my $StdID = substr($ScrID,0,-2);
-%		my $code = substr($StdID,0,-4);
-%		my $StdTitle = $scr_data{$ScrID};
-		<td width="25" style="border-right:1px solid #ccc;background-color:#DDFFDD;border-top:1px solid #ccc" align="center"><a
-					href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>"><%= $code %></a></td>
-%	}
-		<td style="width:98px;background:#fcfcfc"></td></tr></table>
-	</td></tr>
 %	foreach my $ge ( sort keys %allgenes ) {
 %		$n++;
 %		my ($symbol, $ensgid) = split(/\|/, $ge);
 %		my $color = ($n%2 == 0)	? "#fff" : "#f5faff";
 %		my %phenos = %{$phenotypes{$ensgid}};
 		<tr style="background-color:<%= $color %>;">
-		<td valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')"
-		      style="padding-top:3px;background-color:<%= $color %>;border-bottom:1px solid #ddd">
-			<div style="width:25px;float:left;text-align:right;padding: 0 4px 0 4px;"><%= $n %>.</div>
-			<a href="<%= $relpath %>/gene/<%= $gencoll %>:<%= $ensgid %>" style="padding: 3px 0 0 0;"><%= $symbol %></a>
-		</td>
-		<td colspan="2" style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd">
-			<table cellspacing="0" cellpadding="0" class="nosort" height="100%">
+			<td class=genewrap valign="top" style="background-color:<%= $color %>;width:35px;"><div class=nbr><%= $n %>.</div></td>
+			<td class=genewrap valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" 
+				style="background-color:<%= $color %>;width:110px;">
+				<div style="padding-top:5px;"><a href="<%= $relpath %>/gene/<%= $gencoll %>:<%= $ensgid %>"><%= $symbol %></a></div>
+			</td>
+			<td colspan=2 style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd;width:<%= $width %>px;">
 %			my $top = $color;
 %			my %heres; # chose reagents that correspond @{$phchosen} (if needed! — uncomment 4 lines: see below)
 %			my %rephdata;
 %			foreach my $re (sort keys %phenos) {
 %				foreach my $d ( @{ $phenos{$re} } ) {
 %					foreach my $ph (@ { $d->{phenotypes} } ) {
-%#					  foreach my $cph (@{$phchosen}) {
-%#					     if ($cph eq $ph->{phID}."__".$ph->{ScrID}) {
+%						my $cphs = 0;
+% 				  		foreach my $cph (@{$phchosen}) {
+%							$cphs = $ph->{phID}."__".$ph->{ScrID} if ($cph eq $ph->{phID}."__".$ph->{ScrID});
+% 				  		} # chose reagents that correspond @{$phchosen};
+%		
+% 						if ($cphs || (scalar @{$phchosen} < scalar @phAll) ) { # 
 %							my $weight = $ph->{phWEIGHT};
 % 							my $r = 0;
 %							my $g = int(100*(1.5-$weight)/$weight);
@@ -103,12 +188,11 @@ This page lists all the reagents/genes that have been associated as common to th
 %							unless ($ontnm == 1) {
 %							  	$name = $ph->{phNAME};                    
 %							} else {
-%							  	$name = Sym::Controller::Service->ontname($ph->{phID}, $ph->{ScrID}, \%onts);
+%							  	$name = $ph2onts{ $ph->{phID}."__".$ph->{ScrID} };
 %							}
 %							${$rephdata {$re} } { $name."__".$ph->{phID}."__".$ph->{ScrID} } = "$r,$g,$b"."__".$weight;
 %							$heres{$re} = 1;
-%#					    }
-%#					  } # chose reagents that correspond @{$phchosen};
+% 						}
 %					}
 %				}
 %			}
@@ -116,30 +200,35 @@ This page lists all the reagents/genes that have been associated as common to th
 %				my ($rgID,$goodmatch) = split(/__/,$re);
 %				$goodmatch = $goodmatch ? "•" : "×";
 %				my %phdata = %{$rephdata {$re}};
-				<tr><td width="114" style="background-color:<%= $color %>;padding:3px;border-top:1px solid <%= $top %>;white-space:nowrap;">
-				  <font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;<a
-				href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $gencoll %>:<%= $ensgid %>"><%= $rgID %></a></td>
+%				if (scalar (keys %phdata)>0) {
+		<div id=gtr >
+			<div id=gtd class=rgwrap style="background-color:<%= $color %>;border-top:1px solid <%= $top %>;">
+				<font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;
+				<a href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $gencoll %>:<%= $ensgid %>"><%= $rgID %></a>
+			</div>
 %					foreach my $name (sort keys %allphenos) {
 %						my ($rgb,$weight) = split(/__/,$phdata{ $name }) if $phdata{ $name };
 %						my $have = $rgb ? "rgb(".$rgb.")" : $color;
 %						my ($p,$e) = split (/\__/,$allphenos{$name});
 %						my ($phname, $phID, $ScrID) =  split(/__/, $name );
-						<td width="25"
-style="background-color:<%= $color %>; border-right:1px solid #ccc; border-top:1px solid <%= $top %>;margin:1px;" align="center">
-						  <div id=white
-	  style="padding:2px 6px 0 0;font-size:75%; background-color:<%= $have %>;height:15px;width:15px;color:#fff;opacity:0.6;filter:alpha(opacity=60);">
-			<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>">&nbsp;<%= $weight %></a>
-						  </div>
-						</td>
-%					}
-%				$top = "#ccc";
-				<td style="width:98px;background:#fcfcfc">&nbsp;</td></tr>
+
+			<div id=gtd class=repwrap style="background-color:<%= $color %>; border-top:1px solid <%= $top %>;" align="center">
+				<div id=white class=replica style="background-color:<%= $have %>;">
+				<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>"><%= $weight %></a>
+				</div>
+			</div>
+%						}
+%				$top = "#ddd";
+			<div id="gtd" class=sprow>&nbsp;</div>
+		</div>
+%				}		
 %			}
-			</table>
 		</td></tr>
+%#	last if $n>10;		
 %	}
 </tbody>
 </table>
+</div>
 </div>
 % }
 % if (scalar (keys %allgenes) == 0) {
@@ -150,10 +239,16 @@ style="background-color:<%= $color %>; border-right:1px solid #ccc; border-top:1
 %		foreach my $p (@{$phchosen}) {
 %			my ($phname, $ScrID, $type, $title, $key) = split(/\|/,$phenohash{$p});
 %			my ($StdTitle, $StdType) = split(/__/,$scr_data{$ScrID});
-			<li><%= ucfirst($phname) %> : <%= $StdTitle %> : <%= $StdType %>
+			<li><a href="<%= $relpath %>/search/pheno/<%= $p %>;ex;true;<%= $oterms %>"><%= ucfirst($phname) %> : <%= $StdTitle %> : <%= $StdType %></a>
 %		}
 </ol>
-	 Please use browsing by <a href="<%= $relpath %>/phenotypes/">phenotype terms</a> or by <a href="<%= $relpath %>/oterms/">ontology terms</a>.
+	 Please use also browsing by <a href="<%= $relpath %>/phenotypes/">phenotype terms</a> or by <a href="<%= $relpath %>/oterms/">ontology terms</a>.
 	</div>
 % }
-
+<script>
+$(document).ready(function() {
+	    $('#phtabl').show(function () {
+				$('#phload').hide();
+	    });
+});	
+</script>

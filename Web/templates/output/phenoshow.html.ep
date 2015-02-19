@@ -49,7 +49,7 @@
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
 	var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
-	$('#<%= $showid %>').dataTable( {
+	var aTable = $('table.display').dataTable( {
 	    "bRetrieve": true,
 	    "bProcessing": true,
 	    "bDestroy": true,
@@ -70,22 +70,26 @@
 	$("body").children(".fixedHeader").each(function () {
                 $(this).remove();
         });
-//     new FixedHeader( aTable, { "bottom": true } );
+     new FixedHeader( aTable, { "bottom": true } );
 </script>
 % my $rcount = scalar (keys %withgenes) + scalar (keys %nogenes);
 <span class="highlight">Gene / dsRNA count: <b><span class="exon" style="font-size:13px;"><%= $obj->{"ucountgenes"} %> / <%= $rcount %></span></b>
 ( exactly mapping reagents: <b><%= $obj->{"bestreags"} ? $obj->{"bestreags"} : 0 %></b>)</span>
 <div style="display:table;margin-left:40px;">
 <table cellspacing="0" cellpadding="0" class="display dataTable" id="<%= $showid %>" style="width:100%">
-  <thead height=25>
-	<tr id="strip" height=25>
-	<th style="background:#fcfcfc;width:30px;"></th>
-	<th id="trh" style="width:115px;">
+  <thead height="45">
+	<tr id="strip">
+	<th style="background:#f7f7f7;width:30px; height:45px" id="hcell"></th>
+	<th id="hcell" style="width:115px;">
 	  <div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Gene symbol</span></div>
 	</th>
-	<th style="width:130px;"><div style="width:120px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Internal ReagentID</span></div></th>
-	<th style="width:100px;"><div style="width:80px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div></th>
-	<th style="width:100px;">
+	<th style="width:130px;" id="hcell">
+		<div style="width:120px;display:table;height:100%; padding:0 10px;"><span style="display:table-cell; vertical-align:middle">Internal<br>ReagentID</span></div>
+	</th>
+	<th id="hcell" style="width:100px;">
+		<div style="width:80px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div>
+	</th>
+	<th id="hcell" style="width:100px;">
 	    <div><span style="display:table-cell; vertical-align:middle">Scoring</span>
 	    <div style="font-size:12px; color:#000;font-weight:normal;display:table-cell">&nbsp;&nbsp;(<a
 onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideDiv('scoring-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)

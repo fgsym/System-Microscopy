@@ -204,6 +204,9 @@ db.Reagents.ensureIndex({"probeID":1});
 db.Datasets.ensureIndex({"probeID":1,"replica":1});
 db.Datasets.ensureIndex({"rgID":1});
 
+db.HMSPNSgenes.ensureIndex({"transcripts.GO.GOdesc":1});
+db.HMSPNSgenes.ensureIndex({"phenolist.rgID":1});
+db.HMSPNSgenes.ensureIndex({"phenolist.phenodata.phcluster":1});
 
 12. DB import to HX master:
 ===========================

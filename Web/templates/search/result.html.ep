@@ -33,15 +33,16 @@
 %#		foreach my $ScrID ( keys %ph_by_ScrID ) {
 %#			$phenoprint = join("-",@{$ph_by_ScrID { $ScrID } });
 %#			my ($allcrs,$StdTitle,$ScMethod,$genome) = Sym::Controller::Phenotypes->phenosearch_by_ScrID($ScrID, \@{$ph_by_ScrID { $ScrID } }) unless $crs; 
-%#			$crs = $crs ? $crs : $allcrs;			
+%#			$crs = $crs ? $crs : $allcrs;	
+% warn $terms;		
 		<%= include 'search/respheno', crs => $crs, ScrID => $ScrID, StdTitle => $StdTitle, phIDs=>\@{ $ph_by_ScrID{$ScrID} }, 
 										phenoprint=>$phenoprint, ScMethod=> $ScMethod, genome=>$genome,face=>$face,terms=>$terms %>
 %#		}			
 %   } else {
 %	my @phIDs = split(/\,/,$q);
 %	my %scr_data = %{Sym::Controller::Studies->studies};
-%		my ($phenotypes, $allphenos, $allgenes, $onts) = Sym::Controller::Search->phintersect(\@phIDs,1,"set",$terms,$genome); # 1: take only goodmatch cases
-		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => \@phIDs, scr_data => \%scr_data, genome=>$genome, onts=>$onts  %>
+%		my ($phenotypes, $allphenos, $allgenes, $ph2onts, $rowcut) = Sym::Controller::Search->phintersect(\@phIDs,1,"ex",$terms,$genome); # 1: take only goodmatch cases
+		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => \@phIDs, scr_data => \%scr_data, genome=>$genome, ph2onts=>$ph2onts, rowcut=>$rowcut %>
 %  }
 % } elsif ($stype eq "stds") {
 

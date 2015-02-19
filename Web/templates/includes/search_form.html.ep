@@ -6,8 +6,24 @@
 %	$tab = 3 if ($self->param('phn') =~/\S/ || $self->param('ohn') =~/\S/ );
 %  }
 % $tab = 0 if $self->param('gene');
-% $tab = 0 unless ($self->param('submit')); 
+% $tab = 0 unless ($self->param('submit'));
+<style>
+#fload{zoom: 0.65; -moz-transform: scale(0.5)}
+.4sc {	height:300px; width:145px; padding:1px;}
+.4gnm {	width:110px; padding:1px;}
+.ibox {	width:320px; max-heigth:24px !important; heigth:24px !important;margin: 0 0 2px 0}
+.isbox {width:252px; max-heigth:22px !important; heigth:22px !important;margin: 0 0 2px 0}
+.pa {margin: 0; padding: 0 0 1px 16px; }
+.act { height:22px}
+.s_plus {background: url('<%= $relpath %>/src/jquery-treeview/images/plus.gif') 1px 3px no-repeat; }
+.s_minus {background: url('<%= $relpath %>/src/jquery-treeview/images/minus.gif') 1px 3px no-repeat; }
+.s_hitarea { height: 22px; width: 16px; margin-left: -16px; float:left; cursor: pointer; }
+</style>
 <script>
+	function showSpin(t) {
+		var target = document.getElementById(t);
+		var spinner = new Spinner(opts).spin(target);
+	}
 auPaths = {
    gpath: "<%= $relpath %>/autocomplete/genefilter",
    atpath: "<%= $relpath %>/autocomplete/attribute",
@@ -26,23 +42,14 @@ document.cookie="genome=" + document.getElementById("gnm").value;
 	</div>
 
 	<div style="margin:0; padding:0; height:80px; width:680px;float:right;" id="sform">
-	    <div class=boxed style="background-color:#f2f7ff;">
+	    <div class=boxed style="background-color:#f2f7ff; height:83px;">
+<div id="fload" style="width:700px; height:40px; display:block; padding: 70px 0 0 50px; position:fixed">
+	<script>showSpin('fload');</script>
+</div>	    
 	      <div style="height:82px; width:600px; padding: 0 0 0 20px;">
 <div id="searchf" style="margin: 0 0 25px 0; ">
 <form action="<%= $relpath %>/search/result" method="post" name="fsearch">
-<style>
-.4sc {	height:300px; width:145px; padding:1px;}
-.4gnm {	width:110px; padding:1px;}
-.ibox {	width:320px; max-heigth:24px !important; heigth:24px !important;margin: 0 0 2px 0}
-.isbox {width:252px; max-heigth:22px !important; heigth:22px !important;margin: 0 0 2px 0}
-.pa {margin: 0; padding: 0 0 1px 16px; }
-.act { height:22px}
-.s_plus {background: url('<%= $relpath %>/src/jquery-treeview/images/plus.gif') 1px 3px no-repeat; }
-.s_minus {background: url('<%= $relpath %>/src/jquery-treeview/images/minus.gif') 1px 3px no-repeat; }
-.s_hitarea { height: 22px; width: 16px; margin-left: -16px; float:left; cursor: pointer; }
-</style>
 <div style="width:550px; display:none; padding:2px; margin:2px 0 2px 0;" id="tabform" class="ui-widget">
-<div id="fload" style="width:550px; display:none;"><img src="<%= $relpath %>/imgs/loading.gif" style="margin:0 10px 0 20px" align="right"></div>
 	<div id="tabs" style="width:450px;float:left;display:inline;color:#000;">
 		<ul>
 	<li style="width:60px;"><a href="#gn" style="width:60px;text-decoration:none;font-family:arial">Gene</a></li>
@@ -82,10 +89,13 @@ document.cookie="genome=" + document.getElementById("gnm").value;
 			<div style="float:left;width:170px;padding:0" id="stlist">
 				<div style="float:left">
 					<SELECT name="study" id="sc" style="width:145px;">
+			%		my $so = ($self->param('study') eq "" ) ? "selected" : "";
+			%		my $sp = ($self->param('study') eq "-" ) ? "selected" : "";	
 						<option value="">Ontology terms</option>
-						<option value="0">Any study terms</option>
+						<option value="-">Any study terms</option>
 			%	foreach my $obj (@scr_obj) {
-						<option value="<%= $obj->{StdID} %>"><%= $obj->{StdTitle} %> </option>
+			%		my $slctd = ($self->param('study') eq $obj->{StdID} ) ? "selected" : "";
+						<option value="<%= $obj->{StdID} %>" "<%= $slctd %>"><%= $obj->{StdTitle} %> </option>
 			%	}
 					</SELECT></div><div style="float:right; padding: 0 0 0 0px;">
 				  (<a style="font-weight:bold;cursor:pointer;color:#21416d;text-decoration:none"

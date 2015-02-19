@@ -47,8 +47,8 @@
 		%	my $StdID = substr($phtoexp{$up},0,-2);
 		%   my ($ScrTitle, $ScrType) = split(/__/, $scr_data{ $phtoexp{$up} });
 	<tr style="background-color:<%= $color %>">
-		    <td valign=top style="min-width:200px;padding:3px 0 5px 2px">
-				<span class="highlight"><%= $name %></span>
+		    <td valign=top style="min-width:220px;padding:3px 7px 5px 2px;">
+				<span class="highlight" style="word-wrap: break-word;"><%= $name %></span>
 			</td>
 		%   my @ont_array = $onts{ $phID."__".$ScrID } ? @{ $onts{ $phID."__".$ScrID } } : ();
 		    <td valign=top style="min-width:200px;padding:3px 0 5px 2px">

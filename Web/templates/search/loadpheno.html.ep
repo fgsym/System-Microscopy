@@ -4,7 +4,7 @@
 %  my $genome = $self->param('genome') ? $self->param('genome') : $cookie ? $cookie : "HMSPNSgenes"; # choosen genome
 %  my $coo;
 %  ($genome,$coo) = split(/\-\-/,$genome);
-% my $terms = ($self->param('terms') eq "p") ? "p" : "o";
+% 	my $terms = ($self->param('terms') eq "p") ? "p" : "o";
 %	if ($self->param("face") eq "true") {
 %   		foreach my $obj (@{$crs} ) {
 %			$d++;

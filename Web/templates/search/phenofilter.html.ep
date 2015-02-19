@@ -36,9 +36,7 @@
 	<div id="phContainer" style="padding:5px;height:100%;">
 	      <%= include 'search/grabpheno', phenohash=>"",cgenes=>"", choice=>"",genome=>$genome, terms=>"p" %>
 	</div>
-	<div id="phload" style="margin:10px 0 0 20px; position:absolute; display:none; width:50px">
-		<img src="<%= $relpath %>/imgs/loading.gif" style="margin:0" align="center">
-	</div>	
+	<div id="phload" style="margin:10px 0 0 20px; position:absolute; display:none; width:50px"></div>	
   </div>
 </div>
 
@@ -74,7 +72,9 @@
 			<div style="background-color:<%= $color %>;height:21px;">
 				<div class=rowph style="width:20px;"><%= $n++ %>. </div>
 				<div class=rowph style="width:620px;">
-					<a class="phlink" style="cursor:pointer;text-decoration:underline" id="<%= $key %>" title="<%= ucfirst($name) %> // <%= $ScrID  %>"><%= ucfirst($name) %></a> 
+					<a href="<%= $relpath %>/search/pheno/<%= $key %>;ex;true;p" title="<%= ucfirst($name) %> // <%= $ScrID  %>"><%= ucfirst($name) %></a> 
+					<span class=highlight> &#9998; </span>
+					<a class="phlink" style="cursor:pointer;text-decoration:underline" id="<%= $key %>" title="<%= ucfirst($name) %> // <%= $ScrID  %>">collect</a> 
 				</div>
 			</div>
 %		}
@@ -97,13 +97,13 @@
 			if ( !res ) {
 				$("#phChosen").append( lnk );
 				$(this).addClass("zlink").removeClass("phlink");				
-			}			
+			}
 			$.ajax({
 				url: '<%= $relpath %>/search/grabpheno',
 				beforeSend: function() {
 					$('#phload').show();					
 				},
-				data: $('[name=phc]').serialize() + '&ischecked=' +$(this).is(':checked'),				
+				data: $('[name=phc]').serialize(),				
 				complete: function() {
 					$('#phload').hide();
 				},
@@ -114,7 +114,6 @@
 			});
 		});						
   		$( "#phChosen" ).on( "click", ".dlink", function() {
-			//~ alert ( $(this).attr("class") +" ||| "+ $(this).attr("id") ) ;
 				$(this).remove(); 
 				$("#" + $(this).attr("id") ).addClass('phlink').removeClass('zlink');	
 			$.ajax({
@@ -122,8 +121,7 @@
 				beforeSend: function() {
 					$('#phload').show();
 				},
-				//data: 'phc=' + $("#hash").value() + '&ischecked=' +$(this).attr("id"),
-				data: $('[name=phc]').serialize() + '&terms=o&genome=<%= $genome%>',			
+				data: $('[name=phc]').serialize(),			
 				complete: function() {
 					$('#phload').hide();
 				},

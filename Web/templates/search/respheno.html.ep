@@ -15,10 +15,17 @@
 %			($ph,$set,$face,$terms) = split(/\;/,$phids);
 %  		}	 	
 %   $phenoprint = $phenoprint ? $phenoprint : $ph;
-%	#warn $phids;
+%	my %scr_cnt;
+%	map { my ($phID, $ScrID) =  split(/__/,$_); $scr_cnt{$ScrID}++ } split(/\-/,$phenoprint);
 %   if ($ScrID =~/\S/ && $phids !~/set/) {
 <script type="text/javascript" src="<%= $relpath %>/src/ajax.js"></script>
+<style>
+div.dataTables_wrapper {
+        margin-bottom: 3em;
+    }
+</style>
 <INPUT type="hidden" name="face" id="phloaded" value="loaded">
+% if (scalar (keys %scr_cnt) == 1) {
 <br>Only the reagents that mapped uniquely to their target gene are shown.
 % 	$ScrID = ($ScrID =~/\:/) ? (split(/\:/,$ScrID))[0] : $ScrID;
 %	my $StdID  = substr($ScrID,0,-2);
@@ -30,14 +37,15 @@
 % 		$checked = ($face && $face eq "true") ? "checked" : "false";
   <div style="float:right; display:inline; width:275px;">Grouped by chosen phenotypes:
   <INPUT type="checkbox" name="face" id="ajax-face"  class="face" <%= $checked %>><label for="ajax-face"></label>
-      <div id="phload" style="height:25px; display:inline; padding:0 5px 0 300px;position:absolute">
-	  <img src="<%= $relpath %>/imgs/loading.gif" style="margin:0 10px 0 20px" align="right">
+      <div id="phload" style="height:30px; width: 30px; display:none; padding:0 5px 0 400px;position:absolute">
+      	<script>showSpin('phload');</script>
       </div>
   </div>
+</div> 
 % 	}
+% }
 	<INPUT type="hidden" name="pheno" value="<%= $phenoprint %>" id="ajax-pheno">
 	<INPUT type="hidden" name="screen" value="<%= $ScrID %>" id="ajax-exp">
-</div>
 %   } # end of if ($ScrID =~/\S/)
 <div id="phenoload" style="margin:-5px 0 0 0; height:100%;">
 % 	my %phlists; my $d=1;
@@ -46,7 +54,6 @@
 %			$d++;
 %			$phlists { $obj->{slicecount}.".".$d } = $obj;	# !important: to sort arrays of phenotype sets
 %		}
-%# warn scalar keys %phlists;
 %		foreach (sort {$a <=> $b} keys %phlists) {
 %			my $obj = $phlists { $_ };
 %      			my ($withgenes, $nogenes) = Sym::Controller::Service->gene_to_phenoprint($obj);
@@ -57,20 +64,19 @@
 %   	}
 % 	} else {
 %	# $crs here is array objects' reference!!
-%	  unless ($phids =~/__/) {
-%		warn $phids;	
+%	  unless ($phids =~/__/) {	
 		<%= include 'output/phenoAshow', crs => $crs, phIDs=>$phIDs, ScrID=>$ScrID, genome=>$genome, terms=>$terms%>
 %	  } else {
 %		my $p = (reverse @{$self->req->url->path->parts})[0];
 % 		my ($ph, $exact, $face, $trm) = split(/\;/,$p) if $p=~/\;/;
-%		my ($phenotypes, $allphenos, $allgenes, $onts) = Sym::Controller::Search->phintersect($phIDs,1,$exact,$trm,$genome); # 1: take only goodmatch cases
-		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => $phIDs, scr_data => $scr_data, genome=>$genome, terms=>$terms, onts=>$onts %>
+%		my ($phenotypes, $allphenos, $allgenes, $ph2onts, $rowcut) = Sym::Controller::Search->phintersect($phIDs,1,$exact,$trm,$genome); # 1: take only goodmatch cases
+		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => $phIDs, scr_data => $scr_data, genome=>$genome, terms=>$terms, ph2onts=>$ph2onts, rowcut=>$rowcut %>
 %	  }
 %	}
 </div>
 % } else {
 	<P style="padding:20px 0 400px 190px;font-size:16px;">empty query!</P>
-% }
+% };
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("input:checkbox.face").each(function () {
@@ -85,11 +91,10 @@
 				url: '<%= $relpath %>/search/loadpheno',
 				beforeSend: function() { $('#phload').show(); },
 				data: 'phenoprint=' + $("#ajax-pheno").val() +'&study='+ $("#ajax-exp").val() +'&face='+$(this).is(':checked') + '&genome=<%= $genome %>&terms=<%= $terms %>',
-				complete: function() { $('#phload').hide(); },
 				success: function(result) {
+					$('#phload').hide();
 					$('#phenoload').children().remove();
 					$('#phenoload').html(result);
-					$('#phload').hide();
 					oTable.fnReloadAjax();
 					oTable.fnDraw();
 					aTable.fnReloadAjax();

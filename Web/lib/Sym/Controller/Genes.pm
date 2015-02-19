@@ -153,7 +153,8 @@ sub attributes {
 	my %allphenos;
 	my %namephenos;
   # warn $terms;
-  my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()};  
+  my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()};
+  my %ph2onts;   
 	while (my $obj = $crs->next) {
 		my %goterm;
 		my %fullgoterm;
@@ -162,8 +163,9 @@ sub attributes {
 			map { $goterm{$_->{GOdesc}} .= $t->{ensTID}.", " if ($attr && $_->{GOdesc} =~/$attr/ ) } @{ $t->{GO} };
 			map { $fullgoterm{$_->{GOdesc}} .= $t->{ensTID}.", " } @{ $t->{GO} };
 		}
-		my ($allphenos, $phlist) = Sym::Controller::Phenotypes->hash_phenos($obj, \%allphenos, \%phlist, "", \%onts);
+    my ($allphenos, $phlist, $ph2onts) = Sym::Controller::Phenotypes->hash_phenos($obj, \%allphenos, \%phlist, "", \%onts, \%ph2onts);
 		%phlist = %{$phlist};
+    %ph2onts = %{$ph2onts};    
 		if (scalar (keys %phlist) > 0) {
 		  my $g = $obj->{symbol}."|".$obj->{ensGID};
                   $attrs{ $g } = \%goterm;

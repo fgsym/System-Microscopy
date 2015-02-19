@@ -112,7 +112,7 @@ sub generate_list {
     } 
     my $width =26*(scalar keys %phIDs)+100;
     my $img = new GD::Image($width,95);
-    my $white = $img->colorAllocate(252,252,252);
+    my $white = $img->colorAllocate(247,247,247);
     my $black = $img->colorAllocate(0, 0, 0);
     my $green = $img->colorAllocate(50, 114, 100);
     my $lightgrey = $img->colorAllocate(255, 255, 255);
@@ -120,9 +120,9 @@ sub generate_list {
     my $font = $GLV{CONFIG}->{boldfont};
     my $n = 0;
     foreach my $p (sort keys %phIDs) {
-      warn $p;
       my ($name,$ph,$s);
         ($name,$ph,$s) = split(/__/,$p);
+        # warn $name;
         $name = (length($name) > 20) ? ucfirst(substr($name,0,20))."…" : ucfirst($name);
       my $x= 10 + 26*$n;
       my $color = $black;

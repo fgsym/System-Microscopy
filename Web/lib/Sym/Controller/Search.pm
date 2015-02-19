@@ -101,7 +101,7 @@ sub respheno {
     }
   }
   # map { warn $_} @phenos;
-  $terms = $terms ? $terms : ($self->param('study') ne "" && $self->param('study') ne "0") ? "p" : "o";
+  $terms = $terms ? $terms : ($self->param('study') ne "" && $self->param('study') ne "-") ? "p" : "o";
   # warn @phenos;
     if (scalar @phenos > 0) {
       map {
@@ -161,16 +161,15 @@ sub resgene_pheno {
 sub phenogrep {
   my $self = shift;
   my %phenos;
-  my @ephID;
-  push @ephID, $self->param('phc'); # parameter from ontofilter & phenofilter templates
+  my @ephID = @{$self->every_param('phc')};
+  # push @ephID, $self->param('phc'); # parameter from ontofilter & phenofilter templates
+  # warn $self->param('phc');
   my %ph_by_ScrID;
   foreach (@ephID) {
      my ($phID,$ScrID) = split(/__/,$_); 
      push @{$ph_by_ScrID { $ScrID } }, $phID;
-     # warn "($phID,$ScrID)";
   }  
   my @cgenes;
-  # warn @ephID;
   if (scalar @ephID > 1) {
     @cgenes =  @{ Sym::Controller::Genes->genesdistPRC(\%ph_by_ScrID) };
   }
@@ -213,7 +212,7 @@ sub phenofilter {
 # collections	: HMSPNSgenes, Experiments, PhenoAnalysis, AllPhenoAnalysis
 sub phintersect {
   my ($self,$ephIDs,$goodmatch,$select,$trm,$genome) = @_;
-  my @ephID = $ephIDs ? @{$ephIDs} : $self->param('phset');
+  my @ephID = $ephIDs ? @{$ephIDs} : @{$self->every_param('phset')};
   # warn $ephIDs;
   # my @cookies = $self->cookie('genome');
   # my $cookie = $cookies[0];
@@ -221,79 +220,80 @@ sub phintersect {
   # warn "($ephIDs,$goodmatch,$select,$trm,$genome)";  
   my %ph_by_ScrID;
   my %screens;
-  # warn @ephID;
+  my $terms = $trm ? $trm : $self->param('terms') ? $self->param('terms') : "p";  
+  my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()}; 
+  my %chosen;
   foreach (@ephID) {
-     my ($phID,$ScrID) = split(/__/,$_); 
-     push @{$ph_by_ScrID { $ScrID } }, $phID;
-     $screens{$ScrID}++;
-  }
+    my ($phID,$ScrID) = split(/__/,$_);
+    $chosen{$_}++; 
+    push @{$ph_by_ScrID { $ScrID } }, $phID;
+    $screens{$ScrID}++;
+  }  
   my @all; # all objects from queries by screen
-     my @cgenes =  @{Sym::Controller::Genes->genesdistPRC(\%ph_by_ScrID,$select)};
+  my @cgenes =  @{Sym::Controller::Genes->genesdistPRC(\%ph_by_ScrID,$select)};
      # warn "$genome, $select";
-     foreach my $ScrID (keys %ph_by_ScrID ) {
-        # my @arcrs = @{ Sym::Model::MongoQ->get_genes_by_phenotypes_set_and_ScrID(\@{$ph_by_ScrID { $ScrID } },$ScrID) };
-        # push(@all,@arcrs);
-        foreach my $g (@cgenes) {
-            my @arcrs = @{ Sym::Model::MongoQ->get_phenotypes_by_gene_and_phenotypes($g, \@{$ph_by_ScrID { $ScrID } }, $ScrID, $genome, $select )};  # HMSPNSgenes || other genome
-            push(@all,@arcrs);
-        }  
-      }
+  foreach my $ScrID (keys %ph_by_ScrID ) {
+    # foreach my $g (@cgenes) {
+    #   my @arcrs = @{ Sym::Model::MongoQ->get_phenotypes_by_gene_and_phenotypes($g, \@{$ph_by_ScrID { $ScrID } }, $ScrID, $genome, $select)};  # HMSPNSgenes || other genome
+    #   push(@all,@arcrs);
+    # }  
+      my @arcrs = @{ Sym::Model::MongoQ->get_phenotypes_by_gene_and_phenotypes(\@cgenes, \@{$ph_by_ScrID { $ScrID } }, $ScrID, $genome, $select)};  # HMSPNSgenes || other genome
+      push(@all,@arcrs);
+  }
   # warn scalar @all;        
   my %scr_data = %{Sym::Controller::Studies->studies};  
   my %phenotypes;
   my %allphenos;
   my %namephenos;
   my %allgenes;
+  my %ph2onts;
   # map {warn $_." : ".$self->param($_)} $self->param();
-  my $terms = $trm ? $trm : $self->param('terms') ? $self->param('terms') : "p";
-  my %onts = ($terms eq "p") ? () : %{Sym::Controller::Ontologies->get_oterms()}; 
   foreach my $obj (@all) {
         my $here = 0;
-        # foreach my $l (@{$obj->{phenolist}}) {
-            # foreach my $d (@{${$l}{phenodata}}) {
-              # foreach my $ScrID (keys %ph_by_ScrID ) {
-                  # my $cluster = join("-", sort {$a <=> $b} @{$ph_by_ScrID { $ScrID } });
-                  # $here++ if (${$d}{phcluster} =~/$cluster/ && ${$d}{ScrID} eq $ScrID);
-                  # # warn $here."::".${$d}{phcluster}."::".${$d}{ScrID}."::".scalar keys %screens;
-              # }
-                # $here++ if (${$l}{goodmatch} == 1 && $here >= ((scalar (keys %screens)) ) );
-                # if ($here > 0) {
-                my %phlist;
-                my $g = $obj->{symbol}."|".$obj->{ensGID};
-                # warn $g;            
-                my ($allphenos, $phlist) = Sym::Controller::Phenotypes->hash_phenos($obj, \%allphenos, \%phlist, $goodmatch, \%onts ,$select);
-                %allphenos = %{$allphenos};     # $allphenos{ lc($_->{phNAME})."__".$_->{phID}."__".$_->{ScrID} } = $_->{phID}."__".$_->{ScrID}
-                if ($select eq "ex") {
-                  my @oc_scr;
-                  foreach my $ref (keys %phlist) {
-                    my @ar = @{$phlist{$ref}};
-                  } 
-                  foreach my $ref (keys %allphenos) {
-                    my ($nm,$p,$scr) = split(/__/,$ref);
-                    foreach my $s (keys %ph_by_ScrID) {
-                      if ($scr eq $s) {
-                        %phlist = %{$phlist};           # $phlist{ $p->{rgID}."__".$p->{goodmatch} } = \@{ $p->{phenodata} }                                        
-                        $allgenes{ $g } = \%phlist;
-                        $phenotypes{ $obj->{ensGID} } = \%phlist;
-                      } else {
-                        $ref == 0;
-                      }
-                    }
-                  }                   
-                } else {
-                  %phlist = %{$phlist};           # $phlist{ $p->{rgID}."__".$p->{goodmatch} } = \@{ $p->{phenodata} }
-                  $allgenes{ $g } = \%phlist;
-                  $phenotypes{ $obj->{ensGID} } = \%phlist;                  
-                }
-              # }  
-            # }
-        # }   
+        my %phlist;
+        my $g = $obj->{symbol}."|".$obj->{ensGID};
+        # warn $g;            
+        my ($allphenos, $phlist, $ph2onts) = Sym::Controller::Phenotypes->hash_phenos($obj, \%allphenos, \%phlist, $goodmatch, \%onts, \%ph2onts);
+        %allphenos = %{$allphenos};     # $allphenos{ $_->{phNAME}."__".$_->{phID}."__".$_->{ScrID} } = $_->{phID}."__".$_->{ScrID}
+        %ph2onts = %{$ph2onts};
+        if ($select eq "ex") {
+          my @oc_scr;
+          foreach my $ref (keys %phlist) {
+            my @ar = @{$phlist{$ref}};
+          } 
+          foreach my $ref (keys %allphenos) {
+            my ($nm,$p,$scr) = split(/__/,$ref);
+            foreach my $s (keys %ph_by_ScrID) {
+              if ($scr eq $s) {
+                %phlist = %{$phlist};           # $phlist{ $p->{rgID}."__".$p->{goodmatch} } = \@{ $p->{phenodata} }                                        
+                $allgenes{ $g } = \%phlist;
+                $phenotypes{ $obj->{ensGID} } = \%phlist;
+              } else {
+                $ref == 0;
+              }
+            }
+          }                   
+        } else {
+          %phlist = %{$phlist};           # $phlist{ $p->{rgID}."__".$p->{goodmatch} } = \@{ $p->{phenodata} }
+          $allgenes{ $g } = \%phlist;
+          $phenotypes{ $obj->{ensGID} } = \%phlist;                  
+        }  
   }
-  # warn keys %phenotypes;
+  $select = (!$select || $select eq "ex") ? 1 : 0;
+  my $rowcut = 0;
+  if (scalar (keys %allphenos) > 17 && $select == 1) {
+    # my %allchosen;
+    foreach (keys %allphenos) {
+        my ($phNAME,$phID,$ScrID) = split(/__/,$_);
+          delete $allphenos{ $phNAME."__".$phID."__".$ScrID } unless ( $chosen{ $phID."__".$ScrID } > 0 )
+    }
+    $rowcut = 1;
+  }
   if ($ephIDs) {
-    return (\%phenotypes, \%allphenos, \%allgenes, \%onts);
+    return (\%phenotypes, \%allphenos, \%allgenes, \%ph2onts, $rowcut);
   } else {
-    $self->render(phenotypes=>\%phenotypes, allphenos=>\%allphenos, allgenes=>\%allgenes, phchosen => \@ephID, scr_data => \%scr_data, genome=>$genome, onts=>\%onts);
+    $self->render(phenotypes=>\%phenotypes, allphenos=>\%allphenos, allgenes=>\%allgenes, phchosen => \@ephID, scr_data => \%scr_data, 
+                  genome=>$genome, ph2onts=>\%ph2onts, rowcut=>$rowcut);
   }
 }
 # url from     : /search/loadpheno (from layouts/default.html.ep)
@@ -303,7 +303,7 @@ sub loadpheno {
   # Render template "search/loadpheno.html.ep"
   my $self = shift;
   my $phenoprint = $self->param('phenoprint') ? $self->param('phenoprint') : 0;
-  my $ScrID = $self->param('study') ? $self->param('study') : "";
+  my $ScrID = ($self->param('study') &&  $self->param('study') ne "-") ? $self->param('study') : "";
   # warn "$ScrID, $phenoprint";
   my $face = ($self->param('face') eq "true") ? "true" : "false";
   my $phenos="";

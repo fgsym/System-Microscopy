@@ -44,9 +44,7 @@
 	<div id="phContainer" style="padding:5px;height:100%;">
 	      <%= include 'search/grabpheno', phenohash=>"",cgenes=>"", choice=>"",genome=>$genome, terms=>"o" %>
 	</div>
-	<div id="phload" style="margin:0 0 -20px 20px; position:absolute; display:none; width:50px">
-		<img src="<%= $relpath %>/imgs/loading.gif" style="margin:0" align="center">
-	</div>	
+	<div id="phload" style="margin:0 0 -20px 20px; position:absolute; display:none; width:50px"></div>	
   </div>
 </div>
 <!-- START LIST-->
@@ -96,8 +94,10 @@
 							<div id="<%=$h->{phID} %>" style="display:inline;width:100px;">
 								<a href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>, <%= $ScrType %>"><%= $h->{ScrID} %></a> :
 							</div>
-							<div style="display:inline;width:270px;" id="pmain">					
-								<a class="phlink" style="cursor:pointer;text-decoration:underline" id="<%= $key %>" title="<%= $h->{phNAME} %> // <%= $oph %> // <%= $h->{ScrID} %>"><%= $h->{phNAME} %></a>
+							<div style="display:inline;width:270px;" id="pmain">
+								<a href="<%= $relpath %>/search/pheno/<%= $key %>;ex;true;o" title="<%= $ScrID  %>"><%= $h->{phNAME} %></a>
+								<span class=highlight> &#9998; </span>
+								<a class="phlink" style="cursor:pointer;text-decoration:underline" id="<%= $key %>" title="<%= $h->{phNAME} %> // <%= $oph %> // <%= $h->{ScrID} %>">collect</a>
 							</div>						
 						</div>
 					</div>

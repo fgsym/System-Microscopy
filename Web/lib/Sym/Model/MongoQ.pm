@@ -130,7 +130,6 @@ sub get_phenotypes_by_their_set_and_ScrID {
 	my ($self,$ScrID,$phIDs,$term) = @_;
 	map {$_ = $_*1} @{$phIDs};
 	my $phcluster = join("-", sort { $a <=> $b} @{$phIDs});
-	# warn $phcluster;
 	my $crs = ($term eq "o") ? $GLV{PRC}->find({ScrID=>$ScrID, "phenotypes.phID"=> { '$in' => [@{$phIDs}] } } ) : 
 								$GLV{PRC}->find({ScrID=>$ScrID,"phenotypes.phID"=> { '$all' => [@{$phIDs}] } });
 	my @all = $crs->all;
@@ -202,8 +201,15 @@ sub get_phenotypes_by_gene_and_phenotypes {
 	# $exact = ex ? query by exact set of chosen phenotypes : query by the phenotype set as ; 
 	$genome = $genome ? $GLV{DB}->get_collection( $genome ) : $GLV{DB}->get_collection( 'HMSPNSgenes' );
 	my $crs = ($exact eq "ex") ? 
-			$genome->query({"ensGID" => $ensgid, "phenolist.phenodata.phenotypes.phID"=> { '$in' => [@{$phIDs}] }, "phenolist.phenodata.ScrID"=>$ScrID,"phenolist.goodmatch" => 1}) :
-			$genome->query({"ensGID" => $ensgid, "phenolist.phenodata.phenotypes.phID"=> { '$all' => [@{$phIDs}] }, "phenolist.phenodata.ScrID"=>$ScrID,"phenolist.goodmatch" => 1});
+			# $genome->query({"ensGID" => $ensgid, "phenolist.phenodata.phenotypes.phID"=> { '$in' => [@{$phIDs}] }, "phenolist.phenodata.ScrID"=>$ScrID,"phenolist.goodmatch" => 1}) :
+			# $genome->query({"ensGID" => $ensgid, "phenolist.phenodata.phenotypes.phID"=> { '$all' => [@{$phIDs}] }, "phenolist.phenodata.ScrID"=>$ScrID,"phenolist.goodmatch" => 1});
+
+			$genome->query({"ensGID" => { '$in' => [@{$ensgid}] }}):
+			$genome->query({"ensGID" => { '$in' => [@{$ensgid}] }});
+
+
+	# my $crs = $GLV{PRC}
+
 	my @all = $crs->all;
 	return \@all;
 }
@@ -224,7 +230,7 @@ sub get_phenotype_by_NAME {
 	my $lcfq = lcfirst($q);
 	# return $GLV{Phn}->find({'$or'=> [{phNAME=>qr/$q/},{phNAME=>qr/$lcq/},{phNAME=>qr/$ucq/},{phNAME=>qr/$ucfq/},{phNAME=>qr/$lcfq/}],
 				# phID=>{'$nin'=>[0]} })->limit(20);
-	return $StdID ? $GLV{Phn}->find({phID=>{'$nin'=>[0]},StdID=>$StdID,phNAME=>qr/($q|$lcq|$ucq|$ucfq|$lcfq)/,phWeight=> {'$gte'=> 0.5} })->limit(20) :
+	return ( $StdID && $StdID ne "-" ) ? $GLV{Phn}->find({phID=>{'$nin'=>[0]},StdID=>$StdID,phNAME=>qr/($q|$lcq|$ucq|$ucfq|$lcfq)/,phWeight=> {'$gte'=> 0.5} })->limit(20) :
 			$GLV{Phn}->find({phID=>{'$nin'=>[0]},phNAME=>qr/($q|$lcq|$ucq|$ucfq|$lcfq)/,phWeight=> {'$gte'=> 0.5} })->limit(20)
 }
 #32

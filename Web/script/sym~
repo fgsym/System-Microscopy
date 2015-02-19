@@ -1,11 +1,11 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 use strict;
 use warnings;
 use MongoDB;
 # use lib join '/', File::Spec->splitdir(dirname(__FILE__)), 'lib';
 # use lib join '/', File::Spec->splitdir(dirname(__FILE__)), '..', 'lib';
 use Mojo::Log;
-use lib '/home/jes/Git/Web/lib';
+use lib '';
 $ENV{LOG} = Mojo::Log->new(path => '/home/jes/Git/Web/log/access.log');
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';

@@ -47,7 +47,7 @@ $(document).ready(function() {
 <table cellspacing="0" cellpadding="0" id="highlight-plugin" style="background:#fcfcfc;"><thead height="95" style="height:95px;">
 	<tr width="100%" height="95">
 		<th height="95"><div style="width:120px;">Gene</div></th>
-		<th width="120" height="95"><div style="width:120px;">Internal ID</div></th>
+		<th width="120" height="95"><div style="width:120px;">Internal<br>Reagent ID</div></th>
 		<th class="noth" height="95">
 		<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:_:<%= $terms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left"></th></tr>
 	</thead>

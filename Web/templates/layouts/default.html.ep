@@ -30,26 +30,18 @@
 <!-- CSS -->
     <link href="<%= $relpath %>/css/sym.css" rel=stylesheet type=text/css>
     <link rel='stylesheet' href='<%= $relpath %>/css/autoSuggest.css'/>
-<!--
-    <link rel=stylesheet href="<%= $relpath %>/src/jquery.autocomplete.css" type=text/css> <!--and indicator.gif should be here as well-->
-
     <link rel=stylesheet href="<%= $relpath %>/css/jquery-ui-1.9.2.custom.css" type=text/css>
     <link rel='stylesheet' href='<%= $relpath %>/css/sym-table.css'/>
     <link rel='stylesheet' href='<%= $relpath %>/css/treeview.css'/>
 	<link rel='stylesheet' href='<%= $relpath %>/css/select2.css'/> 
-<!--
-	<link rel='stylesheet' href='<%= $relpath %>/css/select2-override.css'/> 
--->
 	<link rel='stylesheet' href="<%= $relpath %>/src/jquery-treeview/jquery.treeview.css" />
-<!--
-        <link rel='stylesheet' type='text/css' href='<%= $relpath %>/css/jquery.selectbox-cellph.css' media="screen">
-        <script src="<%= $relpath %>/src/jquery.selectbox-cellph.js"></script>
--->
     
 <!-- CSS END-->
 <!-- JS INCLUDES-->
 	<script src="<%= $relpath %>/src/auth.js"></script>
-	<script src="<%= $relpath %>/src/jquery-1.11.0.min.js"></script>
+<!--	<script src="<%= $relpath %>/src/jquery-1.11.0.min.js"></script> -->
+	<script src="<%= $relpath %>/src/jquery.js"></script>
+	<script src="<%= $relpath %>/src/spin.min.js"></script>		
 	<script src="<%= $relpath %>/src/jquery-migrate-1.2.1.min.js"></script>
 	<script src="<%= $relpath %>/src/select2.js"></script>
     <script src="<%= $relpath %>/src/jquery-ui-1.10.0.custom.min.js"></script>

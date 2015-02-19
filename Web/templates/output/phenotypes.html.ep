@@ -3,9 +3,8 @@
 <h2>Phenotypes — original study terms — browsing</h2>
 <div style="width:872px;font-size:13px;margin:-15px 0 15px 0">
 	<div align=right style="margin:5px; font-size:14px; color:#555"><b>switch browsing to <a href="../oterms/">ontology tree</a></b></div>	
-	Choose multiple phenotypes set from different studies or from the same study to retrieve a list of gene/reagent pairs showing all selected phenotypes
-</div>
-% my $height = (scalar keys %{$phenotypes})*20; warn scalar keys %{$phenotypes};
+	Browse phenotypes or, by clicking on &#9998; <u>collect</u> link by the phenotype term, choose multiple phenotypes set from different studies or from the same study to retrieve a list of gene/reagent pairs showing all selected phenotypes</div>
+% my $height = (scalar keys %{$phenotypes})*20;
 <div id="phlist" style="background:#fff;padding:10px 0 150px 0;">
 <%= include 'search/phenofilter', phenotypes=>$phenotypes, cgenes=>"", choice => "" %>
 </div>

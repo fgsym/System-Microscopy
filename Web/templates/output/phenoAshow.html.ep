@@ -63,30 +63,46 @@
   <div style="width:250px; display:table-cell">
 <a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b>export search results</b></a>
   </div>
+<style>
+.trbody {padding-right:10px;font-weight:bold;border-top:1px solid #ccc;border-bottom:1px solid #ddd;}
+.tdbody {margin:0; padding:0; height:100%;}
+div#gtd.stdcell {display:table-cell;width:25px;border-right:1px solid #ccc;padding-bottom:3px;}
+div.nbr{width:25px;float:left;text-align:right;padding: 5px 4px 0 4px;}
+div#gtabl {}
+div#gtr {display:table-row;}
+div#gtd {display:table-cell;}
+td.genewrap {border-bottom:1px solid #ddd;height:19px;}
+div.replica {padding:4px 5px 0 0;font-size:75%;height:16px;width:18px;color:#fff;opacity:0.6;filter:alpha(opacity=60);}
+div.repwrap {width:25px; display:table-cell;border-right:1px solid #ddd;height:18px;padding:4px 0 1px 0;margin:1px;}
+div.rgwrap {padding:3px;white-space:nowrap; width:115px;}
+div.thsprow {width:100px;background:#f7f7f7;height:22px;margin:0;padding:0}
+div.sprow {width:100px;background:#f7f7f7;height:22px;margin:0;padding:0}
+</style>  
 <div style="margin: 0 0 0 40px;width:<%= $width %>px">
 <table cellspacing="0" cellpadding="0" class="display dataTable">
-  <thead height="95" style="margin:0px;">
-    <tr width="100%" height="95">
-      <th style="background:#fcfcfc;width:30px"></th>
-      <th align=left  height="95" style="width:115px;">
-	<div style="width:110px;"><span style="display:table-cell; vertical-align:middle; height:95px">Gene symbol</span></div>
+  <thead height="95" style="margin:0px;background:#f7f7f7;">
+    <tr width="100%" height="95" style="background:#f7f7f7;">
+      <th style="background:#f7f7f7;width:30px" id="acell">&nbsp;</th>
+      <th align=left  height="95" style="width:115px;" id="acell">
+			<div style="width:110px;"><span style="display:table-cell; vertical-align:middle; height:95px">Gene symbol</span></div>
       </th>
-      <th align=left style="width:130px;">
-	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:95px">Internal ReagentID</span></div>
+      <th style="width:100px;padding:0 10px;" id="acell">
+			<div><span style="display:table-cell; vertical-align:middle; height:95px;">Internal<br>ReagentID</span></div>
       </th>
-	<th align=left style="width:90px;"><div style="display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div></th>
-      <th>
-	<div><span style="display:table-cell; vertical-align:middle">Scoring</span>
-	<div style="font-size:12px; color:#000;font-weight:normal;display:table-cell">&nbsp;&nbsp;(<a
-onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideDiv('scoring-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
-	<div class="tooltip" id="scoring-explain">
-	The scoring method is specific to each individual screen. Please refer to the screen specific documentation for more details about the data analysis methods used to score phenotypes
-	</div></div>
+	  <th style="width:109px;" id="acell">
+	  	<div style="display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div>
+	  </th>
+      <th id="acell">
+		<div><span style="display:table-cell; vertical-align:middle">Scoring</span>
+		<div style="font-size:12px; color:#000;font-weight:normal;display:table-cell">&nbsp;&nbsp;(<a
+	onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideDiv('scoring-explain')" style="font-weight:bold;cursor:pointer;color:darkgreen">?</a>)
+		<div class="tooltip" id="scoring-explain">
+		The scoring method is specific to each individual screen. Please refer to the screen specific documentation for more details about the data analysis methods used to score phenotypes
+		</div></div>
 	    </div>
       </th>
-<!-- 		<th valign="top" id="hcell" colspan="<%= scalar @uphenos + 2 %>" height="95"> -->
-      <th valign="top" height="95" style="background:#fcfcfc;">
-	<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0;" align="left">
+      <th valign="top" height="95" style="background:#f7f7f7;" id="acell">
+			<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;" align="left">
       </th>
       </tr>
   </thead>
@@ -106,7 +122,7 @@ onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideD
 % 		}
 	</td>
 	<td><a href="<%= $relpath %>/reagent/<%= $hash{rgID} %>:<%= $genome %>:<%= $hash{ensGID} %>"><%= $hash{rgID} %></a></td>
-	<td><%= $hash{probeID} %></td>
+	<td style="padding-left:10px;"><%= $hash{probeID} %></td>
 %	my $tipcolor = $hash{howgood} <= 1 ? $hash{howgood} : $hash{howgood}/10;
 % 	my $r = 250-int($tipcolor*100);
 %	my $g = 250-int($tipcolor*50);
@@ -146,15 +162,15 @@ onMouseOver="javascript:showDiv('scoring-explain')" onMouseOut="javascript:hideD
 %			my ($rgb,$weight) = split(/__/,$show{ $allphenos{$name} }) if $show{ $allphenos{$name} };
 %			my $have = $rgb ? "rgb(".$rgb.")" : $color;
 %			my ($phname,$ScrID) = split(/__/,$name);
-<div style="width:25px; display:table-cell;border-right:1px solid #ddd;height:18px;padding:4px 0 2px 0" align="center">
-	<div style="padding:2px 6px 0 0;font-size:75%; background-color:<%= $have %>;height:15px;width:15px;opacity:0.6;filter:alpha(opacity=60);" id=white>
+<div class=repwrap align="center">
+	<div class=replica style="background-color:<%= $have %>;" id=white>
 	  <a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $hash{rgID} %>:<%= $ScrID %>:<%= $hash{ensGID} %>:<%= $hash{symbol} %>">&nbsp;<%= $weight %></a>
 	</div>
 </div>
 %		}
-<div style="width:15px;display:table-cell;background:#fcfcfc; width:120px;outline:#fcfcfc solid 2px; border-left:1px solid #ddd; margin:0px; padding:0px">&nbsp;</div>
+<div style="width:15px;display:table-cell;background:#f7f7f7; width:120px;outline:#f7f7f7 solid 2px; border-left:1px solid #ddd; margin:0px; padding:0px">&nbsp;</div>
 	</td>
-<!--	<td style="width:110px;border:1px solid #fcfcfc;background-color: #fcfcfc">&nbsp;</td>-->
+<!--	<td style="width:110px;border:1px solid #f7f7f7;background-color: #f7f7f7">&nbsp;</td>-->
 	</tr>
 % }
   </tbody>

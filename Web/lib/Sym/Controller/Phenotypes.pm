@@ -36,32 +36,36 @@ sub get_all_phenotypes {
 # call from	: search/phintersect.html.ep 
 # collection	: HMSPNSgenes
 sub hash_phenos {
-	my ($self, $obj, $allphenos, $phlist, $goodmatch, $onts, $select) = @_;
+	my ($self, $obj, $allphenos, $phlist, $goodmatch, $onts, $ph2onts) = @_;
 	my %allphenos = %{$allphenos};
 	my %phlist = %{$phlist};
 	my @ph_to_rg;
+  my %ph2onts = %{$ph2onts};
   my %onts = %{$onts};
-  my $ontnm = (scalar keys %onts > 0) ? 1 : 0;
-	foreach my $p ( @{ $obj->{phenolist} } ) {
+  	foreach my $p ( @{ $obj->{phenolist} } ) {
                 my $r = $p->{rgID};
                 $goodmatch = ($goodmatch && $p->{goodmatch} == 1) ? 1 : (!$goodmatch) ? 1 : 0;
                 if ($p->{rgID} && $goodmatch) {
                   $phlist{ $p->{rgID}."__".$p->{goodmatch} } = \@{ $p->{phenodata} };
                 }
-
                 foreach my $d (@{ $p->{phenodata} }) {
-                  foreach (@{ $d->{phenotypes} }) {
-                    my $name = $_->{phNAME};
-                    $name = Sym::Controller::Service->ontname($_->{phID}, $_->{ScrID}, \%onts) if ($ontnm == 1);
-                    $allphenos{ $name."__".$_->{phID}."__".$_->{ScrID} } = $_->{phID}."__".$_->{ScrID} if ($p->{rgID} && $goodmatch);
+                  foreach my $f (@{ $d->{phenotypes} }) {
+                    my $phID = $f->{phID};
+                    my $name = $f->{phNAME};
+                    $ph2onts{ $f->{phID}."__".$f->{ScrID} } = Sym::Controller::Service->ontname($f->{phID}, $f->{ScrID}, \%onts) if (scalar keys %onts > 0);
+                    $name = $ph2onts{ $f->{phID}."__".$f->{ScrID} } if (scalar keys %onts > 0);
+                    # if ($p->{rgID} && $goodmatch && $chosen{ $phID."__".$f->{ScrID} }>0) {
+                    if ($p->{rgID} && $goodmatch) {                      
+                      $allphenos{ $name."__".$phID."__".$f->{ScrID} } = $phID."__".$f->{ScrID};
+                    }
                   }  
                 }  
-	}
-	return (\%allphenos, \%phlist);
+	} 
+	return (\%allphenos, \%phlist, \%ph2onts);
 }
 # call from	: Sym::Search::tsvpheno
 # methods      : Sym::Controller::Service->gene_to_phenoprint
-# collections	: PhenoAnalysis, AllPhenoAnalysis
+# collections	: ProcessedData
 sub phenoparams {
   my ($self,$crsarray,$phIDs,$terms) = @_; 
   my %phlists; 

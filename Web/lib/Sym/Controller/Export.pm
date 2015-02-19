@@ -11,7 +11,6 @@ sub tsvpheno {
   my $self = shift;
   my ($params,$f) = split(/\./,(reverse @{$self->req->url->path->parts})[0]);
   my ($sphenoprint, $phenochoosen) = split(/\:/,$params);
-  warn $phenochoosen;
   my @phIDs = split(/\-/,$phenochoosen);
   my %ph_by_ScrID;
   my %screens;
@@ -63,7 +62,6 @@ sub tsvpheno {
   }
   my @dataReags = @{Sym::Model::MongoQ->get_reagents_data_by_IDs_array(\@rgIDs)};
   my %dataReags;
-  warn scalar @dataReags;
   foreach my $obj (@dataReags) {
     $dataReags { $obj->{rgID} } = $obj->{probeID}."\t".$obj->{seq1}."\t".$obj->{seq2};
   }
