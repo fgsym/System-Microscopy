@@ -30,14 +30,10 @@
 %   if ($ScrID =~/\w\_/) {
 %		my %ph_by_ScrID = %{$ph_by_ScrID};
 %#### if there is no intersections…		
-%#		foreach my $ScrID ( keys %ph_by_ScrID ) {
-%#			$phenoprint = join("-",@{$ph_by_ScrID { $ScrID } });
-%#			my ($allcrs,$StdTitle,$ScMethod,$genome) = Sym::Controller::Phenotypes->phenosearch_by_ScrID($ScrID, \@{$ph_by_ScrID { $ScrID } }) unless $crs; 
-%#			$crs = $crs ? $crs : $allcrs;
 		<%= include 'search/respheno', crs => $crs, ScrID => $ScrID, StdTitle => $StdTitle, phIDs=>\@{ $ph_by_ScrID{$ScrID} }, 
 										phenoprint=>$phenoprint, ScMethod=> $ScMethod, genome=>$genome, face=>"false", terms=>$terms %>
-%#		}			
 %   } else {
+%#### intersection through different studies : show only exact results
 %	my @phIDs = split(/\,/,$q);
 %	my %scr_data = %{Sym::Controller::Studies->studies};
 %		my ($phenotypes, $allphenos, $allgenes, $ph2onts, $rowcut) = Sym::Controller::Search->phintersect(\@phIDs,1,"ex",$terms,$genome); 
@@ -48,7 +44,7 @@
 <div style="width:835px;">
 	<div style="display:table-cell;width:20px;">
 		<sup>*)</sup> </div>
-	<div style="display:table-cell;">Only those genes-reagents pairs are shown which have given rise to exactly the chosen phenotypes.<br>
+	<div style="display:table-cell;">Only those genes-reagents pairs are shown which have given rise to exactly the chosen phenotypes in different studies.<br>
 	Use <a href="<%= $relpath %>/fg/sym/phenotypes/">Phenotypes browsing</a> to see all genes where these phenotypes where observed but together with another reagents,  
 	i.e. with revealed another phenotypes.
 	</div>   
