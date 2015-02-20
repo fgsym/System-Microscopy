@@ -1,9 +1,20 @@
 #!/usr/bin/perl
+#
+# local::lib must be installed with Mojolicious, MongoDB & GD CPAN modules
+# $HOME path and use lib must be changed (uncomment/comment the lines below)
+#
 use strict;
 use warnings;
 use MongoDB;
 use Mojo::Log;
+#my $HOME = '';
+#use lib '$HOME/live/app/lib/';
+#use lib '$HOME/live/app/perl-libs/lib/perl5';
+#$ENV{LOG} = Mojo::Log->new(path => '$HOME/live/app/log/access.log');
+
 use lib '/home/jes/FG/System-Microscopy/Web/lib';
+
+
 $ENV{LOG} = Mojo::Log->new(path => '/home/jes/FG/System-Microscopy/Web/log/access.log');
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';
