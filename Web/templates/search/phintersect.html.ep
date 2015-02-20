@@ -52,9 +52,14 @@ This page lists all the reagents/genes that have been associated as common to th
 <img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="0" width="0" border="0" id="preload">
 <div class="highlight" style="display:table-cell;width:580px;">
 	<b><span class="exon" style="font-size:13px;"><%= scalar (keys %allgenes) %></span> genes found</b>:<br>
+% my $phcnt = scalar @phAll;	
 %	if ($rowcut == 1) {
 		<span style="color:#111">and they share more than shown phenotypes through different reagents knockdowns <br>
 		— to see all phenotypes click on <a href="<%= $relpath %>/search/pheno/<%= $phenochosen %>;ln;false;<%= $oterms %>"><u>this link</u></a> but beware of heavy loading on your browser side
+		</span> 
+%	}
+%	if ($phcnt > 17) {
+		<span style="color:#111">back to <a href="<%= $relpath %>/search/pheno/<%= $phenochosen %>;ex;false;<%= $oterms %>"><u>exact chosen phenotypes match</u></a>
 		</span> 
 %	}
 </div>

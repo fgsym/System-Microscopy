@@ -5,8 +5,8 @@ use MongoDB;
 # use lib join '/', File::Spec->splitdir(dirname(__FILE__)), 'lib';
 # use lib join '/', File::Spec->splitdir(dirname(__FILE__)), '..', 'lib';
 use Mojo::Log;
-use lib '';
-$ENV{LOG} = Mojo::Log->new(path => '/home/jes/Git/Web/log/access.log');
+use lib '/home/jes/FG/System-Microscopy/Web/lib';
+$ENV{LOG} = Mojo::Log->new(path => '/home/jes/FG/System-Microscopy/Web/log/access.log');
 # Check if Mojo is installed
 eval 'use Mojolicious::Commands';
 
@@ -14,29 +14,5 @@ die <<EOF if $@;
 It looks like you don't have the Mojolicious Framework installed.
 Please visit http://mojolicio.us for detailed installation instructions.
 EOF
-# use Mango;
-# use Mango::GridFS;
-
-# # db connection
-#   my $mango = Mango->new('mongodb://localhost:27017');
-
-#   $ENV{DB} = $mango->db('sym'); #->sym;
-# # collections connectors:
-#   $ENV{Grid} = Mango::GridFS->new(db => $ENV{DB});
-#   $ENV{Files} = $ENV{Grid}->files;
-#   $ENV{Std} = $ENV{DB}->collection( 'Studies' );
-#   $ENV{Data}= $ENV{DB}->collection( 'Datasets' );
-#   $ENV{Genes}= $ENV{DB}->collection( 'HMSPNSgenes' );
-#   $ENV{Reags}= $ENV{DB}->collection( 'Reagents' );
-#   $ENV{PRC}= $ENV{DB}->collection( 'ProcessedData' );
-#   $ENV{Supl}= $ENV{DB}->collection( 'Suppliers' );
-#   $ENV{Onto}= $ENV{DB}->collection( 'GO_Analisys' );
-#   $ENV{Phn}= $ENV{DB}->collection( 'Phenotypes' );
-#   $ENV{Msgs} = $ENV{DB}->collection( 'Messages' );
-#   $ENV{Stts} = $ENV{DB}->collection( 'Statistics' );
-# # db name (for cursor)
-#   use Mango::Database;
-#   my $db = Mango::Database->new(mango => $mango);
-#   $ENV{SYM} = $db->name('sym');
 
 Mojolicious::Commands->start_app('Sym');

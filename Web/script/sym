@@ -2,8 +2,6 @@
 use strict;
 use warnings;
 use MongoDB;
-# use lib join '/', File::Spec->splitdir(dirname(__FILE__)), 'lib';
-# use lib join '/', File::Spec->splitdir(dirname(__FILE__)), '..', 'lib';
 use Mojo::Log;
 use lib '/home/jes/FG/System-Microscopy/Web/lib';
 $ENV{LOG} = Mojo::Log->new(path => '/home/jes/FG/System-Microscopy/Web/log/access.log');
