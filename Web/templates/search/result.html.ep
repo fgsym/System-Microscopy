@@ -35,7 +35,7 @@
 %#			my ($allcrs,$StdTitle,$ScMethod,$genome) = Sym::Controller::Phenotypes->phenosearch_by_ScrID($ScrID, \@{$ph_by_ScrID { $ScrID } }) unless $crs; 
 %#			$crs = $crs ? $crs : $allcrs;
 		<%= include 'search/respheno', crs => $crs, ScrID => $ScrID, StdTitle => $StdTitle, phIDs=>\@{ $ph_by_ScrID{$ScrID} }, 
-										phenoprint=>$phenoprint, ScMethod=> $ScMethod, genome=>$genome,face=>$face,terms=>$terms %>
+										phenoprint=>$phenoprint, ScMethod=> $ScMethod, genome=>$genome, face=>"false", terms=>$terms %>
 %#		}			
 %   } else {
 %	my @phIDs = split(/\,/,$q);
@@ -46,9 +46,12 @@
 </div>
 		<%= include 'search/phintersect', phenotypes=>$phenotypes, allphenos=>$allphenos, allgenes=>$allgenes, phchosen => \@phIDs, scr_data => \%scr_data, genome=>$genome, ph2onts=>$ph2onts, rowcut=>$rowcut %>
 <div style="width:835px;">
-	<sup>*)</sup> Only those genes-reagents pairs are shown which have given rise to exactly the chosen phenotypes<br>
+	<div style="display:table-cell;width:20px;">
+		<sup>*)</sup> </div>
+	<div style="display:table-cell;">Only those genes-reagents pairs are shown which have given rise to exactly the chosen phenotypes.<br>
 	Use <a href="<%= $relpath %>/fg/sym/phenotypes/">Phenotypes browsing</a> to see all genes where these phenotypes where observed but together with another reagents,  
-	i.e. with revealed another phenotypes.   
+	i.e. with revealed another phenotypes.
+	</div>   
 </div>		
 %  }
 % } elsif ($stype eq "stds") {
