@@ -165,12 +165,19 @@ table.dataTable td {
 }
 
 .dataTables_filter {
-	width: 50%;
+	width: 35%;
 	float: right;
 	text-align: right;
-	margin-top: -32px;
+	margin-top: -8px;
 	margin-right: 4px;
+  min-height: 30px;
+  max-height: 35px;   
 }
+
+.dataTables_filter input {
+  width:70px; padding-left: 2px;
+}
+
 .dataTables_filter input, .dataTables_length select {
 	font-family:sans-serif;
 	border-top: 1px solid #7cabc6;
@@ -203,10 +210,12 @@ table.dataTable td {
 
 
 .dataTables_info {
-	width: 60%;
+	width: 55%;
 	float: left;
-	margin-top: -14px;
-	margin-left: 4px;	
+	margin-top: -8px;
+	margin-left: 8px;	
+  min-height: 30px;
+  max-height: 35px;   
 }
 
 .dataTables_wrapper .dataTables_info {
