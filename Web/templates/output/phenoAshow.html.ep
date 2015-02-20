@@ -13,7 +13,6 @@
 	    "bProcessing": true,
 	    "bDestroy": true,
 	    "sDom":  nav,
-// 	    "sPaginationType": "full_numbers",
 	    "aoColumnDefs": [
 	      { "bSortable": false, "aTargets": [ 0 ] },
 	      { "asSorting": [ "desc", "asc" ], "aTargets": [ 1 ] },
@@ -61,7 +60,7 @@
 <div class="highlight" style="display:table-cell;width:580px;">Gene / Reagent count: <b><span class="exon" style="font-size:13px;"><%= scalar (keys %gseen) %> / <%= scalar (keys %allgenes) + scalar (keys %allreags) %></span></b>
 </div>
   <div style="width:250px; display:table-cell">
-<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b>export search results</b></a>
+<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>:<%= $genome %>.tsv"><b>export search results</b></a>
   </div>
 <style>
 .trbody {padding-right:10px;font-weight:bold;border-top:1px solid #ccc;border-bottom:1px solid #ddd;}
@@ -87,7 +86,7 @@ div.sprow {width:100px;background:#f7f7f7;height:22px;margin:0;padding:0}
 			<div style="width:110px;"><span style="display:table-cell; vertical-align:middle; height:95px">Gene symbol</span></div>
       </th>
       <th style="width:100px;padding:0 10px;" id="acell">
-			<div><span style="display:table-cell; vertical-align:middle; height:95px;">Internal<br>ReagentID</span></div>
+			<div><span style="display:table-cell; vertical-align:middle; height:95px;">ReagentID</span></div>
       </th>
 	  <th style="width:109px;" id="acell">
 	  	<div style="display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div>

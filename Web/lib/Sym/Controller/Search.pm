@@ -217,7 +217,6 @@ sub phintersect {
   # my @cookies = $self->cookie('genome');
   # my $cookie = $cookies[0];
   $genome = $genome ? $genome : $self->param('genome') ? $self->param('genome') : "HMSPNSgenes";
-  # warn "($ephIDs,$goodmatch,$select,$trm,$genome)";  
   my %ph_by_ScrID;
   my %screens;
   my $terms = $trm ? $trm : $self->param('terms') ? $self->param('terms') : "p";  

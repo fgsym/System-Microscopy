@@ -60,18 +60,18 @@ This page lists all the reagents/genes that have been associated as common to th
 </div>
   <div style="width:250px; display:table-cell; padding:0">
 % unless ($gcnt == 0) {
-<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>.tsv"><b><u>export search results</u></b></a>
+<a href="<%= $relpath %>/output/tsvpheno/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>:<%= $set %>:<%= $gencoll %>.tsv"><b><u>export search results</u></b></a>
 % }
   </div>
 % if (scalar (keys %allgenes) > 0) {
-% 	my $width = 26*(scalar (keys %allphenos)) + 405;
+% 	my $width = 26*(scalar (keys %allphenos)) + 395;
 <style>
 div#gtd.stdcell {display:table-cell;width:25px;border-right:1px solid #ddd;padding:0;}
 div.nbr{width:25px;float:left;text-align:right;padding: 5px 4px 0 4px;}
 div#gtabl {}
 div#gtr {display:table-row;margin:0;padding:0;height:23px;}
 div#gtd {display:table-cell;}
-td.genewrap {border-bottom:1px solid #ddd;height:19px;}
+td.genewrap {border-bottom:1px solid #ddd;}
 div.replica {padding:4px 5px 0 0; font-size:75%; height:16px;width:18px;color:#fff;opacity:0.6;filter:alpha(opacity=60);}
 div.repwrap {border-right:1px solid #ddd; margin:1px; width:25px;height:22px;vertical-align: middle;margin:1px;}
 div.rgwrap {white-space:nowrap; width:120px;vertical-align: middle;}
@@ -84,52 +84,56 @@ div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
 %		$rcnt += scalar (keys %{$phenotypes{$ensgid}});
 %	}
 % my $phcnt = scalar @phAll;
+% my $JScode_out = ($phcnt > 17) ? "" : "new FixedHeader( oTable );";
+% my $JScode_in = ($phcnt > 17) ? "scrollY: 500, scrollCollapse: true, ScrollX: 825, sScrollX: 825," : "";
 <script type="text/javascript" charset="utf-8">
+	// var $fx = $('.FixedHeader_Cloned');
+	// $(document).scroll(function() {
+	//     $fx.css({display: $(this).scrollTop() > 440? "block":"none"});
+	// });
     $(document).ready(function() { 	
 		var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
-		var vscr = <%= $rcnt %>;
-		vscr = (vscr > 10) ? '500px' : (vscr+1)*25+'px';
-		var hscr = (<%= $phcnt %> > 17) ? '825px' : 'false';
 		var oTable = $('.dataTable').dataTable( {
-	        "scrollY":  vscr,
-	        "scrollCollapse": true,
-	    	"ScrollX": hscr,
-	    	"sScrollX": hscr,
-		    "bRetrieve": true,
-		    "bProcessing": true,
-		    "bDestroy": true,
-		    "sDom":  nav,
-		    "aoColumnDefs": [
+	        <%= $JScode_in %>
+	    // "bRetrieve": true,
+	    // "bProcessing": true,
+	    // "bDestroy": true,    
+	    "sDom":  nav,
+	    "aoColumnDefs": [
 		      { "bSortable": false, aTargets: [ 0 ] },	    
 		      { "asSorting": [ "desc", "asc" ], aTargets: [ 1 ] },
 		      { "bSortable": false, aTargets: [ 2 ] }
 		    ],
-		    "aaSorting": [[1,'asc']],
-		    "iDisplayLength": 50,
-		    "aLengthMenu": [[50, 100, 500],[10, 100, 500]]
+	    "aaSorting": [[1,'asc']],
+	    "iDisplayLength": 50,
+	    "aLengthMenu": [[50, 100, -1],[50, 100, 500]]
 		} );
-	// new FixedHeader( oTable );
-    } );  
+	 <%= $JScode_out %>
+    } ); 
 </script>
 <div id="phload" style="height:50px; width:300px; display:block; padding:30px 0 0 400px; position:absolute" align="center">
 <script>showSpin('phload');</script>	
 </div>
-<div style="display:none;" id="phtabl">
-<div style="margin:0 0 0 30px;width:<%= $width %>px; max-width:835px;padding:0">
+% 	if ($phcnt > 17) {
+<div style="display:none;margin:0;padding:0" id="phtabl">
+% 	} else {
+<p style="display:none;margin:0;padding:0" id="phtabl">
+% 	} 
+<div style="margin:0 0 0 30px;width:<%= $width %>px; max-width:835px;padding:0;">
 <table cellspacing=0 cellpadding=0 class="display dataTable">
 	<thead>
 	<tr>
 		<th style="background:#f7f7f7;width:30px;height:120px">
-			<div style="width:40px;height:97px;">&nbsp;</div>
+			<div style="width:40px;height:96px;">&nbsp;</div>
 			<div style="width:40px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;">&nbsp;</div>
 		</th>
 		<th align=left style="width:125px;height:120px">
-	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:97px;padding:0;margin:0"><br style="margin:5px">Gene symbol</span></div>
+	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:96px;padding:0;margin:0"><br style="margin:5px">Gene symbol</span></div>
 	<div style="width:125px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;padding:0;margin:0">&nbsp;</div>
       	</th>
 		<th style="background:#f7f7f7;border-bottom:1px solid #B3C6E9;width:<%= $width %>px;">
 			<div id=gtr>		
-				<div id=gtd style="vertical-align:middle;height:97px;"><br style="margin:5px">Internal<br>Reagent ID</div>
+				<div id=gtd style="vertical-align:middle;height:97px;"><br style="margin:5px">Reagent ID</div>
 				<div id=gtd>
 					<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:<%= $phenochosen %>:<%= $oterms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left">
 				</div>
@@ -162,8 +166,7 @@ div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
 %		my %phenos = %{$phenotypes{$ensgid}};
 		<tr style="background-color:<%= $color %>;">
 			<td class=genewrap valign="top" style="background-color:<%= $color %>;width:35px;"><div class=nbr><%= $n %>.</div></td>
-			<td class=genewrap valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" 
-				style="background-color:<%= $color %>;width:110px;">
+			<td class=genewrap valign="top" style="background-color:<%= $color %>;width:110px;">
 				<div style="padding-top:5px;"><a href="<%= $relpath %>/gene/<%= $gencoll %>:<%= $ensgid %>"><%= $symbol %></a></div>
 			</td>
 			<td colspan=2 style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd;width:<%= $width %>px;">
@@ -201,7 +204,7 @@ div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
 %				$goodmatch = $goodmatch ? "•" : "×";
 %				my %phdata = %{$rephdata {$re}};
 %				if (scalar (keys %phdata)>0) {
-		<div id=gtr >
+		<div id=gtr>
 			<div id=gtd class=rgwrap style="background-color:<%= $color %>;border-top:1px solid <%= $top %>;">
 				<font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;
 				<a href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $gencoll %>:<%= $ensgid %>"><%= $rgID %></a>
@@ -211,7 +214,6 @@ div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
 %						my $have = $rgb ? "rgb(".$rgb.")" : $color;
 %						my ($p,$e) = split (/\__/,$allphenos{$name});
 %						my ($phname, $phID, $ScrID) =  split(/__/, $name );
-
 			<div id=gtd class=repwrap style="background-color:<%= $color %>; border-top:1px solid <%= $top %>;" align="center">
 				<div id=white class=replica style="background-color:<%= $have %>;">
 				<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>"><%= $weight %></a>
@@ -223,13 +225,16 @@ div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
 		</div>
 %				}		
 %			}
-		</td></tr>
-%#	last if $n>10;		
+		</td></tr>		
 %	}
 </tbody>
 </table>
 </div>
+	% if ($phcnt > 17) {
 </div>
+	% } else {
+</p>
+	% } 
 % }
 % if (scalar (keys %allgenes) == 0) {
 	<div style="padding:20px 0 400px 190px;font-size:14px;">There is no common genes for chosen terms<br>

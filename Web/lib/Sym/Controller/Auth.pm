@@ -1,6 +1,8 @@
 package Sym::Controller::Auth;
 use strict;
 use warnings;
+use vars qw(%GLV);
+*GLV = \%Sym::GLV;
 # use v5.10;
 use base 'Mojolicious::Controller';
 
@@ -10,7 +12,6 @@ sub login {
   my $login = $self->param('login'); 
   my $pass  = $self->param('pass');
     if ( $GLV{AUTH}->check($login, $pass) ) {  
-warn ($login, $pass);
         # save to session and redirect user back, with transmitting welcome or error messages to template
         $self->session(
             # user_id => $user->{user_id},

@@ -42,38 +42,109 @@ $(document).ready(function() {
 % my $skip = $self->param('skip') ? $self->param('skip') : 0;
 <form><INPUT type="hidden" name="attr" value="<%= $attr %>"></form>
 % if ($allgenes > 0) {
-% 	my $width = 25*(scalar (keys %allphenos)) + 390;
-<div class="boxed" style="display:table;margin-left:40px;">
-<table cellspacing="0" cellpadding="0" id="highlight-plugin" style="background:#fcfcfc;"><thead height="95" style="height:95px;">
-	<tr width="100%" height="95">
-		<th height="95"><div style="width:120px;">Gene</div></th>
-		<th width="120" height="95"><div style="width:120px;">Internal<br>Reagent ID</div></th>
-		<th class="noth" height="95">
-		<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:_:<%= $terms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left"></th></tr>
-	</thead>
-	<tbody onLoad="javascript:void($('#highlight-plugin').removeHighlight().ahighlight('<%= $attr %>'));">
-	<tr style="border-bottom:1px solid #ddd;border-top:1px solid #ddd">
-<td colspan=2 style="padding-right:10px;font-weight:bold;background-color:#DDFFDD;border-bottom:1px solid #ddd;border-top:1px solid #ddd;" align="right">Study:</td><td colspan="2" style="margin:0; padding:0; height:100%;">
-		<table cellspacing="0" cellpadding="0"><tr>
-%	foreach my $p (sort (keys %allphenos)) {
-%		my ($phID,$ScrID) = split(/\__/, $allphenos{$p});
-%		my $StdID = substr($ScrID,0,-2);
-%		my $code = substr($StdID,0,-4);
-%		my $StdTitle = $scr_data{$ScrID};
-		<td width="25" style="border-right:1px solid #ddd;border-bottom:1px solid #ddd;border-top:1px solid #ddd; background-color:#DDFFDD" align="center"><a
-					href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>"><%= $code %></a></td>
+% 	my $width = 25*(scalar (keys %allphenos)) + 405;
+<style>
+div#gtd.stdcell {display:table-cell;width:25px;border-right:1px solid #ddd;padding:0;}
+div.nbr{width:25px;float:left;text-align:right;padding: 5px 4px 0 4px;}
+div#gtabl {}
+div#gtr {display:table-row;margin:0;padding:0;height:23px;}
+div#gtd {display:table-cell;}
+td.genewrap {border-bottom:1px solid #ddd;padding-top: 3px;}
+div.replica {padding:4px 5px 0 0; font-size:75%; height:16px;width:18px;color:#fff;opacity:0.6;filter:alpha(opacity=60);}
+div.repwrap {border-right:1px solid #ddd; margin:1px; width:25px;height:22px;vertical-align: middle;margin:1px;}
+div.rgwrap {white-space:nowrap; width:120px;vertical-align: middle;}
+div.thsprow {width:100px;background:#f7f7f7;height:16px;margin:0;padding:3px 0}
+div.sprow {width:100px;background:#f7f7f7;margin:0;padding:0}
+</style>	
+%	my $rcnt = 0;
+%	foreach my $ge ( sort keys %attrs ) {
+%		my ($symbol, $ensgid) = split(/\|/, $ge);
+%		$rcnt += scalar (keys %{$phenotypes{$ensgid}});
 %	}
-		<td></td></tr></table>
-	</td></tr>
+% my $phcnt = scalar @phAll;
+% my $gcnt = scalar (keys %attrs);		
+% my $nav = $gcnt > 50 ? 0 : 1;	
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() { 	
+		var nav = <%= $nav %> ? 'r<"boxed"t>r' : 'ifr<"top"><"boxed"t> lpr<"clear">';
+		var vscr = <%= $rcnt %>;
+		vscr = (vscr > 10) ? '500px' : (vscr+1)*25+'px';
+		var hscr = (<%= $phcnt %> > 17) ? '825px' : 'false';
+		var oTable = $('.dataTable').dataTable( {
+	        "scrollY":  vscr,
+	        "scrollCollapse": true,
+	    	"ScrollX": hscr,
+	    	"sScrollX": hscr,
+		    "bRetrieve": true,
+		    "bProcessing": true,
+		    "bDestroy": true,
+		    "sDom":  nav,
+		    "aoColumnDefs": [
+		      { "bSortable": false, aTargets: [ 0 ] },	    
+		      { "asSorting": [ "desc", "asc" ], aTargets: [ 1 ] },
+		      { "bSortable": false, aTargets: [ 2 ] }
+		    ],
+		    "aaSorting": [[1,'asc']],
+		    "iDisplayLength": 50,
+		    "aLengthMenu": [[50, 100, 500],[10, 100, 500]]
+		} );
+	// new FixedHeader( oTable );
+    } );  
+</script>
+<div id="phload" style="height:50px; width:300px; display:block; padding:30px 0 0 400px; position:absolute" align="center">
+<script>showSpin('phload');</script>	
+</div>
+<div>
+<div style="display:none;" id="phtabl">
+<div style="margin:0 0 0 30px;width:<%= $width %>px; max-width:835px;padding:0">
+<table cellspacing=0 cellpadding=0 class="display dataTable">
+	<thead>
+	<tr>
+		<th style="background:#f7f7f7;width:30px;height:120px">
+			<div style="width:40px;height:96px;">&nbsp;</div>
+			<div style="width:40px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;">&nbsp;</div>
+		</th>
+		<th align=left style="width:125px;height:120px">
+	<div style="width:125px;"><span style="display:table-cell; vertical-align:middle; height:96px;padding:0;margin:0"><br style="margin:5px">Gene symbol</span></div>
+	<div style="width:125px;height:25px;background-color:#DDFFDD;border-top:1px solid #ddd;padding:0;margin:0">&nbsp;</div>
+      	</th>
+		<th style="background:#f7f7f7;border-bottom:1px solid #B3C6E9;width:<%= $width %>px;">
+			<div id=gtr>		
+				<div id=gtd style="vertical-align:middle;height:97px;"><br style="margin:5px">Internal<br>Reagent ID</div>
+				<div id=gtd>
+					<img src="<%= $relpath %>/generate_list/<%= $phenoprint %>:_:<%= $terms %>" height="95" border="0" usemap="#map" style="margin:0;padding:0" align="left">
+				</div>
+			</div>
+			<div id=gtr style="background:#DDFFDD;">	
+				<div id=gtd style="height:20px;width:120px;float:left;border-top:1px solid #ddd;background-color:#DDFFDD;" align="right">
+					<span style="width:120px;padding:5px 12px 0 0;float:right;text-align:right;margin:0">Screen:</span>
+				</div>	
+				<div id=gtd style="border-top:1px solid #ddd;">
+					<div id="gtr" style="background-color:#DDFFDD;">
+	%	foreach my $p (sort (keys %allphenos)) {
+	%		my ($phID, $ScrID) = split(/__/, $allphenos{$p});
+	%		my $StdID = substr($ScrID,0,-2);
+	%		my $code = substr($StdID,0,-4);
+	%		my $StdTitle = $scr_data{$ScrID};
+						<div class=stdcell id=gtd align=center><a href="<%= $relpath %>/study/<%= $StdID %>" title="<%= $StdTitle %>"><%= $code %></a></div>		
+	%	}
+						<div id="gtd" class=thsprow style="border-top:1px solid #ddd;"><span style="display:table-cell;padding-top:5px;">&nbsp;</span></div>	
+					</div>
+				</div>
+			</div>	
+		</th>
+	</tr>	
+	</thead>
+	<tbody>
 %	my $n = $skip;
 %	foreach my $ge (sort keys %attrs) {
 %		$n++;
 %		my ($symbol, $ensgid) = split(/\|/, $ge);
 %		my $color = ($n%2 == 1) ? "#f5faff" : "#ffffff";
 %		my %phenos = %{$phenotypes{$ensgid}};
-		<tr style="background-color:<%= $color %>;"><td valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" id="hint" class="sorts" style="padding-top:3px;background-color:<%= $color %>;border-bottom:1px solid #ddd;">
-			<div style="width:25px;float:left;text-align:right;padding: 0 4px 0 4px;"><%= $n %>.</div>
-			<a href="<%= $relpath %>/gene/<%=$genome %>:<%= $ensgid %>" style="padding: 3px 0 0 0;"><%= $symbol %></a>
+		<tr style="background-color:<%= $color %>;">
+			<td class=genewrap valign="top" style="background-color:<%= $color %>;width:35px;"><div class=nbr><%= $n %>.</div></td>
+			<td class=genewrap valign="top" OnMouseOver="showDiv('go_<%= $ensgid %>')" OnMouseOut="hideDiv('go_<%= $ensgid %>')" id="hint" style="background-color:<%= $color %>"><div style="padding-top:5px;"><a href="<%= $relpath %>/gene/<%= $genome %>:<%= $ensgid %>" style="padding: 3px 0 0 0;"><%= $symbol %></a></div>
 		<div class=boxed_sh style="position:absolute;display:none;margin-left:80px;margin-top:-15px;z-index:10;width:600px;" id="go_<%= $ensgid %>">
 %		my %sets;
 %		map { $sets{ substr($attrs{$ge}{$_},0,-2) } .= $_.", " } (sort keys %{$attrs{$ge}} );
@@ -84,8 +155,7 @@ $(document).ready(function() {
 	<dd style="padding: 0 0 0 20px;margin:0;"><span style="width:550px;white-space:normal;"><%= substr($fullsets{$trs},0,-2) %></span></dd></dl>
 % 		}
 		</div></td>
-		<td colspan="2" style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd">
-			<table cellspacing="0" cellpadding="0" class="nosort" height="100%">
+			<td colspan=2 style="margin:0; padding:0; height:100%;border-bottom:1px solid #ddd;width:<%= $width %>px;">
 %			my $top = $color;
 %			foreach my $re (sort keys %phenos) {
 %				my ($rgID,$goodmatch) = split(/__/,$re);
@@ -105,15 +175,14 @@ $(document).ready(function() {
 %						} else {
 %							$name = Sym::Controller::Service->ontname($ph->{phID}, $ph->{ScrID}, \%onts);
 %						}
-% # need $ph->{ScrID}."__".$ph->{phID}  because ontology term can merge phenotypes
 %						$phdata{ $name."__".$ph->{ScrID}."__".$ph->{phID} } = "$r,$g,$b"."__".$weight;
-% warn $name."__".$ph->{ScrID}." .... $terms" if ($name =~/creas/ && $ph->{ScrID} =~/B1/ && $symbol eq "BRAF");
-
 %					}
 %				}
-				<tr><td width="113" style="background-color:<%= $color %>;border-right:1px solid #ccc;padding:3px;border-top:1px solid <%= $top %>;white-space:nowrap;">
-				  <font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;<a
-				href="<%= $relpath %>/reagent/<%= $rgID %>:<%=$genome %>:<%= $ensgid %>"><%= $rgID %></a></td>
+		<div id=gtr >
+			<div id=gtd class=rgwrap style="background-color:<%= $color %>;border-top:1px solid <%= $top %>;">
+				<font color="#3F5946" size=2><%= $goodmatch %></font>&nbsp;
+				<a href="<%= $relpath %>/reagent/<%= $rgID %>:<%= $genome %>:<%= $ensgid %>"><%= $rgID %></a>
+			</div>
 %					my $width = 25;
 %					foreach my $name (sort keys %allphenos) {
 %						my ($phname, $phID, $ScrID) =  split(/__/, $name );
@@ -121,23 +190,32 @@ $(document).ready(function() {
 %						$phname = $phname."__".$ScrID."__".$phID;
 %						my ($rgb,$weight) = split(/__/,$phdata{ $phname }) if $phdata{ $phname };
 %						my $have = $rgb ? "rgb(".$rgb.")" : $color;
-						<td width="25"
-style="background-color:<%= $color %>; border-right:1px solid #ccc; border-top:1px solid <%= $top %>;margin:1px;" align="center">
-						  <div id=white
-      style="padding:3px 7px 0 0;font-size:80%; background-color:<%= $have %>;height:16px;width:17px;color:#fff;opacity:0.6;filter:alpha(opacity=60);">
-		<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>">&nbsp;<%= $weight %></a>
-						  </div>
-						</td>
+			<div id=gtd class=repwrap style="background-color:<%= $color %>; border-top:1px solid <%= $top %>;" align="center">
+				<div id=white class=replica style="background-color:<%= $have %>;">
+				<a title="<%= $phname %> in <%= $ScrID %>" href="<%= $relpath %>/replica/<%= $rgID %>:<%= $ScrID %>:<%= $ensgid %>:<%= $symbol %>"><%= $weight %></a>
+				</div>
+			</div>
 %					}
-%				$top = "#ccc";
-				<td style="width:98px; background:#fcfcfc;">&nbsp;</td></tr>
+%				$top = "#ddd";
+			<div id="gtd" class=sprow>&nbsp;</div>
+		</div>
 %			}
-			</table>
 		</td></tr>
 %	}
 </tbody>
 </table>
-% }
 % my $np = ($allgenes - $allgenes % 50)/50 + 1;
 <%= include 'includes/pagination', skip => $skip, np => $np, attr => $attr, search => "goon", stype=> "go" %>
 </div>
+</div>
+</div>
+% }
+
+
+<script>
+$(document).ready(function() {
+	    $('#phtabl').show(function () {
+				$('#phload').hide();
+	    });
+});	
+</script>

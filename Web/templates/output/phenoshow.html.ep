@@ -84,7 +84,7 @@
 	  <div style="width:110px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Gene symbol</span></div>
 	</th>
 	<th style="width:130px;" id="hcell">
-		<div style="width:120px;display:table;height:100%; padding:0 10px;"><span style="display:table-cell; vertical-align:middle">Internal<br>ReagentID</span></div>
+		<div style="width:120px;display:table;height:100%; padding:0 10px;"><span style="display:table-cell; vertical-align:middle">ReagentID</span></div>
 	</th>
 	<th id="hcell" style="width:100px;">
 		<div style="width:80px;display:table;height:100%;"><span style="display:table-cell; vertical-align:middle">Supplier ReagentID</span></div>

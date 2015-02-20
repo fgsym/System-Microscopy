@@ -4,52 +4,54 @@
 % my $l = 50;				# change if genes number per page (50) is changed!
 % my $cur = $skip/$l + 1;
 % if ($np > 1) {
-<br>
+<div class="dataTables_wrapper">
+<div class="dataTables_paginate">
 %   for my $p (1..$np) {
 %	if ($p == (($skip/$l) + 1) ) {
-		<span style="padding-left:5px;"><%= $p %></span>
+		<a class="paginate_button current" ><%= $p %></a>
 %	} else {
 %		my $qskip = ($p-1)*$l;
 %		if ( $p < $around && $p < $cur - $around + 1) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a>
 %		}
 %		if ( $p == $around && $p < $cur - $around + 1) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">next</a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">next</a>
 %		}
 %		if ( $p >= $around && $p <= $cur - $around) {
 %			$lgap .= "...";
 %			if ($lgap eq "...") {
-				<span style="padding-left:5px;"><%= $lgap %></span>
+				<%= $lgap %>
 %			}
 %		}
 
 
 %		if ( $p > $around && $p == $cur - $around ) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">prev</a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">prev</a>
 %		}
 %		if ( $p > $cur - $around && $p < $cur + $around && $p < $np - $around + 1) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a>
 %		}
 %		if ( $p == $cur + $around && $p <= $np - $around ) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">next</a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">next</a>
 %		}
 
 
 %		if ( $p <= $np - $around && $p >=  $cur + $around) {
 %			$rgap .= "...";
 %			if ($rgap eq "...") {
-				<span style="padding-left:5px;"><%= $rgap %></span>
+				<%= $rgap %>
 %			}
 %		}
 
 
 %		if ( $p == $np - $around && $p > $cur + $around) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">prev</a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>">prev</a>
 %		}
 
 %		if ( $p > $np - $around) {
-			<span style="padding-left:5px;"><a href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a></span>
+			<a class="paginate_button" href="<%= $relpath %>/search/result?<%= $query %>&skip=<%= $qskip %>"><%= $p %></a>
 %		}
 %	}
 %   }
 % }
+</div></div>

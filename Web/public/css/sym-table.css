@@ -1,6 +1,8 @@
 /*
  * Table styles
  */
+
+/*.FixedHeader_Cloned {display:none; }*/
 table.dataTable {
   width: 100%;
   margin: 0 auto;
